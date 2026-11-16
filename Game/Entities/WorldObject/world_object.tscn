@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://booi1qpaotj1d"]
+
+[ext_resource type="PackedScene" uid="uid://bes04ve1kf7ca" path="res://Game/Entities/_Base/entity.tscn" id="1_jr8if"]
+[ext_resource type="Script" uid="uid://cjqmchgo1dvyt" path="res://Game/Entities/WorldObject/WorldObject.cs" id="2_1w8d2"]
+
+[node name="WorldObject" unique_id=1282068283 instance=ExtResource("1_jr8if")]
+script = ExtResource("2_1w8d2")
