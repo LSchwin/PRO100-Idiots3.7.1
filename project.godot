@@ -23,6 +23,15 @@ window/stretch/aspect="expand"
 
 project/assembly_name="CallingCard"
 
+[file_customization]
+
+folder_colors={
+"res://Assets/": "gray",
+"res://Game/": "purple",
+"res://UI/": "yellow",
+"res://_Globals/": "gray"
+}
+
 [gui]
 
 common/auto_focus_strategy=1
