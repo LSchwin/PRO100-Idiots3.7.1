@@ -1,5 +1,10 @@
 [gd_scene format=3 uid="uid://ll8isa8qur8o"]
 
+[ext_resource type="Script" uid="uid://cv5xboyvvvowf" path="res://Game/Levels/Rooms/RoomScript.cs" id="1_sc5qq"]
+
 [node name="Room" type="Node2D" unique_id=604999735]
+script = ExtResource("1_sc5qq")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=305960100]
+
+[node name="Enemies" type="Node2D" parent="." unique_id=666185102]
