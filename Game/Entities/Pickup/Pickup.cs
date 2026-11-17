@@ -20,6 +20,14 @@ public partial class Pickup : WorldObject
     public bool AutoPickup { get; set; }
     public bool Interactable { get; set; }
 
+    public int LootScore { 
+        get; 
+        set
+        {
+            if (value < 0) field = 0;
+            else field = value;
+        }
+    }
     public void Interact()
     {
         Console.WriteLine("Interact called!");
