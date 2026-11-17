@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://bes04ve1kf7ca"]
+
+[ext_resource type="Script" uid="uid://dy7uycee5w25d" path="res://Game/Entities/_Base/Entity.cs" id="1_5l82k"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5l82k"]
+
+[node name="Entity" type="CharacterBody2D" unique_id=1282068283]
+script = ExtResource("1_5l82k")
+
+[node name="Model" type="CanvasGroup" parent="." unique_id=794789529]
+
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=1544639454]
+shape = SubResource("RectangleShape2D_5l82k")
