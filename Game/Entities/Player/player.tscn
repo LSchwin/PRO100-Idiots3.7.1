@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://baojxacg276wf"]
+
+[ext_resource type="PackedScene" uid="uid://cl3by3qcv81ir" path="res://Game/Entities/_Character/character.tscn" id="1_lpyhk"]
+[ext_resource type="Script" uid="uid://b04j225iwqjpm" path="res://Game/Entities/Player/Player.cs" id="2_1du5w"]
+[ext_resource type="Texture2D" uid="uid://dldphvv1tv8b1" path="res://Game/Entities/Player/PlaceholderSprite.png" id="3_ulv0d"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gtx54"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_ulv0d")
+}],
+"loop": 0,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gtx54"]
+size = Vector2(16, 32)
+
+[node name="Player" unique_id=1282068283 instance=ExtResource("1_lpyhk")]
+script = ExtResource("2_1du5w")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Model" parent_id_path=PackedInt32Array(794789529) index="0" unique_id=1749627644]
+sprite_frames = SubResource("SpriteFrames_gtx54")
+
+[node name="Collision" parent="." index="1" unique_id=1544639454]
+shape = SubResource("RectangleShape2D_gtx54")
+
+[node name="Interactor" type="RayCast2D" parent="." index="2" unique_id=518752198]
+target_position = Vector2(0, 0)

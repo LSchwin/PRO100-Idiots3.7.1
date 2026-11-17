@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://kjgmkdk472an"]
+
+[ext_resource type="PackedScene" uid="uid://cl3by3qcv81ir" path="res://Game/Entities/_Character/character.tscn" id="1_tnwx4"]
+[ext_resource type="Script" uid="uid://cwjw7404pa3oo" path="res://Game/Entities/Enemy/Enemy.cs" id="2_g4m3r"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5l82k"]
+
+[node name="Enemy" unique_id=1282068283 instance=ExtResource("1_tnwx4")]
+script = ExtResource("2_g4m3r")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Model" parent_id_path=PackedInt32Array(794789529) index="0" unique_id=1749627644]
+sprite_frames = SubResource("SpriteFrames_5l82k")
+
+[node name="SightArea" type="Area2D" parent="." index="2" unique_id=1801473118]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SightArea" index="0" unique_id=850450221]
+
+[node name="SightCast" type="RayCast2D" parent="." index="3" unique_id=372114767]
+target_position = Vector2(0, 0)
+
+[node name="NavigationAgent" type="NavigationAgent2D" parent="." index="4" unique_id=1550192202]

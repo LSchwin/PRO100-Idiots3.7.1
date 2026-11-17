@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://cl3by3qcv81ir"]
+
+[ext_resource type="PackedScene" uid="uid://bes04ve1kf7ca" path="res://Game/Entities/_Base/entity.tscn" id="1_gtx54"]
+
+[node name="Character" unique_id=1282068283 instance=ExtResource("1_gtx54")]
