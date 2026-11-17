@@ -11,8 +11,15 @@ config_version=5
 [application]
 
 config/name="CallingCard"
-config/features=PackedStringArray("4.8", "Forward Plus")
+config/features=PackedStringArray("4.8", "C#", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+Delays="*uid://tqlbaksajrhu"
+DelaysCS="*uid://dioqk6ay4vbbq"
+Music="*uid://b24lljs7tywiw"
+MusicCS="*uid://boskg40oa36f6"
 
 [display]
 

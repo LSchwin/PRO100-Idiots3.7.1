@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://bs0jti4w6bys"]
+
+[ext_resource type="Script" uid="uid://bxf4blxf40kj2" path="res://UI/BenTestingScene.cs" id="1_du88q"]
+
+[node name="BenTestingScene" type="Control" unique_id=1422478694]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_du88q")
+
+[node name="Button1" type="Button" parent="." unique_id=1157243317]
+layout_mode = 0
+offset_left = 72.0
+offset_top = 147.0
+offset_right = 132.0
+offset_bottom = 178.0
+text = "1.5 sec"
+
+[node name="Button2" type="Button" parent="." unique_id=1281049430]
+layout_mode = 0
+offset_left = 140.0
+offset_top = 147.0
+offset_right = 200.0
+offset_bottom = 178.0
+text = "3.0 sec"
+
+[connection signal="pressed" from="Button1" to="." method="OnButton1Pressed"]
+[connection signal="pressed" from="Button2" to="." method="OnButton2Pressed"]
