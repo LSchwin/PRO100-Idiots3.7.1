@@ -5,7 +5,7 @@ public partial class BenTestingScene : Control
 {
     public override void _Ready()
     {
-		Array buttons = new Array() { GetNode("UIButton1"), GetNode("UIButton2"), GetNode("UIButton3") };
+		Array buttons = new Array() { GetNode("UIButton1"), GetNode("UIButton2"), GetNode("UIButton3"), GetNode("UIButton4") };
         SelectorCS.Instance.SetButtons(buttons);
     }
 

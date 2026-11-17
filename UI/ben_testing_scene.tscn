@@ -12,6 +12,9 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_du88q")
 
+[node name="Line2D" type="Line2D" parent="." unique_id=91674116]
+points = PackedVector2Array(129, 76, 120, 151, 264, 499, 847, 368)
+
 [node name="UIButton1" parent="." unique_id=1432803026 instance=ExtResource("2_gdkrc")]
 layout_mode = 1
 offset_left = 57.0
@@ -27,14 +30,25 @@ offset_top = 117.0
 offset_right = -711.0
 offset_bottom = -355.0
 text = "3.0"
+tooltip_text_ = "This button prints after a delay of thirty seconds! That's a lie! It's three seconds!"
 
 [node name="UIButton3" parent="." unique_id=273669558 instance=ExtResource("2_gdkrc")]
 layout_mode = 1
-offset_left = 57.0
-offset_top = 163.0
-offset_right = -711.0
-offset_bottom = -309.0
+offset_left = 203.0
+offset_top = 488.0
+offset_right = -565.0
+offset_bottom = 16.0
 text = "0.2"
+tooltip_text_ = "This button doesn't do jack"
+
+[node name="UIButton4" parent="." unique_id=2066224897 instance=ExtResource("2_gdkrc")]
+layout_mode = 1
+offset_left = 782.0
+offset_top = 349.0
+offset_right = 14.0
+offset_bottom = -123.0
+text = "0.5"
+tooltip_text_ = "This button doesn't do jack"
 
 [connection signal="pressed" from="UIButton1" to="." method="OnButton1Pressed"]
 [connection signal="pressed" from="UIButton2" to="." method="OnButton2Pressed"]

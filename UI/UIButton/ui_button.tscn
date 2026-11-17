@@ -7,25 +7,29 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -956.0
-offset_bottom = -616.0
+offset_top = -1.0
+offset_right = -768.0
+offset_bottom = -473.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_20vwd")
 
 [node name="Background" type="ColorRect" parent="." unique_id=428066948]
 layout_mode = 0
-offset_right = 196.0
+offset_right = 128.0
 offset_bottom = 32.0
 mouse_filter = 2
 color = Color(0.4117647, 0.4117647, 0.4117647, 1)
 
 [node name="Label" type="RichTextLabel" parent="." unique_id=1229452719]
 layout_mode = 0
-offset_right = 196.0
+offset_right = 128.0
 offset_bottom = 32.0
 mouse_filter = 2
 theme_override_colors/default_color = Color(1, 1, 1, 1)
 text = "Button Text"
+scroll_active = false
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[connection signal="resized" from="." to="." method="_on_resized"]
