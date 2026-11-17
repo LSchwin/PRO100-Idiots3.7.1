@@ -5,7 +5,7 @@ public partial class Enemy : CharacterBody2D
 {
     Area2D SightArea;
     Godot.Collections.Array<PackedScene> Actions = [];
-    int EnemyScore;
+    public int EnemyScore { get; set; }
 
     public override void _Ready()
     {
