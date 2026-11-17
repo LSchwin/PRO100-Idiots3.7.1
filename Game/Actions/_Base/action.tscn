@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://b0o45l0g3oulp"]
+
+[ext_resource type="Script" uid="uid://cgrb0bxtd7tn3" path="res://Game/Actions/_Base/Action.cs" id="1_nkuje"]
+
+[node name="Action" type="Node2D" unique_id=1122220393]
+script = ExtResource("1_nkuje")
+
+[node name="Lifespan" type="Timer" parent="." unique_id=1540467548]
