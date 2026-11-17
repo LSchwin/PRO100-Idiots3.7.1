@@ -3,6 +3,7 @@ using System;
 
 public partial class Action : Node
 {
+    [Export]
     private Entity owner = null;
 
     public override void _Ready()
@@ -12,6 +13,8 @@ public partial class Action : Node
 
     public Entity GetActionOwner() { return owner; }
     public void SetActionOwner(Entity newOwner) { owner = newOwner; }
+
+    [Export]
     public float Lifespan { 
         get;
         set
