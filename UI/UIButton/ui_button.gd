@@ -12,11 +12,14 @@
 	background.global_position = self.global_position
 	background.color = color_default
 	label.add_theme_color_override("default_color", color_text_default)
+@export var text := "Button Text"
+@export_group("Colors")
 @export var color_default := Color.DIM_GRAY
 @export var color_hover := Color.DARK_BLUE
-@export var text := "Button Text"
 @export var color_text_default := Color.WHITE
 @export var color_text_hover := Color.ROYAL_BLUE
+@export_group("Tooltips")
+@export var tooltip_text_ := ""
 
 
 func _ready() -> void:
@@ -34,6 +37,10 @@ func _process(delta: float) -> void:
 		color = LerpHelper.l(color, color_text_hover, 8.0, delta)
 	label.add_theme_color_override("default_color", color)
 
+func _on_resized() -> void:
+	if not Engine.is_editor_hint(): return
+	
+	refresh.call()
 
 
 var is_hovered := false
@@ -44,13 +51,23 @@ signal pressed
 func hover() -> void:
 	is_hovered = true
 	hovered.emit()
+	
+	if tooltip_text_ != "" and not tooltip:
+		tooltip = UITooltip.create(tooltip_text_, get_selector_placement(), self)
 
 func unhover() -> void:
 	is_hovered = false
 	unhovered.emit()
+	
+	if tooltip:
+		tooltip.delete()
+		tooltip = null
 
 func press() -> void:
 	pressed.emit()
 
 func get_selector_placement() -> Vector2:
 	return global_position + size + Vector2(4, size.y * -0.5)
+
+
+var tooltip: UITooltip = null
