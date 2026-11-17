@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bs0jti4w6bys"]
 
 [ext_resource type="Script" uid="uid://bxf4blxf40kj2" path="res://UI/BenTestingScene.cs" id="1_du88q"]
+[ext_resource type="PackedScene" uid="uid://dps3y1we7nxv6" path="res://UI/UIButton/ui_button.tscn" id="2_gdkrc"]
 
 [node name="BenTestingScene" type="Control" unique_id=1422478694]
 layout_mode = 3
@@ -11,21 +12,29 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_du88q")
 
-[node name="Button1" type="Button" parent="." unique_id=1157243317]
-layout_mode = 0
-offset_left = 72.0
-offset_top = 147.0
-offset_right = 132.0
-offset_bottom = 178.0
-text = "1.5 sec"
+[node name="UIButton1" parent="." unique_id=1432803026 instance=ExtResource("2_gdkrc")]
+layout_mode = 1
+offset_left = 57.0
+offset_top = 73.0
+offset_right = -711.0
+offset_bottom = -399.0
+text = "1.5"
 
-[node name="Button2" type="Button" parent="." unique_id=1281049430]
-layout_mode = 0
-offset_left = 140.0
-offset_top = 147.0
-offset_right = 200.0
-offset_bottom = 178.0
-text = "3.0 sec"
+[node name="UIButton2" parent="." unique_id=704063373 instance=ExtResource("2_gdkrc")]
+layout_mode = 1
+offset_left = 57.0
+offset_top = 117.0
+offset_right = -711.0
+offset_bottom = -355.0
+text = "3.0"
 
-[connection signal="pressed" from="Button1" to="." method="OnButton1Pressed"]
-[connection signal="pressed" from="Button2" to="." method="OnButton2Pressed"]
+[node name="UIButton3" parent="." unique_id=273669558 instance=ExtResource("2_gdkrc")]
+layout_mode = 1
+offset_left = 57.0
+offset_top = 163.0
+offset_right = -711.0
+offset_bottom = -309.0
+text = "0.2"
+
+[connection signal="pressed" from="UIButton1" to="." method="OnButton1Pressed"]
+[connection signal="pressed" from="UIButton2" to="." method="OnButton2Pressed"]
