@@ -13,6 +13,7 @@ size = Vector2(896, 28)
 Speed = 200.0
 JumpHeight = 600.0
 Gravity = 20.0
+DashMultiplier = 4.5
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1237147738]
 

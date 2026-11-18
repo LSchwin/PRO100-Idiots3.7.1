@@ -1,28 +1,43 @@
 using Godot;
 using System;
+using System.Threading.Tasks;
+using System.Transactions;
+using static Godot.TextServer;
 
 
 
 public partial class Player : Character
 {
-    [Export]
-    public float Speed = 10;
+	[Export]
+	public float Speed = 10;
 	[Export]
 	public float JumpHeight = 10;
 	[Export]
 	public float Gravity = 10;
+	[Export]
+	public float DashMultiplier = 3;
 
-	private AnimatedSprite2D sprite;
+	private AnimatedSprite2D Sprite;
+	private Area2D Hurtbox;
 
-    enum States
+	private bool FacingRight = true;
+
+	private bool CanDash = true;
+	private bool IsDashing = false;
+	private bool IsSprinting = false;
+	private float Direction;
+	private float SprintDir;
+
+	enum States
 	{
 
 	}
 
-    public override void _Ready()
-    {
-		sprite = GetNode<AnimatedSprite2D>("Model/AnimatedSprite");
-    }
+	public override void _Ready()
+	{
+		Sprite = GetNode<AnimatedSprite2D>("Model/AnimatedSprite");
+		Hurtbox = GetNode<Area2D>("Hurtbox");
+	}
 
 	public override void _Process(double delta)
 	{
@@ -30,47 +45,79 @@ public partial class Player : Character
 		ProcessAtk(delta);
 		ProcessAnims(delta);
 
-        MoveAndSlide();
-    }
+		MoveAndSlide();
+	}
 
 	private void ProcessMovement(double delta)
 	{
-		float direction = Input.GetAxis("left", "right");
-
+		Direction = Input.GetAxis("left", "right");
+		if(Direction != 0)
+		{
+			SprintDir = Direction;
+		}
 		Vector2 NewVelocity = Velocity;
-		NewVelocity.X = direction * Speed;
-		
+
+		if (IsSprinting && !IsDashing)
+		{
+			NewVelocity.X = Speed * SprintDir * 2;
+		}
+		else if (IsDashing)
+		{
+            if (FacingRight)
+			{
+				NewVelocity.X = Speed * DashMultiplier;
+			}
+			else
+			{
+				NewVelocity.X = -Speed * DashMultiplier;
+			}
+			NewVelocity.Y = 0;
+		}
+		else
+		{
+            NewVelocity.X = Direction * Speed;
+        }
 
 		if (Velocity.X > 0)
 		{
-			sprite.FlipH = false;
+			Sprite.FlipH = false;
+			FacingRight = true;
 		} else if (Velocity.X < 0)
 		{
-			sprite.FlipH = true;
-		}
+			Sprite.FlipH = true;
+            FacingRight = false;
+        }
+
 
 		if (Input.IsActionJustPressed("jump") && IsOnFloor())
 		{
 			NewVelocity.Y -= JumpHeight;
 		}
 
-		if(!IsOnFloor())
+		if (Input.IsActionJustPressed("dash") && CanDash)
+		{
+			Dash();
+		}
+
+		if (Input.IsActionJustReleased("dash") && IsSprinting)
+		{
+			IsSprinting = false;
+		}
+
+
+		if (!IsOnFloor() && !IsDashing)
 		{
 			NewVelocity.Y += Gravity;
 		}
 
+
 		ProcessWallCling(delta);
-		ProcessSprint(delta);
 
-        Velocity = NewVelocity;
-    }
 
-	private void ProcessWallCling(double delta)
-	{
-
+		Velocity = NewVelocity;
 	}
 
-	private void ProcessSprint(double delta)
+	private void ProcessWallCling(double delta)
 	{
 
 	}
@@ -84,4 +131,17 @@ public partial class Player : Character
 	{
 
 	}
+
+	private async Task Dash()
+	{
+		Hurtbox.SetDeferred("monitoring", false);
+		CanDash = false;
+		IsDashing = true;
+        await DelaysCS.Instance.Wait(0.2f);
+        IsDashing = false;
+		IsSprinting = true;
+        Hurtbox.SetDeferred("monitoring", true);
+        await DelaysCS.Instance.Wait(0.2f);
+		CanDash = true;
+    }
 }
