@@ -22,9 +22,12 @@ public partial class Player : Character
 	private RichTextLabel StateText;
 	private Timer DashGhostTimer;
 
+	private PackedScene KnifeSwingScene;
+
 	private bool FacingRight = true;
 
 	private bool CanDash = true;
+	private bool CanMove = true;
 	private bool IsDashing = false;
 	private bool IsSprinting = false;
 	private float Direction;
@@ -46,6 +49,7 @@ public partial class Player : Character
 		StateText = GetNode<RichTextLabel>("StateText");
 		DashGhostTimer = GetNode<Timer>("DashGhostTimer");
 		DashGhostTimer.Timeout += () => InstanceGhost();
+		InstanceBaseAttacks();
     }
 
 	public override void _PhysicsProcess(double delta)
@@ -57,8 +61,18 @@ public partial class Player : Character
 		MoveAndSlide();
 	}
 
+	private void InstanceBaseAttacks()
+	{
+        KnifeSwingScene = GD.Load<PackedScene>("res://Game/Actions/KnifeSwing/knife_swing.tscn");
+	}
+
 	private void ProcessMovement(double delta)
 	{
+		if (!CanMove)
+		{
+            return;
+        }
+
 		Direction = Input.GetAxis("left", "right");
 		if(Direction != 0)
 		{
@@ -162,7 +176,10 @@ public partial class Player : Character
 
 	private void ProcessAtk(double delta)
 	{
-
+		if (Input.IsActionJustPressed("knife_attack") && CanMove)
+		{
+			KnifeAttack();
+		}
 	}
 
 	private void ProcessAnims(double delta)
@@ -173,6 +190,20 @@ public partial class Player : Character
 	private void SetVel(Vector2 vel)
 	{
 		Velocity = vel;
+	}
+
+	private async Task KnifeAttack()
+	{
+		CanMove = false;
+        KnifeSwing SwingInst = KnifeSwingScene.Instantiate<KnifeSwing>();
+        AddChild(SwingInst);
+		SwingInst.DespawnAction += () => AttackFinish();
+		SwingInst.SetActionOwner(this);
+    }
+
+	private void AttackFinish()
+	{
+		CanMove = true;
 	}
 
 	private async Task Dash()
