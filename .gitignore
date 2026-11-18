@@ -422,3 +422,5 @@ FodyWeavers.xsd
 
 # Official VS Code C# Dev Kit Extension exclusion
 #*.lscache
+.vs/CallingCard/v17/DocumentLayout.json
+.vs/CallingCard/v17/.suo
