@@ -1,7 +1,7 @@
 extends CanvasLayer
 
 
-const SCENES := {
+const SCENES := { # PRO-TIP: Press RIGHT-CLICK on a .tscn file to get a scene's UID!
 	"Main Menu": preload("uid://cjjanmmuxihyw"),
 	"Testing Menu": preload("uid://bs7my58g5w75l"),
 	"Test Level": preload("uid://lr6u3ffle3we"),
