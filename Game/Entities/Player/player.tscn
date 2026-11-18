@@ -114,3 +114,11 @@ target_position = Vector2(0, 0)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" index="0" unique_id=1025351677]
 position = Vector2(0, 3)
 shape = SubResource("RectangleShape2D_1du5w")
+
+[node name="StateText" type="RichTextLabel" parent="." index="5" unique_id=911650247]
+offset_left = -76.0
+offset_top = -45.0
+offset_right = 76.0
+offset_bottom = -16.0
+text = "State: Idle"
+horizontal_alignment = 1

@@ -19,6 +19,7 @@ public partial class Player : Character
 
 	private AnimatedSprite2D Sprite;
 	private Area2D Hurtbox;
+	private RichTextLabel StateText;
 
 	private bool FacingRight = true;
 
@@ -27,17 +28,23 @@ public partial class Player : Character
 	private bool IsSprinting = false;
 	private float Direction;
 	private float SprintDir;
+	States CurrState = States.Idle;
 
 	enum States
 	{
-
+		Idle,
+		Walk,
+		Sprint,
+		Dash
 	}
 
 	public override void _Ready()
 	{
 		Sprite = GetNode<AnimatedSprite2D>("Model/AnimatedSprite");
 		Hurtbox = GetNode<Area2D>("Hurtbox");
-	}
+		StateText = GetNode<RichTextLabel>("StateText");
+
+    }
 
 	public override void _Process(double delta)
 	{
@@ -59,23 +66,23 @@ public partial class Player : Character
 
 		if (IsSprinting && !IsDashing)
 		{
-			NewVelocity.X = Speed * SprintDir * 2;
+			CurrState = States.Sprint;
+			
 		}
 		else if (IsDashing)
 		{
-            if (FacingRight)
-			{
-				NewVelocity.X = Speed * DashMultiplier;
-			}
-			else
-			{
-				NewVelocity.X = -Speed * DashMultiplier;
-			}
-			NewVelocity.Y = 0;
+			CurrState = States.Dash;
 		}
 		else
 		{
-            NewVelocity.X = Direction * Speed;
+            if(Direction == 0)
+			{
+				CurrState = States.Idle;
+			}
+			else
+			{
+				CurrState = States.Walk;
+            }
         }
 
 		if (Velocity.X > 0)
@@ -87,6 +94,35 @@ public partial class Player : Character
 			Sprite.FlipH = true;
             FacingRight = false;
         }
+
+		switch (CurrState)
+		{
+			case States.Dash:
+				{
+                    if (FacingRight)
+                    {
+                        NewVelocity.X = Speed * DashMultiplier;
+                    }
+                    else
+                    {
+                        NewVelocity.X = -Speed * DashMultiplier;
+                    }
+                    NewVelocity.Y = 0;
+					break;
+                }
+			case States.Sprint:
+                NewVelocity.X = Speed * SprintDir * 2;
+				break;
+            case States.Walk:
+                NewVelocity.X = Direction * Speed;
+				break;
+			case States.Idle:
+				NewVelocity.X = 0;
+				break;
+
+            default:
+					break;
+		}
 
 
 		if (Input.IsActionJustPressed("jump") && IsOnFloor())
@@ -110,11 +146,11 @@ public partial class Player : Character
 			NewVelocity.Y += Gravity;
 		}
 
+		StateText.Text = "State:" + CurrState;
+
 
 		ProcessWallCling(delta);
-
-
-		Velocity = NewVelocity;
+		SetVel(NewVelocity);
 	}
 
 	private void ProcessWallCling(double delta)
@@ -132,6 +168,11 @@ public partial class Player : Character
 
 	}
 
+	private void SetVel(Vector2 vel)
+	{
+		Velocity = vel;
+	}
+
 	private async Task Dash()
 	{
 		Hurtbox.SetDeferred("monitoring", false);
@@ -139,7 +180,10 @@ public partial class Player : Character
 		IsDashing = true;
         await DelaysCS.Instance.Wait(0.2f);
         IsDashing = false;
-		IsSprinting = true;
+		if (Input.IsActionPressed("dash"))
+		{
+            IsSprinting = true;
+        }
         Hurtbox.SetDeferred("monitoring", true);
         await DelaysCS.Instance.Wait(0.2f);
 		CanDash = true;
