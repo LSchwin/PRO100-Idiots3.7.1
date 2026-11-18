@@ -48,7 +48,7 @@ public partial class Player : Character
 		DashGhostTimer.Timeout += () => InstanceGhost();
     }
 
-	public override void _Process(double delta)
+	public override void _PhysicsProcess(double delta)
 	{
 		ProcessMovement(delta);
 		ProcessAtk(delta);
@@ -127,7 +127,7 @@ public partial class Player : Character
 		}
 
 
-		if (Input.IsActionJustPressed("jump") && IsOnFloor())
+		if (Input.IsActionJustPressed("jump") && IsOnFloor() && CurrState != States.Dash)
 		{
 			NewVelocity.Y -= JumpHeight;
 		}

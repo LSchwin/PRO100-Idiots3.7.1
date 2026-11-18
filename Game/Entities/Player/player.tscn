@@ -92,7 +92,7 @@ size = Vector2(22, 26)
 script = ExtResource("2_1du5w")
 Speed = 100.0
 JumpHeight = 200.0
-Gravity = 10.0
+Gravity = 50.0
 DashMultiplier = 3.0
 
 [node name="AnimatedSprite" type="AnimatedSprite2D" parent="Model" parent_id_path=PackedInt32Array(794789529) index="0" unique_id=1749627644]
@@ -108,7 +108,7 @@ shape = SubResource("RectangleShape2D_gtx54")
 target_position = Vector2(0, 0)
 
 [node name="DashGhostTimer" type="Timer" parent="." index="3" unique_id=1633923856]
-wait_time = 0.04
+wait_time = 0.05
 
 [node name="Hurtbox" type="Area2D" parent="." index="4" unique_id=20074463]
 
