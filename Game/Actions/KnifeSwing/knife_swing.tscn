@@ -8,7 +8,7 @@ size = Vector2(35, 16)
 
 [node name="KnifeSwing" unique_id=1122220393 instance=ExtResource("1_to5e5")]
 script = ExtResource("2_7qov5")
-Lifespan = 1.0
+Lifespan = 0.1
 
 [node name="Damage" type="Area2D" parent="." index="1" unique_id=1590901458]
 

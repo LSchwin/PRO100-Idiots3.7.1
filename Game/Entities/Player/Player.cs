@@ -68,8 +68,11 @@ public partial class Player : Character
 
 	private void ProcessMovement(double delta)
 	{
-		if (!CanMove)
+        Vector2 NewVelocity = Velocity;
+        if (!CanMove)
 		{
+			NewVelocity.X = 0;
+			Velocity = NewVelocity;
             return;
         }
 
@@ -78,7 +81,6 @@ public partial class Player : Character
 		{
 			SprintDir = Direction;
 		}
-		Vector2 NewVelocity = Velocity;
 
 		if (IsSprinting && !IsDashing)
 		{
@@ -192,17 +194,17 @@ public partial class Player : Character
 		Velocity = vel;
 	}
 
-	private async Task KnifeAttack()
+	private void KnifeAttack()
 	{
 		CanMove = false;
         KnifeSwing SwingInst = KnifeSwingScene.Instantiate<KnifeSwing>();
+		SwingInst.DespawnAction += () => AttackFinish(SwingInst);
         AddChild(SwingInst);
-		SwingInst.DespawnAction += () => AttackFinish();
-		SwingInst.SetActionOwner(this);
     }
 
-	private void AttackFinish()
+	private void AttackFinish(Action attack)
 	{
+		attack.DespawnAction -= () => AttackFinish(attack);
 		CanMove = true;
 	}
 
