@@ -20,6 +20,7 @@ public partial class Player : Character
 	private AnimatedSprite2D Sprite;
 	private Area2D Hurtbox;
 	private RichTextLabel StateText;
+	private Timer DashGhostTimer;
 
 	private bool FacingRight = true;
 
@@ -43,7 +44,8 @@ public partial class Player : Character
 		Sprite = GetNode<AnimatedSprite2D>("Model/AnimatedSprite");
 		Hurtbox = GetNode<Area2D>("Hurtbox");
 		StateText = GetNode<RichTextLabel>("StateText");
-
+		DashGhostTimer = GetNode<Timer>("DashGhostTimer");
+		DashGhostTimer.Timeout += () => InstanceGhost();
     }
 
 	public override void _Process(double delta)
@@ -178,9 +180,11 @@ public partial class Player : Character
 		Hurtbox.SetDeferred("monitoring", false);
 		CanDash = false;
 		IsDashing = true;
+		DashGhostTimer.Start();
         await DelaysCS.Instance.Wait(0.2f);
         IsDashing = false;
-		if (Input.IsActionPressed("dash"))
+        DashGhostTimer.Stop();
+        if (Input.IsActionPressed("dash"))
 		{
             IsSprinting = true;
         }
@@ -188,4 +192,15 @@ public partial class Player : Character
         await DelaysCS.Instance.Wait(0.2f);
 		CanDash = true;
     }
+
+	private void InstanceGhost()
+	{
+		PackedScene scene = GD.Load<PackedScene>("res://Game/Entities/Player/DashGhost/ghost.tscn");
+		var inst = scene.Instantiate<Ghost>();
+		inst.Hframes = Sprite.SpriteFrames.GetFrameCount(Sprite.Animation);
+        inst.Frame = Sprite.Frame;
+		inst.FlipH = !FacingRight;
+		AddSibling(inst);
+		inst.Position = Position;
+	}
 }

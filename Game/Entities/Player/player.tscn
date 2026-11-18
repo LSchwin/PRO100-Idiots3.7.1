@@ -107,7 +107,8 @@ shape = SubResource("RectangleShape2D_gtx54")
 [node name="Interactor" type="RayCast2D" parent="." index="2" unique_id=518752198]
 target_position = Vector2(0, 0)
 
-[node name="DashCooldown" type="Timer" parent="." index="3" unique_id=794017849]
+[node name="DashGhostTimer" type="Timer" parent="." index="3" unique_id=1633923856]
+wait_time = 0.04
 
 [node name="Hurtbox" type="Area2D" parent="." index="4" unique_id=20074463]
 
