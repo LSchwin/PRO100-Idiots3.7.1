@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://bs7my58g5w75l"]
+
+[ext_resource type="PackedScene" uid="uid://dps3y1we7nxv6" path="res://UI/UIButton/ui_button.tscn" id="1_ntuko"]
+[ext_resource type="Script" uid="uid://cklirrbeeg4gy" path="res://UI/TestingMenu/testing_menu.gd" id="1_wdti8"]
+
+[node name="TestingMenu" type="Control" unique_id=2144878973]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wdti8")
+
+[node name="BtnUITesting" parent="." unique_id=1432803026 instance=ExtResource("1_ntuko")]
+custom_minimum_size = Vector2(120, 32)
+layout_mode = 1
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -508.0
+offset_bottom = -390.0
+text = "Ben's UI Testing Scene"
+color_hover = Color(0.43649185, 0.49468923, 0.14227909, 1)
+color_text_hover = Color(0.42326522, 0.7403667, 0.5257264, 1)
+
+[node name="BtnTestLevel" parent="." unique_id=503798884 instance=ExtResource("1_ntuko")]
+layout_mode = 1
+offset_left = 10.0
+offset_top = 50.0
+offset_right = -508.0
+offset_bottom = -349.0
+text = "Eris' Test Level"
+
+[connection signal="pressed" from="BtnUITesting" to="." method="_on_btn_ui_testing_pressed"]
+[connection signal="pressed" from="BtnTestLevel" to="." method="_on_btn_test_level_pressed"]

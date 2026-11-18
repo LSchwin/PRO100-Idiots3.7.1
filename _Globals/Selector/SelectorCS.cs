@@ -8,16 +8,26 @@ public partial class SelectorCS : Node
 	{
 		Instance = this;
 	}
-
     private Node Global()
     { return GetNode("/root/Selector"); }
 
-    public void SetButtons(Array buttons, bool vertical = true)
+
+    public static void SetButtons(Array buttons, bool vertical = true)
 	{
-        Global().Call("set_buttons", buttons, vertical);
+        Instance.Global().Call("set_buttons", buttons, vertical);
     }
-    public void Disable()
+    public static void SetButtons(Node buttonsOwner, Array buttonNames, bool vertical = true)
+    {
+        Array buttons = new Array() { };
+        foreach (string name in buttonNames)
+        {
+            buttons.Add(buttonsOwner.GetNode(name));
+            GD.Print(buttonsOwner.GetNode(name));
+        }
+        SetButtons(buttons, vertical);
+    }
+    public static void Disable()
 	{
-        Global().Call("disable");
+        Instance.Global().Call("disable");
     }
 }

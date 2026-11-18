@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://juuxa6m3s2jx"]
+
+[ext_resource type="Script" uid="uid://nc2apj8k0gcr" path="res://_Globals/Scenes/_Scenes.gd" id="1_s8ygl"]
+
+[node name="Scenes" type="CanvasLayer" unique_id=1624081467]
+script = ExtResource("1_s8ygl")
+
+[node name="Fader" type="ColorRect" parent="." unique_id=2141235052]
+offset_right = 768.0
+offset_bottom = 432.0
+mouse_filter = 2
+color = Color(0, 0, 0, 1)

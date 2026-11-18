@@ -26,11 +26,13 @@ Music="*uid://b24lljs7tywiw"
 MusicCS="*uid://boskg40oa36f6"
 Selector="*uid://5ck2mjhpt07c"
 SelectorCS="*uid://cjq6vt786kpv7"
+Scenes="*uid://juuxa6m3s2jx"
+ScenesCs="*uid://bg6s7l6u1ktjp"
 
 [display]
 
-window/size/viewport_width=896
-window/size/viewport_height=504
+window/size/viewport_width=768
+window/size/viewport_height=432
 window/stretch/mode="viewport"
 
 [dotnet]

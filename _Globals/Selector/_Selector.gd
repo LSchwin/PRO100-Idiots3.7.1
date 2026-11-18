@@ -31,8 +31,10 @@ func _process_selecting(delta: float) -> void:
 		current -= 1
 	elif Input.is_action_just_pressed(down):
 		current += 1
-	if current < 0:                 current = buttons.size()-1
-	elif current >= buttons.size(): current = 0
+	if current < 0:
+		current = buttons.size()-1
+	elif current >= buttons.size():
+		current = 0
 	
 	# Hovering
 	if current != prev:

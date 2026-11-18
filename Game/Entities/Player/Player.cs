@@ -212,7 +212,7 @@ public partial class Player : Character
 		CanDash = false;
 		IsDashing = true;
 		DashGhostTimer.Start();
-        await DelaysCS.Instance.Wait(0.2f);
+        await DelaysCS.Wait(0.2f);
         IsDashing = false;
         DashGhostTimer.Stop();
         if (Input.IsActionPressed("dash"))
@@ -220,7 +220,7 @@ public partial class Player : Character
             IsSprinting = true;
         }
         Hurtbox.SetDeferred("monitoring", true);
-        await DelaysCS.Instance.Wait(0.2f);
+        await DelaysCS.Wait(0.2f);
 		CanDash = true;
     }
 
