@@ -11,8 +11,8 @@ public partial class BenTestingScene : Control
 
 	public override void _Process(double delta)
 	{
-		//Control button = GetNode<Control>("UIButton1");
-		//button.Position = new Vector2(LerpHelperCS.Lerp(button.Position.X, 700, 4.0f, (float)delta), button.Position.Y);
+		Control button = GetNode<Control>("UIButton1");
+		button.Position = new Vector2(LerpHelperCS.Lerp(button.Position.X, 300, 2.0f, (float)delta), button.Position.Y);
     }
 
 	public async void OnButton1Pressed()

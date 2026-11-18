@@ -53,7 +53,7 @@ func hover() -> void:
 	hovered.emit()
 	
 	if tooltip_text_ != "" and not tooltip:
-		tooltip = UITooltip.create(tooltip_text_, get_selector_placement(), self)
+		tooltip = UITooltip.create(tooltip_text_, get_selector_placement() + Vector2(8, 8), self)
 
 func unhover() -> void:
 	is_hovered = false
