@@ -3,6 +3,7 @@ using System;
 
 public partial class Entity : CharacterBody2D
 {
+	[Export]
 	public int Health { 
 		get;
 		set

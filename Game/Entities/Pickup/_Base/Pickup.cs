@@ -3,7 +3,7 @@ using System;
 
 public partial class Pickup : WorldObject
 {
-    
+
     // TODO: Implement item given by the pickup
 
     //private Item item;
@@ -17,9 +17,13 @@ public partial class Pickup : WorldObject
     //  this.item = item;
     //}
 
+    [Export]
     public bool AutoPickup { get; set; }
+
+    [Export]
     public bool Interactable { get; set; }
 
+    [Export]
     public int LootScore { 
         get; 
         set

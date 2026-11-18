@@ -5,14 +5,14 @@ public partial class BenTestingScene : Control
 {
     public override void _Ready()
     {
-		Array buttons = new Array() { GetNode("UIButton1"), GetNode("UIButton2"), GetNode("UIButton3") };
+		Array buttons = new Array() { GetNode("UIButton1"), GetNode("UIButton2"), GetNode("UIButton3"), GetNode("UIButton4") };
         SelectorCS.Instance.SetButtons(buttons);
     }
 
 	public override void _Process(double delta)
 	{
-		//Control button = GetNode<Control>("UIButton1");
-		//button.Position = new Vector2(LerpHelperCS.Lerp(button.Position.X, 700, 4.0f, (float)delta), button.Position.Y);
+		Control button = GetNode<Control>("UIButton1");
+		button.Position = new Vector2(LerpHelperCS.Lerp(button.Position.X, 300, 2.0f, (float)delta), button.Position.Y);
     }
 
 	public async void OnButton1Pressed()

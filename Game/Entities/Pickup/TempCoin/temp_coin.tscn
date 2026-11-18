@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://ccvatmpnenn8s"]
+
+[ext_resource type="PackedScene" uid="uid://3u5wtbvn312p" path="res://Game/Entities/Pickup/_Base/pickup.tscn" id="1_xex14"]
+[ext_resource type="Texture2D" uid="uid://ceqly8kp5ixid" path="res://Game/Entities/Pickup/TempCoin/temp_coin.png" id="2_vqayv"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_eqdu6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_vqayv")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t71a2"]
+size = Vector2(8, 10)
+
+[node name="TempCoin" unique_id=1282068283 instance=ExtResource("1_xex14")]
+AutoPickup = true
+Interactable = true
+LootScore = 10
+
+[node name="CoinSprite" type="AnimatedSprite2D" parent="Model" parent_id_path=PackedInt32Array(794789529) index="0" unique_id=1756106906]
+sprite_frames = SubResource("SpriteFrames_eqdu6")
+
+[node name="Collision" parent="." index="1" unique_id=1544639454]
+shape = SubResource("RectangleShape2D_t71a2")

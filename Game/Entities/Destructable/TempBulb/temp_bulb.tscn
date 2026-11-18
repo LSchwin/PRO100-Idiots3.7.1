@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://5nwjnlhcctjj"]
+
+[ext_resource type="PackedScene" uid="uid://csw8jqpljsu8j" path="res://Game/Entities/Destructable/_Base/destructable.tscn" id="1_tno3m"]
+[ext_resource type="Texture2D" uid="uid://b0b02h4ccdssr" path="res://Game/Entities/Destructable/TempBulb/temp_lightbulb.png" id="2_o7le8"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3ybdu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_o7le8")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xex14"]
+size = Vector2(10, 13)
+
+[node name="TempBulb" unique_id=1282068283 instance=ExtResource("1_tno3m")]
+Health = 5
+
+[node name="BulbSprite" type="AnimatedSprite2D" parent="Model" parent_id_path=PackedInt32Array(794789529) index="0" unique_id=1318508396]
+sprite_frames = SubResource("SpriteFrames_3ybdu")
+
+[node name="Collision" parent="." index="1" unique_id=1544639454]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_xex14")

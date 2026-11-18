@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://csw8jqpljsu8j"]
+
+[ext_resource type="PackedScene" uid="uid://bes04ve1kf7ca" path="res://Game/Entities/_Base/entity.tscn" id="1_t71a2"]
+[ext_resource type="Script" uid="uid://c85u82qchr4x7" path="res://Game/Entities/Destructable/_Base/Destructable.cs" id="2_iacyx"]
+
+[sub_resource type="Curve" id="Curve_860di"]
+_data = [Vector2(0, 1), 0.0, -1.0390528, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_eqdu6"]
+curve = SubResource("Curve_860di")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xmk4k"]
+lifetime_randomness = 0.22
+particle_flag_disable_z = true
+particle_flag_damping_as_friction = true
+direction = Vector3(0, 0, 0)
+spread = 180.0
+initial_velocity_min = 50.0
+initial_velocity_max = 75.0
+angular_velocity_min = -360.0
+angular_velocity_max = 359.99997
+gravity = Vector3(0, 0, 0)
+linear_accel_min = 25.079998
+linear_accel_max = 77.17999
+damping_min = 0.5
+damping_max = 3.0000002
+alpha_curve = SubResource("CurveTexture_eqdu6")
+
+[node name="Distructable" unique_id=1282068283 instance=ExtResource("1_t71a2")]
+script = ExtResource("2_iacyx")
+
+[node name="ParticleSpawner" type="GPUParticles2D" parent="." index="2" unique_id=2005342805]
+emitting = false
+amount = 32
+lifetime = 0.33
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_xmk4k")
