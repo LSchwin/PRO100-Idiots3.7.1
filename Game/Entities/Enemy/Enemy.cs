@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class Enemy : CharacterBody2D
+public partial class Enemy : Character
 {
     Area2D SightArea;
     Godot.Collections.Array<PackedScene> Actions = [];

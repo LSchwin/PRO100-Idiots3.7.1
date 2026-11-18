@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://j4uim884cayx"]
+
+[ext_resource type="Script" uid="uid://dxvafhae6dl34" path="res://Game/Levels/Rooms/Base/EnemySpawner.cs" id="1_xy0dp"]
+
+[node name="EnemySpawner" type="Node2D" unique_id=1236140086 node_paths=PackedStringArray("enemies")]
+script = ExtResource("1_xy0dp")
+enemies = []

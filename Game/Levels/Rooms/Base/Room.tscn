@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://ll8isa8qur8o"]
+
+[ext_resource type="Script" uid="uid://cv5xboyvvvowf" path="res://Game/Levels/Rooms/Base/RoomScript.cs" id="1_5q741"]
+[ext_resource type="TileSet" uid="uid://uge70vmk7vm2" path="res://Game/Levels/Rooms/Base/ConnectionTileset.tres" id="2_igbev"]
+
+[node name="Room" type="Node2D" unique_id=604999735]
+script = ExtResource("1_5q741")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1219841189]
+
+[node name="ConnectionTileMapLayer" type="TileMapLayer" parent="." unique_id=305960100]
+tile_map_data = PackedByteArray(0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+tile_set = ExtResource("2_igbev")
+
+[node name="Enemies" type="Node2D" parent="." unique_id=666185102]
+
+[node name="Loot" type="Node2D" parent="." unique_id=783203284]
