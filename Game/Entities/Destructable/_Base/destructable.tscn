@@ -28,6 +28,8 @@ damping_max = 3.0000002
 alpha_curve = SubResource("CurveTexture_eqdu6")
 
 [node name="Distructable" unique_id=1282068283 instance=ExtResource("1_t71a2")]
+collision_layer = 2
+collision_mask = 2
 script = ExtResource("2_iacyx")
 
 [node name="ParticleSpawner" type="GPUParticles2D" parent="." index="2" unique_id=2005342805]

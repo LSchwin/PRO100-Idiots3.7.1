@@ -3,5 +3,10 @@ using System;
 
 public partial class KnifeSwing : Action
 {
+    Area2D Damage;
 
+    public override void _Ready()
+    {
+        base._Ready();
+    }
 }

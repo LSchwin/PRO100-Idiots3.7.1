@@ -2,22 +2,24 @@
 
 [ext_resource type="PackedScene" uid="uid://b0o45l0g3oulp" path="res://Game/Actions/_Base/action.tscn" id="1_to5e5"]
 [ext_resource type="Script" uid="uid://ctvm3kca4404b" path="res://Game/Actions/KnifeSwing/KnifeSwing.cs" id="2_7qov5"]
+[ext_resource type="PackedScene" uid="uid://csp1t48um74k3" path="res://Game/DamageArea/damage_area.tscn" id="3_d88xc"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_d88xc"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rwywj"]
 size = Vector2(35, 16)
 
 [node name="KnifeSwing" unique_id=1122220393 instance=ExtResource("1_to5e5")]
 script = ExtResource("2_7qov5")
 Lifespan = 0.1
 
-[node name="Damage" type="Area2D" parent="." index="1" unique_id=1590901458]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Damage" index="0" unique_id=1343517315]
-position = Vector2(17.5, 0)
-shape = SubResource("RectangleShape2D_d88xc")
-
-[node name="ColorRect" type="ColorRect" parent="." index="2" unique_id=1495731142]
+[node name="ColorRect" type="ColorRect" parent="." index="1" unique_id=1495731142]
 offset_top = -8.0
 offset_right = 35.0
 offset_bottom = 8.0
 color = Color(1, 0, 0, 1)
+
+[node name="DamageArea" parent="." index="2" unique_id=1713322864 instance=ExtResource("3_d88xc")]
+Damage = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea" index="0" unique_id=83582121]
+position = Vector2(17.5, 0)
+shape = SubResource("RectangleShape2D_rwywj")

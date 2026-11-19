@@ -3,4 +3,6 @@
 [ext_resource type="Script" uid="uid://nqdbhd67g6kc" path="res://Game/DamageArea/DamageArea.cs" id="1_e6uk2"]
 
 [node name="DamageArea" type="Area2D" unique_id=1713322864]
+collision_layer = 2
+collision_mask = 2
 script = ExtResource("1_e6uk2")

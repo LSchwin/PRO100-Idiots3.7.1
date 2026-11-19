@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://ll8isa8qur8o" path="res://Game/Levels/Rooms/Base/Room.tscn" id="1_n0qeq"]
 [ext_resource type="PackedScene" uid="uid://baojxacg276wf" path="res://Game/Entities/Player/player.tscn" id="2_djcwc"]
+[ext_resource type="PackedScene" uid="uid://5nwjnlhcctjj" path="res://Game/Entities/Destructable/TempBulb/temp_bulb.tscn" id="3_1y0ic"]
 
 [node name="MovementTestRoom" unique_id=604999735 instance=ExtResource("1_n0qeq")]
 
@@ -10,3 +11,6 @@ tile_map_data = PackedByteArray("AAD//wQAAAAAAAAAAAAAAAQAAAAAAAAAAAABAAQAAAAAAAA
 
 [node name="Player" parent="." index="4" unique_id=1282068283 instance=ExtResource("2_djcwc")]
 position = Vector2(144, 109)
+
+[node name="TempBulb" parent="." index="5" unique_id=509860046 instance=ExtResource("3_1y0ic")]
+position = Vector2(273, 111)
