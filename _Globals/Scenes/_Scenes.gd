@@ -2,11 +2,12 @@ extends CanvasLayer
 
 
 const SCENES := { # PRO-TIP: Press RIGHT-CLICK on a .tscn file to get a scene's UID!
-	"Main Menu": preload("uid://cjjanmmuxihyw"),
-	"Testing Menu": preload("uid://bs7my58g5w75l"),
-	"Test Level": preload("uid://lr6u3ffle3we"),
-	"UI Testing": preload("uid://bs0jti4w6bys"),
+	"Main Menu":          preload("uid://cjjanmmuxihyw"),
+	"Testing Menu":       preload("uid://bs7my58g5w75l"),
+	"Test Level":         preload("uid://lr6u3ffle3we"),
+	"UI Testing":         preload("uid://bs0jti4w6bys"),
 	"Movement Test Room": preload("uid://bb8h1jcbv1yw1"),
+	"Base Level":         preload("uid://cuxghuk5ns5q2"),
 	#"": preload(""),
 	#"": preload(""),
 	#"": preload(""),
