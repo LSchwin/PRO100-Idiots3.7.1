@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class Action : Node
+public partial class Action : Node2D
 {
     [Export]
     private Entity owner = null;

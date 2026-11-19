@@ -90,10 +90,10 @@ size = Vector2(22, 26)
 
 [node name="Player" unique_id=1282068283 instance=ExtResource("1_lpyhk")]
 script = ExtResource("2_1du5w")
-Speed = 100.0
-JumpHeight = 200.0
-Gravity = 50.0
-DashMultiplier = 3.0
+Speed = 200.0
+JumpHeight = 600.0
+Gravity = 40.0
+DashMultiplier = 4.5
 
 [node name="AnimatedSprite" type="AnimatedSprite2D" parent="Model" parent_id_path=PackedInt32Array(794789529) index="0" unique_id=1749627644]
 sprite_frames = SubResource("SpriteFrames_gtx54")
@@ -123,3 +123,5 @@ offset_right = 76.0
 offset_bottom = -16.0
 text = "State: Idle"
 horizontal_alignment = 1
+
+[node name="Camera" type="Camera2D" parent="." index="6" unique_id=387934811]

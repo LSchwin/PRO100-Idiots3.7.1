@@ -180,7 +180,21 @@ public partial class Player : Character
 	{
 		if (Input.IsActionJustPressed("knife_attack") && CanMove)
 		{
-			KnifeAttack();
+			// 1=Left,2=Up,3=Right,4=Down 
+			if(!IsOnFloor() && Input.IsActionPressed("down"))
+			{
+				KnifeAttack(4);
+			}else if (Input.IsActionPressed("up"))
+			{
+				KnifeAttack(2);
+			}else if (!FacingRight)
+			{
+				KnifeAttack(1);
+			}
+			else
+			{
+				KnifeAttack(3);
+			}
 		}
 	}
 
@@ -194,18 +208,39 @@ public partial class Player : Character
 		Velocity = vel;
 	}
 
-	private void KnifeAttack()
+	private void KnifeAttack(int direc)
 	{
-		CanMove = false;
+		GD.Print(direc);
         KnifeSwing SwingInst = KnifeSwingScene.Instantiate<KnifeSwing>();
 		SwingInst.DespawnAction += () => AttackFinish(SwingInst);
+		Vector2 SwingPos = SwingInst.Position;
+		switch (direc)
+		{
+			case 1:
+				SwingInst.Rotation = float.Pi;
+				SwingPos.X -= 16;
+				break;
+			case 2:
+                SwingInst.Rotation = (3*float.Pi)/2;
+                SwingPos.Y -= 16;
+                break;
+			case 4:
+                SwingInst.Rotation = float.Pi/2;
+                SwingPos.Y += 16;
+                break;
+			default:
+                SwingInst.Rotation = 0;
+                SwingPos.X += 16;
+                break;
+		}
+		SwingInst.Position = SwingPos;
+
         AddChild(SwingInst);
     }
 
 	private void AttackFinish(Action attack)
 	{
 		attack.DespawnAction -= () => AttackFinish(attack);
-		CanMove = true;
 	}
 
 	private async Task Dash()

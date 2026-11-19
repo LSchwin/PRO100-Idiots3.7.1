@@ -1,0 +1,12 @@
+[gd_scene format=4 uid="uid://bb8h1jcbv1yw1"]
+
+[ext_resource type="PackedScene" uid="uid://ll8isa8qur8o" path="res://Game/Levels/Rooms/Base/Room.tscn" id="1_n0qeq"]
+[ext_resource type="PackedScene" uid="uid://baojxacg276wf" path="res://Game/Entities/Player/player.tscn" id="2_djcwc"]
+
+[node name="MovementTestRoom" unique_id=604999735 instance=ExtResource("1_n0qeq")]
+
+[node name="TileMapLayer" parent="." index="0" unique_id=1219841189]
+tile_map_data = PackedByteArray("AAD//wQAAAAAAAAAAAAAAAQAAAAAAAAAAAABAAQAAAAAAAAAAAACAAQAAAAAAAAAAAADAAQAAAAAAAAAAAAEAAQAAAAAAAAAAAAFAAQAAAAAAAAAAAAGAAQAAAAAAAAAAAAHAAQAAAAAAAAAAAAIAAQAAAAAAAAAAAAJAAQAAAAAAAAAAAAKAAQAAAAAAAAAAAALAAQAAAAAAAAAAAAMAAQAAAAAAAAAAAA=")
+
+[node name="Player" parent="." index="4" unique_id=1282068283 instance=ExtResource("2_djcwc")]
+position = Vector2(144, 109)
