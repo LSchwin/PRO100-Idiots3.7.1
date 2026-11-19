@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CardResource" format=3 uid="uid://d1hdj7c0phhqv"]
+
+[ext_resource type="Script" uid="uid://qkw8vi0mpkh3" path="res://Game/Cards/_Base/CardResource.cs" id="1_5l53g"]
+
+[resource]
+script = ExtResource("1_5l53g")
+Passive = {
+"attack": 5,
+"attackMult": 1.5,
+"health": 5,
+"healthMult": 3.0
+}
+Name = "Test Passive"
+metadata/_custom_type_script = "uid://qkw8vi0mpkh3"

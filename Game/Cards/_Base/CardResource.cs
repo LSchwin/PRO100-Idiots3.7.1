@@ -5,14 +5,15 @@ using System;
 [GlobalClass]
 public partial class CardResource : Resource
 {
-	[Export] PackedScene action;
-	[Export] Dictionary passive;
-	[Export] public string name { get; set; }
-	[Export] public string description { get; set; }
-	[Export] Texture2D texture;
+	[Export] PackedScene Action;
+	[Export] Dictionary Passive;
+	[Export] public string Name { get; set; }
+	[Export] public string Description { get; set; }
+	[Export] Texture2D Texture;
 	[Export] 
 	public float BaseCooldown { 
 		get; 
 		set { field = (value < 0.0f) ? 0.0f : value; }
 	}
+	public Dictionary GetPassives() { return Passive; }
 }
