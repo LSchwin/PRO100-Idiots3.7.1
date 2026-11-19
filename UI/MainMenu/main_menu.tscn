@@ -2,12 +2,13 @@
 
 [ext_resource type="PackedScene" uid="uid://dps3y1we7nxv6" path="res://UI/UIButton/ui_button.tscn" id="1_jld46"]
 [ext_resource type="Script" uid="uid://bqtxk8flgf1xt" path="res://UI/MainMenu/MainMenu.cs" id="1_t17p2"]
+[ext_resource type="Script" uid="uid://4vu2p5p5fueo" path="res://UI/UIButtonSelection/UIButtonSelection.cs" id="3_h8rmy"]
 
 [node name="MainMenu" type="Control" unique_id=1495823899]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 896.0
-offset_bottom = 504.0
+offset_right = 769.0
+offset_bottom = 432.0
 script = ExtResource("1_t17p2")
 
 [node name="Title" type="RichTextLabel" parent="." unique_id=1922367028]
@@ -20,33 +21,29 @@ text = "[wave]Calling Card"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Buttons" type="Control" parent="." unique_id=424793623]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="Buttons" type="Node" parent="." unique_id=392492858 node_paths=PackedStringArray("Buttons")]
+script = ExtResource("3_h8rmy")
+Buttons = [NodePath("BtnStart"), NodePath("BtnSettings"), NodePath("BtnQuit")]
 
 [node name="BtnStart" parent="Buttons" unique_id=1432803026 instance=ExtResource("1_jld46")]
-layout_mode = 1
-offset_left = 260.0
-offset_top = 230.0
-offset_right = 468.0
-offset_bottom = 222.0
+offset_left = 320.0
+offset_top = 236.0
+offset_right = -320.0
+offset_bottom = -172.0
 text = "Start"
 
 [node name="BtnSettings" parent="Buttons" unique_id=1481425924 instance=ExtResource("1_jld46")]
-layout_mode = 1
-offset_left = 260.0
-offset_top = 289.0
-offset_right = 468.0
-offset_bottom = 281.0
+offset_left = 320.0
+offset_top = 284.0
+offset_right = -320.0
+offset_bottom = -124.0
 text = "Settings"
 
 [node name="BtnQuit" parent="Buttons" unique_id=252068767 instance=ExtResource("1_jld46")]
-layout_mode = 1
-offset_left = 260.0
-offset_top = 349.0
-offset_right = 468.0
-offset_bottom = 341.0
+offset_left = 320.0
+offset_top = 332.0
+offset_right = -320.0
+offset_bottom = -76.0
 text = "Quit"
 
 [connection signal="pressed" from="Buttons/BtnStart" to="." method="OnBtnStartPressed"]

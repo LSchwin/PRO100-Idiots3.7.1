@@ -21,6 +21,7 @@ public partial class ScenesCS : Node
 	{
         Instance.Global().Call("fade_in", time);
     }
+
 	public static void FadeOut(float time = 0.25f)
 	{
         Instance.Global().Call("fade_out", time);

@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://dps3y1we7nxv6" path="res://UI/UIButton/ui_button.tscn" id="1_ntuko"]
 [ext_resource type="Script" uid="uid://cklirrbeeg4gy" path="res://UI/TestingMenu/testing_menu.gd" id="1_wdti8"]
+[ext_resource type="Script" uid="uid://du7rbubtw0rx" path="res://UI/UIButtonSelection/ui_button_selection.gd" id="2_vilqs"]
 
 [node name="TestingMenu" type="Control" unique_id=2144878973]
 layout_mode = 3
@@ -12,24 +13,37 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_wdti8")
 
-[node name="BtnUITesting" parent="." unique_id=1432803026 instance=ExtResource("1_ntuko")]
-custom_minimum_size = Vector2(120, 32)
-layout_mode = 1
+[node name="Buttons" type="Node" parent="." unique_id=1374089611 node_paths=PackedStringArray("buttons")]
+script = ExtResource("2_vilqs")
+buttons = [NodePath("BackToMainMenu"), NodePath("BtnUITesting"), NodePath("BtnTestLevel")]
+
+[node name="BackToMainMenu" parent="Buttons" unique_id=1432803026 instance=ExtResource("1_ntuko")]
 offset_left = 10.0
 offset_top = 10.0
 offset_right = -508.0
-offset_bottom = -390.0
-text = "Ben's UI Testing Scene"
-color_hover = Color(0.43649185, 0.49468923, 0.14227909, 1)
-color_text_hover = Color(0.42326522, 0.7403667, 0.5257264, 1)
+offset_bottom = -389.0
+text = "BackToMainMenu"
+metadata/_edit_use_anchors_ = true
 
-[node name="BtnTestLevel" parent="." unique_id=503798884 instance=ExtResource("1_ntuko")]
-layout_mode = 1
+[node name="BtnUITesting" parent="Buttons" unique_id=1451631256 instance=ExtResource("1_ntuko")]
+custom_minimum_size = Vector2(120, 32)
 offset_left = 10.0
 offset_top = 50.0
 offset_right = -508.0
-offset_bottom = -349.0
-text = "Eris' Test Level"
+offset_bottom = -350.0
+text = "Ben's UI Testing Scene"
+color_hover = Color(0.43649185, 0.49468923, 0.14227909, 1)
+color_text_hover = Color(0.42326522, 0.7403667, 0.5257264, 1)
+metadata/_edit_use_anchors_ = true
 
-[connection signal="pressed" from="BtnUITesting" to="." method="_on_btn_ui_testing_pressed"]
-[connection signal="pressed" from="BtnTestLevel" to="." method="_on_btn_test_level_pressed"]
+[node name="BtnTestLevel" parent="Buttons" unique_id=503798884 instance=ExtResource("1_ntuko")]
+offset_left = 10.0
+offset_top = 90.0
+offset_right = -508.0
+offset_bottom = -309.0
+text = "Eris' Test Level"
+metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="Buttons/BackToMainMenu" to="." method="_on_back_to_main_menu_pressed"]
+[connection signal="pressed" from="Buttons/BtnUITesting" to="." method="_on_btn_ui_testing_pressed"]
+[connection signal="pressed" from="Buttons/BtnTestLevel" to="." method="_on_btn_test_level_pressed"]

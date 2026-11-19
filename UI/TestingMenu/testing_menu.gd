@@ -2,8 +2,11 @@ extends Control
 
 
 func _ready() -> void:
-	Selector.set_buttons([$BtnUITesting, $BtnTestLevel])
+	$Buttons.activate()
 
+
+func _on_back_to_main_menu_pressed() -> void:
+	Scenes.swap("Main Menu")
 
 func _on_btn_ui_testing_pressed() -> void:
 	Scenes.swap("UI Testing")

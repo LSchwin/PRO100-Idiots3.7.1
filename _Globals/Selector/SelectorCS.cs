@@ -16,6 +16,7 @@ public partial class SelectorCS : Node
 	{
         Instance.Global().Call("set_buttons", buttons, vertical);
     }
+
     public static void SetButtons(Node buttonsOwner, Array buttonNames, bool vertical = true)
     {
         Array buttons = new Array() { };
@@ -26,6 +27,7 @@ public partial class SelectorCS : Node
         }
         SetButtons(buttons, vertical);
     }
+
     public static void Disable()
 	{
         Instance.Global().Call("disable");

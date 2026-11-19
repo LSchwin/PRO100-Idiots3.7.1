@@ -7,6 +7,10 @@ const SCENES := { # PRO-TIP: Press RIGHT-CLICK on a .tscn file to get a scene's 
 	"Test Level": preload("uid://lr6u3ffle3we"),
 	"UI Testing": preload("uid://bs0jti4w6bys"),
 	#"": preload(""),
+	#"": preload(""),
+	#"": preload(""),
+	#"": preload(""),
+	#"": preload(""),
 }
 
 
