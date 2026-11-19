@@ -13,3 +13,6 @@ func _on_btn_ui_testing_pressed() -> void:
 
 func _on_btn_test_level_pressed() -> void:
 	Scenes.swap("Test Level")
+
+func _on_btn_movement_test_room_pressed() -> void:
+	Scenes.swap("Movement Test Room")
