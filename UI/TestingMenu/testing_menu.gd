@@ -16,3 +16,6 @@ func _on_btn_test_level_pressed() -> void:
 
 func _on_btn_movement_test_room_pressed() -> void:
 	Scenes.swap("Movement Test Room")
+
+func _on_btn_level_test_pressed() -> void:
+	Scenes.swap("Base Level")

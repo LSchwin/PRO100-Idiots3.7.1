@@ -15,7 +15,7 @@ script = ExtResource("1_wdti8")
 
 [node name="Buttons" type="Node" parent="." unique_id=1374089611 node_paths=PackedStringArray("buttons")]
 script = ExtResource("2_vilqs")
-buttons = [NodePath("BackToMainMenu"), NodePath("BtnUITesting"), NodePath("BtnTestLevel"), NodePath("BtnMovementTestRoom")]
+buttons = [NodePath("BackToMainMenu"), NodePath("BtnUITesting"), NodePath("BtnTestLevel"), NodePath("BtnMovementTestRoom"), NodePath("BtnLevelTest")]
 
 [node name="BackToMainMenu" parent="Buttons" unique_id=1432803026 instance=ExtResource("1_ntuko")]
 offset_left = 10.0
@@ -51,7 +51,16 @@ offset_bottom = -267.0
 text = "Eris' Movement Test"
 metadata/_edit_use_anchors_ = true
 
+[node name="BtnLevelTest" parent="Buttons" unique_id=2026184670 instance=ExtResource("1_ntuko")]
+offset_left = 10.0
+offset_top = 174.0
+offset_right = -508.0
+offset_bottom = -225.0
+text = "Logan's Level Test"
+metadata/_edit_use_anchors_ = true
+
 [connection signal="pressed" from="Buttons/BackToMainMenu" to="." method="_on_back_to_main_menu_pressed"]
 [connection signal="pressed" from="Buttons/BtnUITesting" to="." method="_on_btn_ui_testing_pressed"]
 [connection signal="pressed" from="Buttons/BtnTestLevel" to="." method="_on_btn_test_level_pressed"]
 [connection signal="pressed" from="Buttons/BtnMovementTestRoom" to="." method="_on_btn_movement_test_room_pressed"]
+[connection signal="pressed" from="Buttons/BtnLevelTest" to="." method="_on_btn_level_test_pressed"]
