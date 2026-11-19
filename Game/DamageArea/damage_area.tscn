@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://csp1t48um74k3"]
+
+[ext_resource type="Script" uid="uid://nqdbhd67g6kc" path="res://Game/DamageArea/DamageArea.cs" id="1_e6uk2"]
+
+[node name="DamageArea" type="Area2D" unique_id=1713322864]
+script = ExtResource("1_e6uk2")
