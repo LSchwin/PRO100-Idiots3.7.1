@@ -28,6 +28,7 @@ public partial class Player : Character
 
 	private bool CanDash = true;
 	private bool CanMove = true;
+	private bool CanAttack = true;
 	private bool IsDashing = false;
 	private bool IsSprinting = false;
 	private float Direction;
@@ -63,7 +64,7 @@ public partial class Player : Character
 
 	private void InstanceBaseAttacks()
 	{
-        KnifeSwingScene = GD.Load<PackedScene>("res://Game/Actions/KnifeSwing/knife_swing.tscn");
+        KnifeSwingScene = GD.Load<PackedScene>("uid://mksol6otni8d");
 	}
 
 	private void ProcessMovement(double delta)
@@ -164,7 +165,7 @@ public partial class Player : Character
 			NewVelocity.Y += Gravity;
 		}
 
-		StateText.Text = "State:" + CurrState;
+		StateText.Text = "State: " + CurrState;
 
 
 		ProcessWallCling(delta);
@@ -176,26 +177,31 @@ public partial class Player : Character
 
 	}
 
-	private void ProcessAtk(double delta)
+	private async Task ProcessAtk(double delta)
 	{
-		if (Input.IsActionJustPressed("knife_attack") && CanMove)
+		if (Input.IsActionJustPressed("knife_attack") && CanAttack)
 		{
+			int AtkDir = 1;
+			CanAttack = false;
 			// 1=Left,2=Up,3=Right,4=Down 
 			if(!IsOnFloor() && Input.IsActionPressed("down"))
 			{
-				KnifeAttack(4);
+				AtkDir = 4;
 			}else if (Input.IsActionPressed("up"))
 			{
-				KnifeAttack(2);
+                AtkDir = 2;
 			}else if (!FacingRight)
 			{
-				KnifeAttack(1);
+                AtkDir = 1;
 			}
 			else
 			{
-				KnifeAttack(3);
+                AtkDir = 3;
 			}
-		}
+			KnifeAttack(AtkDir);
+            await DelaysCS.Wait(0.3f);
+			CanAttack = true;
+        }
 	}
 
 	private void ProcessAnims(double delta)
@@ -210,7 +216,6 @@ public partial class Player : Character
 
 	private void KnifeAttack(int direc)
 	{
-		GD.Print(direc);
         KnifeSwing SwingInst = KnifeSwingScene.Instantiate<KnifeSwing>();
 		SwingInst.DespawnAction += () => AttackFinish(SwingInst);
 		Vector2 SwingPos = SwingInst.Position;
