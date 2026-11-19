@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Numerics;
 using System.Runtime.InteropServices;
 
-public partial class RoomScript : Node2D
+public partial class Room : Node2D
 {
 	public enum ConnectDirection
 	{
@@ -15,26 +15,39 @@ public partial class RoomScript : Node2D
 		Down
 	}
 
-	struct Connection
+	public struct Connection
 	{
-		public Vector2I coordinates;
-		public ConnectDirection direction;
-		public bool open;
+		public Connection() {}
+        public Vector2I coordinates;
+		public bool open = false;
 	}
 
+
+	public static Vector2I connectTileStartLeft = new Vector2I(0, 0);
+	public static Vector2I connectTileStartRight = new Vector2I(1, 0);
+	public static Vector2I connectTileStartUp = new Vector2I(2, 0);
+	public static Vector2I connectTileStartDown = new Vector2I(3, 0);
+
+
+
+    public ConnectDirection comingFrom;
+    public ConnectDirection goingTo;
 	public Vector2I size;
 	public TileMapLayer connectionLayer;
+	public TileMapLayer decorLayer;
 
-	List<Connection> connectionsLeft;
-	List<Connection> connectionsRight;
-	List<Connection> connectionsUp;
-	List<Connection> connectionsDown;
+	public List<Connection> connectionsLeft = new List<Connection>();
+	public List<Connection> connectionsRight = new List<Connection>();
+	public List<Connection> connectionsUp = new List<Connection>();
+	public List<Connection> connectionsDown = new List<Connection>();
 
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
+
+    // Called when the node enters the scene tree for the first time.
+    public override void _Ready()
 	{
 		connectionLayer = GetNode<TileMapLayer>("ConnectionTileMapLayer");
-		size = connectionLayer.GetUsedRect().Size;
+		decorLayer = GetNode<TileMapLayer>("TileMapLayer");
+        size = connectionLayer.GetUsedRect().Size;
 		SetConnections();
 	}
 
@@ -75,10 +88,10 @@ public partial class RoomScript : Node2D
 
 	private void SetConnections()
 	{
-		AddConnections(ref connectionsLeft, ConnectDirection.Left, new Vector2I(0, 0));
-		AddConnections(ref connectionsRight, ConnectDirection.Right, new Vector2I(1, 0));
-		AddConnections(ref connectionsUp, ConnectDirection.Up, new Vector2I(2, 0));
-		AddConnections(ref connectionsDown, ConnectDirection.Down, new Vector2I(3, 0));
+		AddConnections(ref connectionsLeft, ConnectDirection.Left, connectTileStartLeft);
+		AddConnections(ref connectionsRight, ConnectDirection.Right, connectTileStartRight);
+		AddConnections(ref connectionsUp, ConnectDirection.Up, connectTileStartUp);
+		AddConnections(ref connectionsDown, ConnectDirection.Down, connectTileStartDown);
     }
 
 	private void AddConnections(ref List<Connection> connections, ConnectDirection direction, Vector2I id)
@@ -87,9 +100,10 @@ public partial class RoomScript : Node2D
         foreach (Vector2I coordinate in connectionCoordinates)
         {
             Connection connection = new Connection();
-            connection.direction = direction;
             connection.coordinates = coordinate;
-            connection.open = false;
+
+			connection.open = true;
+
             connections.Add(connection);
         }
     }

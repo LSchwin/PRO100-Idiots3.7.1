@@ -2,5 +2,6 @@
 
 [ext_resource type="Script" uid="uid://bgcehwn0yqrli" path="res://Game/Levels/Rooms/Base/LootSpawner.cs" id="1_pd71a"]
 
-[node name="LootSpawner" type="Node2D" unique_id=684605972]
+[node name="LootSpawner" type="Node2D" unique_id=684605972 node_paths=PackedStringArray("loot")]
 script = ExtResource("1_pd71a")
+loot = []

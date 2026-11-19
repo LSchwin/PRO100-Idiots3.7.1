@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://cuxghuk5ns5q2"]
+
+[ext_resource type="Script" uid="uid://b70dkekjumkmc" path="res://Game/Levels/Rooms/Base/Level.cs" id="1_dnph4"]
+[ext_resource type="PackedScene" uid="uid://bpac6lop2smpl" path="res://Game/Levels/Rooms/TestingRooms/TestRoom1.tscn" id="2_1rdcc"]
+[ext_resource type="PackedScene" uid="uid://baojxacg276wf" path="res://Game/Entities/Player/player.tscn" id="3_gnqda"]
+
+[node name="Level" type="Node2D" unique_id=1729542830]
+script = ExtResource("1_dnph4")
+
+[node name="Room1" parent="." unique_id=604999735 instance=ExtResource("2_1rdcc")]
+position = Vector2(67, 54)
+
+[node name="Room2" parent="." unique_id=233853824 instance=ExtResource("2_1rdcc")]
+position = Vector2(419, 54)
+
+[node name="Player" parent="." unique_id=1282068283 instance=ExtResource("3_gnqda")]
+position = Vector2(229, 290)
