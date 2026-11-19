@@ -6,6 +6,7 @@ const SCENES := { # PRO-TIP: Press RIGHT-CLICK on a .tscn file to get a scene's 
 	"Testing Menu": preload("uid://bs7my58g5w75l"),
 	"Test Level": preload("uid://lr6u3ffle3we"),
 	"UI Testing": preload("uid://bs0jti4w6bys"),
+	"Movement Test Room": preload("uid://bb8h1jcbv1yw1"),
 	#"": preload(""),
 	#"": preload(""),
 	#"": preload(""),
