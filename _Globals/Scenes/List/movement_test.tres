@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="SceneResource" format=3 uid="uid://wd810fkevjvm"]
+
+[ext_resource type="PackedScene" uid="uid://bb8h1jcbv1yw1" path="res://Game/Levels/Rooms/TestingRooms/movement_test_room.tscn" id="1_w4hhe"]
+[ext_resource type="Script" uid="uid://cyjko2wchlffu" path="res://_Globals/Scenes/scene_resource.gd" id="2_hvbcp"]
+
+[resource]
+script = ExtResource("2_hvbcp")
+scene_name = "Movement Test Room"
+scene_packed = ExtResource("1_w4hhe")
+metadata/_custom_type_script = "uid://cyjko2wchlffu"

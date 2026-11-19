@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="SceneResource" format=3 uid="uid://bfm1esko8sxmk"]
+
+[ext_resource type="PackedScene" uid="uid://lr6u3ffle3we" path="res://Game/Entities/Player/test_level.tscn" id="1_403o8"]
+[ext_resource type="Script" uid="uid://cyjko2wchlffu" path="res://_Globals/Scenes/scene_resource.gd" id="2_qav1f"]
+
+[resource]
+script = ExtResource("2_qav1f")
+scene_name = "Test Level"
+scene_packed = ExtResource("1_403o8")
+metadata/_custom_type_script = "uid://cyjko2wchlffu"

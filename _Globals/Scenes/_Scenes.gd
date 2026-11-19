@@ -1,32 +1,36 @@
 extends CanvasLayer
 
 
-const SCENES := { # PRO-TIP: Press RIGHT-CLICK on a .tscn file to get a scene's UID!
-	"Main Menu":          preload("uid://cjjanmmuxihyw"),
-	"Testing Menu":       preload("uid://bs7my58g5w75l"),
-	"Test Level":         preload("uid://lr6u3ffle3we"),
-	"UI Testing":         preload("uid://bs0jti4w6bys"),
-	"Movement Test Room": preload("uid://bb8h1jcbv1yw1"),
-	"Base Level":         preload("uid://cuxghuk5ns5q2"),
-	#"": preload(""),
-	#"": preload(""),
-	#"": preload(""),
-	#"": preload(""),
-	#"": preload(""),
-}
-
-
+# Base Godot functions
 func _ready() -> void:
 	fade_out()
 
 
+# Loading scenes
+@onready var scenes := fetch_scenes()
+const SCENES_PATH := "res://_Globals/Scenes/List/"
+func fetch_scenes() -> Dictionary[String, PackedScene]:
+	var dict: Dictionary[String, PackedScene] = {}
+	for file in ResourceLoader.list_directory(SCENES_PATH):
+		var resource := load(SCENES_PATH + file)
+		if resource is not SceneResource: continue
+		dict.set(resource.scene_name, resource.scene_packed)
+	return dict
+
+
+# Swapping
 func swap(scene: String, _fade_in := 0.25, _fade_out := 0.25) -> void:
+	if not scenes.has(scene):
+		push_error(scene + " does not exist in our SCENES dictionary!")
+		return
+	
 	Selector.disable()
 	await fade_in(_fade_in)
-	get_tree().change_scene_to_packed(SCENES.get(scene))
+	get_tree().change_scene_to_packed(scenes.get(scene))
 	await fade_out(_fade_out)
 
 
+# Fading
 @onready var fader: ColorRect = $Fader
 var tween: Tween
 

@@ -5,7 +5,7 @@ public partial class BenTestingScene : Control
 {
     public override void _Ready()
     {
-		Array buttons = new Array() { GetNode("UIButton1"), GetNode("UIButton2"), GetNode("UIButton3"), GetNode("UIButton4") };
+		Array buttons = new Array() { GetNode("UIButton0"), GetNode("UIButton1"), GetNode("UIButton2"), GetNode("UIButton3"), GetNode("UIButton4") };
         SelectorCS.SetButtons(buttons);
     }
 
@@ -15,7 +15,12 @@ public partial class BenTestingScene : Control
 		button.Position = new Vector2(LerpHelperCS.Lerp(button.Position.X, 300, 2.0f, (float)delta), button.Position.Y);
     }
 
-	public async void OnButton1Pressed()
+	public void OnButton0Pressed()
+	{
+		ScenesCS.Swap("Testing Menu");
+	}
+
+    public async void OnButton1Pressed()
 	{
         //MusicCS.Play("Test 0");
 		await DelaysCS.Wait(1.5f);

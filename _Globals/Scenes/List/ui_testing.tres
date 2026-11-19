@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="SceneResource" format=3 uid="uid://cep13xaugao4n"]
+
+[ext_resource type="PackedScene" uid="uid://bs0jti4w6bys" path="res://UI/ben_testing_scene.tscn" id="1_fgk37"]
+[ext_resource type="Script" uid="uid://cyjko2wchlffu" path="res://_Globals/Scenes/scene_resource.gd" id="2_a6gjf"]
+
+[resource]
+script = ExtResource("2_a6gjf")
+scene_name = "UI Testing"
+scene_packed = ExtResource("1_fgk37")
+metadata/_custom_type_script = "uid://cyjko2wchlffu"

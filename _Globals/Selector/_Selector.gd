@@ -50,6 +50,7 @@ func _process_selecting(delta: float) -> void:
 
 
 func set_buttons(b: Array, v := true) -> void:
+	current = 0
 	buttons = b
 	vertical = v
 

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="SceneResource" format=3 uid="uid://fgcd4prnt8s8"]
+
+[ext_resource type="PackedScene" uid="uid://cuxghuk5ns5q2" path="res://Game/Levels/Rooms/Base/Level.tscn" id="1_vurc1"]
+[ext_resource type="Script" uid="uid://cyjko2wchlffu" path="res://_Globals/Scenes/scene_resource.gd" id="2_p2hmr"]
+
+[resource]
+script = ExtResource("2_p2hmr")
+scene_name = "Base Level"
+scene_packed = ExtResource("1_vurc1")
+metadata/_custom_type_script = "uid://cyjko2wchlffu"

@@ -8,7 +8,7 @@ public partial class MusicCS : Node
     {
         Instance = this;
     }
-    private Node Global()
+    private Node Global() // The reference to the GDScript global
     { return GetNode("/root/Music"); }
 
 

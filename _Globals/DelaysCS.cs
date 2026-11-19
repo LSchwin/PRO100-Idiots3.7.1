@@ -9,15 +9,14 @@ public partial class DelaysCS : Node
 	{
 		Instance = this;
 	}
-	private Node Global()
+	private Node Global() // The reference to the GDScript global
     { return GetNode("/root/Delays"); }
 
 
     /// <summary>
     /// Used to await an amount in seconds.
     /// </summary>
-    /// <param name="time"></param>
-    /// <returns></returns>
+    /// <param name="time">The time in seconds to await.</param>
     public static Signal Wait(float time)
 	{
 		return (Signal)Instance.Global().Call("wait", time);
@@ -26,8 +25,7 @@ public partial class DelaysCS : Node
 	/// <summary>
 	/// Used to await an amount in seconds, irrespective of the Engine's time scale.
 	/// </summary>
-	/// <param name="time"></param>
-	/// <returns></returns>
+	/// <param name="time">The time in seconds to await.</param>
 	public static Signal Pause(float time)
 	{
 		return (Signal)Instance.Global().Call("pause", time);
