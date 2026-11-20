@@ -197,7 +197,7 @@ public partial class Player : Character
 		if (Input.IsActionJustPressed("throw_card_attack"))
 		{
             int AtkDir = GetPlayerDirection();
-            CanAttack = false;
+            //CanAttack = false;
             ThrowingCardAttack(AtkDir);
 		}
 	}
