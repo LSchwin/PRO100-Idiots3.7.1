@@ -22,12 +22,10 @@ public partial class Room : Node2D
 		public bool open = false;
 	}
 
-
 	public static Vector2I connectTileStartLeft = new Vector2I(0, 0);
 	public static Vector2I connectTileStartRight = new Vector2I(1, 0);
 	public static Vector2I connectTileStartUp = new Vector2I(2, 0);
-	public static Vector2I connectTileStartDown = new Vector2I(3, 0);
-
+	public static Vector2I connectTileStartDown = new Vector2I(2, 1);
 
 
     public ConnectDirection comingFrom;
@@ -50,6 +48,8 @@ public partial class Room : Node2D
         size = connectionLayer.GetUsedRect().Size;
 		SetConnections();
 	}
+
+
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
@@ -88,13 +88,13 @@ public partial class Room : Node2D
 
 	private void SetConnections()
 	{
-		AddConnections(ref connectionsLeft, ConnectDirection.Left, connectTileStartLeft);
-		AddConnections(ref connectionsRight, ConnectDirection.Right, connectTileStartRight);
-		AddConnections(ref connectionsUp, ConnectDirection.Up, connectTileStartUp);
-		AddConnections(ref connectionsDown, ConnectDirection.Down, connectTileStartDown);
+		AddConnections(ref connectionsLeft, connectTileStartLeft);
+		AddConnections(ref connectionsRight, connectTileStartRight);
+		AddConnections(ref connectionsUp, connectTileStartUp);
+		AddConnections(ref connectionsDown, connectTileStartDown);
     }
 
-	private void AddConnections(ref List<Connection> connections, ConnectDirection direction, Vector2I id)
+    private void AddConnections(ref List<Connection> connections, Vector2I id)
 	{
         Godot.Collections.Array<Vector2I> connectionCoordinates = connectionLayer.GetUsedCellsById(0, id);
         foreach (Vector2I coordinate in connectionCoordinates)
@@ -102,7 +102,7 @@ public partial class Room : Node2D
             Connection connection = new Connection();
             connection.coordinates = coordinate;
 
-			connection.open = true;
+			connection.open = true; // TODO: Remove this line after room generation
 
             connections.Add(connection);
         }

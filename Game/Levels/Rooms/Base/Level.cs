@@ -9,17 +9,35 @@ public partial class Level : Node2D
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
 	{
-		var room1 = GetNode<Room>("Room1");
+        var room5 = GetNode<Room>("Room5");
+        //room5.comingFrom = Room.ConnectDirection.Up;
+        room5.goingTo = Room.ConnectDirection.Down;
+
+        var room4 = GetNode<Room>("Room4");
+        room4.comingFrom = Room.ConnectDirection.Up;
+        room4.goingTo = Room.ConnectDirection.Right;
+
+        DeleteConnection(room5, room4); 
+
+        var room1 = GetNode<Room>("Room1");
 		room1.comingFrom = Room.ConnectDirection.Left;
 		room1.goingTo = Room.ConnectDirection.Right;
+
+        DeleteConnection(room4, room1); 
+
 		var room2 = GetNode<Room>("Room2");
-        room1.comingFrom = Room.ConnectDirection.Left;
-        room1.goingTo = Room.ConnectDirection.Right;
-
-
+        room2.comingFrom = Room.ConnectDirection.Left;
+        room2.goingTo = Room.ConnectDirection.Down;
 
         DeleteConnection(room1, room2);
-	}
+
+        var room3 = GetNode<Room>("Room3");
+        room3.comingFrom = Room.ConnectDirection.Up;
+        room3.goingTo = Room.ConnectDirection.Down;
+
+        DeleteConnection(room2, room3);
+
+    }
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
@@ -48,25 +66,31 @@ public partial class Level : Node2D
 
 	private void DeleteConnection(Room comingFromRoom, Room goingToRoom)
 	{
-		// in the comment is just some random test code
-		//var coords = comingFromRoom.connectionLayer.GetUsedCellsById(0, new Vector2I(0, 0));
-		//foreach (var coord in coords)
-		//{
-		//    comingFromRoom.connectionLayer.EraseCell(coord);
-		//	  comingFromRoom.decorLayer.EraseCell(coord);
-		//}
-		//comingFrom.connectionLayer.SetCell();
 		switch(comingFromRoom.goingTo)
 		{
 			case Room.ConnectDirection.Left:
-
-				break;
+                foreach (Room.Connection connection in comingFromRoom.connectionsLeft)
+                {
+                    if (!connection.open) continue;
+                    comingFromRoom.decorLayer.EraseCell(connection.coordinates - new Vector2I(0, 1));
+                    comingFromRoom.decorLayer.EraseCell(connection.coordinates + new Vector2I(0, 1));
+                    comingFromRoom.decorLayer.EraseCell(connection.coordinates);
+                    comingFromRoom.connectionLayer.EraseCell(connection.coordinates);
+                }
+                foreach (Room.Connection connection in goingToRoom.connectionsRight)
+                {
+                    if (!connection.open) continue;
+                    goingToRoom.decorLayer.EraseCell(connection.coordinates - new Vector2I(0, 1));
+                    goingToRoom.decorLayer.EraseCell(connection.coordinates + new Vector2I(0, 1));
+                    goingToRoom.decorLayer.EraseCell(connection.coordinates);
+                    goingToRoom.connectionLayer.EraseCell(connection.coordinates);
+                }
+                break;
 
             case Room.ConnectDirection.Right:
 				foreach(Room.Connection connection in comingFromRoom.connectionsRight)
 				{
 					if (!connection.open) continue;
-					GD.Print("te");
 					comingFromRoom.decorLayer.EraseCell(connection.coordinates - new Vector2I(0, 1));
 					comingFromRoom.decorLayer.EraseCell(connection.coordinates + new Vector2I(0, 1));
 					comingFromRoom.decorLayer.EraseCell(connection.coordinates);
@@ -75,22 +99,49 @@ public partial class Level : Node2D
                 foreach (Room.Connection connection in goingToRoom.connectionsLeft)
                 {
                     if (!connection.open) continue;
-                    GD.Print("teeeeee");
                     goingToRoom.decorLayer.EraseCell(connection.coordinates - new Vector2I(0, 1));
                     goingToRoom.decorLayer.EraseCell(connection.coordinates + new Vector2I(0, 1));
                     goingToRoom.decorLayer.EraseCell(connection.coordinates);
                     goingToRoom.connectionLayer.EraseCell(connection.coordinates);
                 }
-
-
                 break;
 
             case Room.ConnectDirection.Up:
-
+                foreach (Room.Connection connection in comingFromRoom.connectionsUp)
+                {
+                    if (!connection.open) continue;
+                    comingFromRoom.decorLayer.EraseCell(connection.coordinates - new Vector2I(1, 0));
+                    comingFromRoom.decorLayer.EraseCell(connection.coordinates + new Vector2I(1, 0));
+                    comingFromRoom.decorLayer.EraseCell(connection.coordinates);
+                    comingFromRoom.connectionLayer.EraseCell(connection.coordinates);
+                }
+                foreach (Room.Connection connection in goingToRoom.connectionsDown)
+                {
+                    if (!connection.open) continue;
+                    goingToRoom.decorLayer.EraseCell(connection.coordinates - new Vector2I(1, 0));
+                    goingToRoom.decorLayer.EraseCell(connection.coordinates + new Vector2I(1, 0));
+                    goingToRoom.decorLayer.EraseCell(connection.coordinates);
+                    goingToRoom.connectionLayer.EraseCell(connection.coordinates);
+                }
                 break;
 
             case Room.ConnectDirection.Down:
-
+                foreach (Room.Connection connection in comingFromRoom.connectionsDown)
+                {
+                    if (!connection.open) continue;
+                    comingFromRoom.decorLayer.EraseCell(connection.coordinates - new Vector2I(1, 0));
+                    comingFromRoom.decorLayer.EraseCell(connection.coordinates + new Vector2I(1, 0));
+                    comingFromRoom.decorLayer.EraseCell(connection.coordinates);
+                    comingFromRoom.connectionLayer.EraseCell(connection.coordinates);
+                }
+                foreach (Room.Connection connection in goingToRoom.connectionsUp)
+                {
+                    if (!connection.open) continue;
+                    goingToRoom.decorLayer.EraseCell(connection.coordinates - new Vector2I(1, 0));
+                    goingToRoom.decorLayer.EraseCell(connection.coordinates + new Vector2I(1, 0));
+                    goingToRoom.decorLayer.EraseCell(connection.coordinates);
+                    goingToRoom.connectionLayer.EraseCell(connection.coordinates);
+                }
                 break;
         }
     }

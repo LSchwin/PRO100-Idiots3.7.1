@@ -9,4 +9,4 @@ tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAIAAAAAAAA
 
 [node name="ConnectionTileMapLayer" parent="." index="1" unique_id=305960100]
 modulate = Color(1, 1, 1, 0.27400002)
-tile_map_data = PackedByteArray("AAAAAAYAAAAAAAAAAAAKAAYAAAABAAAAAAA=")
+tile_map_data = PackedByteArray("AAAAAAYAAAAAAAAAAAAKAAYAAAABAAAAAAAFAAAAAAACAAAAAAAFAAgAAAACAAEAAAA=")
