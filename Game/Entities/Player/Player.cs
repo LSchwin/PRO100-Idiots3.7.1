@@ -184,49 +184,20 @@ public partial class Player : Character
 	{
 		if (Input.IsActionJustPressed("knife_attack") && CanAttack)
 		{
-			int AtkDir = 1;
-			CanAttack = false;
-			// 1=Left,2=Up,3=Right,4=Down 
-			if(!IsOnFloor() && Input.IsActionPressed("down"))
-			{
-				AtkDir = 4;
-			}else if (Input.IsActionPressed("up"))
-			{
-                AtkDir = 2;
-			}else if (!FacingRight)
-			{
-                AtkDir = 1;
-			}
-			else
-			{
-                AtkDir = 3;
-			}
-			KnifeAttack(AtkDir);
-            await DelaysCS.Wait(0.3f);
+			int AtkDir = GetPlayerDirection();
+            CanAttack = false;
+            KnifeSwing SwingInst = KnifeSwingScene.Instantiate<KnifeSwing>();
+			AddChild(SwingInst);
+			SwingInst.Attack(AtkDir);
+
+            await DelaysCS.Wait(0.3f); // todo: add this value to the attack itself
 			CanAttack = true;
         }
 
 		if (Input.IsActionJustPressed("throw_card_attack"))
 		{
-            int AtkDir = 1;
+            int AtkDir = GetPlayerDirection();
             CanAttack = false;
-            // 1=Left,2=Up,3=Right,4=Down 
-            if (Input.IsActionPressed("down"))
-            {
-                AtkDir = 4;
-            }
-            else if (Input.IsActionPressed("up"))
-            {
-                AtkDir = 2;
-            }
-            else if (!FacingRight)
-            {
-                AtkDir = 1;
-            }
-            else
-            {
-                AtkDir = 3;
-            }
             ThrowingCardAttack(AtkDir);
 		}
 	}
@@ -241,35 +212,6 @@ public partial class Player : Character
 		Velocity = vel;
 	}
 
-	private void KnifeAttack(int direc)
-	{
-        KnifeSwing SwingInst = KnifeSwingScene.Instantiate<KnifeSwing>();
-		SwingInst.DespawnAction += () => AttackFinish(SwingInst);
-		Vector2 SwingPos = SwingInst.Position;
-		switch (direc)
-		{
-			case 1:
-				SwingInst.Rotation = float.Pi;
-				SwingPos.X -= 16;
-				break;
-			case 2:
-                SwingInst.Rotation = (3*float.Pi)/2;
-                SwingPos.Y -= 16;
-                break;
-			case 4:
-                SwingInst.Rotation = float.Pi/2;
-                SwingPos.Y += 16;
-                break;
-			default:
-                SwingInst.Rotation = 0;
-                SwingPos.X += 16;
-                break;
-		}
-		SwingInst.Position = SwingPos;
-
-        AddChild(SwingInst);
-    }
-
 	private void ThrowingCardAttack(int direc)
 	{
 		if(ThrowingCardInst == null)
@@ -283,11 +225,6 @@ public partial class Player : Character
             GD.Print("Spawn");
             ThrowingCardInst.Spawn(direc);
 		}
-	}
-
-	private void AttackFinish(Action attack)
-	{
-		attack.DespawnAction -= () => AttackFinish(attack);
 	}
 
 	private async Task Dash()
@@ -318,4 +255,26 @@ public partial class Player : Character
 		AddSibling(inst);
 		inst.Position = Position;
 	}
+
+	private int GetPlayerDirection(bool atkWhileGrounded = false)
+	{
+
+        // 1=Left,2=Up,3=Right,4=Down 
+        if (!IsOnFloor() && Input.IsActionPressed("down"))
+        {
+            return 4;
+        }
+        else if (Input.IsActionPressed("up"))
+        {
+            return 2;
+        }
+        else if (!FacingRight)
+        {
+            return 1;
+        }
+        else
+        {
+            return 3;
+        }
+    }
 }
