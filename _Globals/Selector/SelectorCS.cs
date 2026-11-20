@@ -32,4 +32,9 @@ public partial class SelectorCS : Node
 	{
         Instance.Global().Call("disable");
     }
+
+    public static bool IsActive()
+    {
+        return (bool)Instance.Global().Call("is_active");
+    }
 }

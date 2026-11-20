@@ -21,7 +21,7 @@ func fetch_scenes() -> Dictionary[String, PackedScene]:
 # Swapping
 func swap(scene: String, _fade_in := 0.25, _fade_out := 0.25) -> void:
 	if not scenes.has(scene):
-		push_error(scene + " does not exist in our SCENES dictionary!")
+		push_warning("\"" + scene + "\" does not exist in our SCENES dictionary!")
 		return
 	
 	Selector.disable()

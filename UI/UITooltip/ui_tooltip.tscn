@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://5p2erj02s125" path="res://UI/UITooltip/ui_tooltip.gd" id="1_6elov"]
 
 [node name="UITooltip" type="Node2D" unique_id=910952487]
+z_index = 1
 script = ExtResource("1_6elov")
 
 [node name="Background" type="ColorRect" parent="." unique_id=993871195]

@@ -53,7 +53,7 @@ func hover() -> void:
 	hovered.emit()
 	
 	if tooltip_text_ != "" and not tooltip:
-		tooltip = UITooltip.create(tooltip_text_, get_selector_placement() + Vector2(8, 8), self)
+		tooltip = UITooltip.create(tooltip_text_, self)
 
 func unhover() -> void:
 	is_hovered = false
@@ -65,6 +65,11 @@ func unhover() -> void:
 
 func press() -> void:
 	pressed.emit()
+	var flash_color := Color.WHITE * 5.0
+	var bg_flash_color := Color.BLACK * 5.0
+	bg_flash_color.a = 1.0
+	label.add_theme_color_override("default_color", flash_color)
+	background.color = bg_flash_color
 
 func get_selector_placement() -> Vector2:
 	return global_position + size + Vector2(4, size.y * -0.5)

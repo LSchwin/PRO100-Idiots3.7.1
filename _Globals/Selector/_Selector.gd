@@ -56,3 +56,7 @@ func set_buttons(b: Array, v := true) -> void:
 
 func disable() -> void:
 	buttons = []
+
+func is_active() -> bool:
+	if buttons != []: return true
+	return false
