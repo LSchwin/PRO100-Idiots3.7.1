@@ -246,7 +246,7 @@ public partial class Player : Character
 
 	private void InstanceGhost()
 	{
-		PackedScene scene = GD.Load<PackedScene>("uid://baojxacg276wf");
+		PackedScene scene = GD.Load<PackedScene>("uid://cpu6bpre70y1m");
         var inst = scene.Instantiate<Ghost>();
 		inst.Hframes = Sprite.SpriteFrames.GetFrameCount(Sprite.Animation);
         inst.Frame = Sprite.Frame;
