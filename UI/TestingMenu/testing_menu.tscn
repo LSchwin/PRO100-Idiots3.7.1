@@ -15,14 +15,14 @@ script = ExtResource("1_wdti8")
 
 [node name="Buttons" type="Node" parent="." unique_id=1374089611 node_paths=PackedStringArray("buttons")]
 script = ExtResource("2_vilqs")
-buttons = [NodePath("BackToMainMenu"), NodePath("BtnUITesting"), NodePath("BtnTestLevel"), NodePath("BtnMovementTestRoom"), NodePath("BtnLevelTest")]
+buttons = [NodePath("BackToMainMenu"), NodePath("BtnUITesting"), NodePath("BtnMovementTestRoom"), NodePath("BtnLevelTest")]
 
 [node name="BackToMainMenu" parent="Buttons" unique_id=1432803026 instance=ExtResource("1_ntuko")]
 offset_left = 10.0
 offset_top = 10.0
 offset_right = -508.0
 offset_bottom = -389.0
-text = "BackToMainMenu"
+text = "Back to Main Menu"
 metadata/_edit_use_anchors_ = true
 
 [node name="BtnUITesting" parent="Buttons" unique_id=1451631256 instance=ExtResource("1_ntuko")]
@@ -36,31 +36,25 @@ color_hover = Color(0.43649185, 0.49468923, 0.14227909, 1)
 color_text_hover = Color(0.42326522, 0.7403667, 0.5257264, 1)
 metadata/_edit_use_anchors_ = true
 
-[node name="BtnTestLevel" parent="Buttons" unique_id=503798884 instance=ExtResource("1_ntuko")]
+[node name="BtnMovementTestRoom" parent="Buttons" unique_id=1812525911 instance=ExtResource("1_ntuko")]
+anchors_preset = -1
+anchor_right = 1.0533854
 offset_left = 10.0
 offset_top = 90.0
 offset_right = -508.0
 offset_bottom = -309.0
-text = "Eris' Test Level"
-
-[node name="BtnMovementTestRoom" parent="Buttons" unique_id=1812525911 instance=ExtResource("1_ntuko")]
-offset_left = 10.0
-offset_top = 132.0
-offset_right = -508.0
-offset_bottom = -267.0
-text = "Eris' Movement Test"
+text = "Eris & Jack's Movement & Object Test"
 metadata/_edit_use_anchors_ = true
 
 [node name="BtnLevelTest" parent="Buttons" unique_id=2026184670 instance=ExtResource("1_ntuko")]
 offset_left = 10.0
-offset_top = 174.0
+offset_top = 132.0
 offset_right = -508.0
-offset_bottom = -225.0
+offset_bottom = -267.0
 text = "Logan's Level Test"
 metadata/_edit_use_anchors_ = true
 
 [connection signal="pressed" from="Buttons/BackToMainMenu" to="." method="_on_back_to_main_menu_pressed"]
 [connection signal="pressed" from="Buttons/BtnUITesting" to="." method="_on_btn_ui_testing_pressed"]
-[connection signal="pressed" from="Buttons/BtnTestLevel" to="." method="_on_btn_test_level_pressed"]
 [connection signal="pressed" from="Buttons/BtnMovementTestRoom" to="." method="_on_btn_movement_test_room_pressed"]
 [connection signal="pressed" from="Buttons/BtnLevelTest" to="." method="_on_btn_level_test_pressed"]

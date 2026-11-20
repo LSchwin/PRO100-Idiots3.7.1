@@ -5,6 +5,10 @@ extends CanvasLayer
 func _ready() -> void:
 	fade_out()
 
+func _process(_delta: float) -> void:
+	if Input.is_action_just_pressed("DEBUG_back_to_menu"):
+		Scenes.swap("Main Menu")
+
 
 # Loading scenes
 @onready var scenes := fetch_scenes()

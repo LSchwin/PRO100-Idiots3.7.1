@@ -83,7 +83,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gtx54"]
-size = Vector2(32, 32)
+size = Vector2(24, 28)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1du5w"]
 size = Vector2(22, 26)
@@ -103,6 +103,7 @@ autoplay = "idle"
 frame_progress = 0.97314376
 
 [node name="Collision" parent="." index="1" unique_id=1544639454]
+position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_gtx54")
 
 [node name="Interactor" type="RayCast2D" parent="." index="2" unique_id=518752198]
