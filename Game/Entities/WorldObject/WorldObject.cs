@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class WorldObject : Entity
+public abstract partial class WorldObject : Entity
 {
 
 }

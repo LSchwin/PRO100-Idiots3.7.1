@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class Character : Entity
+public abstract partial class Character : Entity
 {
 
 }

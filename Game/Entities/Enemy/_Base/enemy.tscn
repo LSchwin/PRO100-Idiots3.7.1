@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://kjgmkdk472an"]
 
 [ext_resource type="PackedScene" uid="uid://cl3by3qcv81ir" path="res://Game/Entities/_Character/character.tscn" id="1_tnwx4"]
-[ext_resource type="Script" uid="uid://cwjw7404pa3oo" path="res://Game/Entities/Enemy/Enemy.cs" id="2_g4m3r"]
+[ext_resource type="Script" uid="uid://cwjw7404pa3oo" path="res://Game/Entities/Enemy/_Base/Enemy.cs" id="2_g4m3r"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_5l82k"]
 
