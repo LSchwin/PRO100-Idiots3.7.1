@@ -1,9 +1,6 @@
 using Godot;
-using System;
 using System.Threading.Tasks;
-using System.Transactions;
-using static Godot.TextServer;
-
+using Direction = Action.Direction;
 
 
 public partial class Player : Character
@@ -17,24 +14,24 @@ public partial class Player : Character
 	[Export]
 	public float DashMultiplier = 3;
 
-	private AnimatedSprite2D Sprite;
-	private Area2D Hurtbox;
-	private RichTextLabel StateText;
-	private Timer DashGhostTimer;
+	private AnimatedSprite2D sprite;
+	private Area2D hurtbox;
+	private RichTextLabel stateText;
+	private Timer dashGhostTimer;
 
-	private PackedScene KnifeSwingScene;
-	private PackedScene ThrowingCardScene;
-	private ThrowingCard ThrowingCardInst;
+	private PackedScene knifeSwingScene;
+	private PackedScene throwingCardScene;
+	private ThrowingCard throwingCardInst;
 
-	private bool FacingRight = true;
+	private bool facingRight = true;
 
-	private bool CanDash = true;
-	private bool CanMove = true;
-	private bool CanAttack = true;
-	private bool IsDashing = false;
-	private bool IsSprinting = false;
-	private float Direction;
-	private float SprintDir;
+	private bool canDash = true;
+	private bool canMove = true;
+	private bool canAttack = true;
+	private bool isDashing = false;
+	private bool isSprinting = false;
+	private float direction;
+	private float sprintDir;
 	States CurrState = States.Idle;
 
 	enum States
@@ -47,11 +44,11 @@ public partial class Player : Character
 
 	public override void _Ready()
 	{
-		Sprite = GetNode<AnimatedSprite2D>("Model/AnimatedSprite");
-		Hurtbox = GetNode<Area2D>("Hurtbox");
-		StateText = GetNode<RichTextLabel>("StateText");
-		DashGhostTimer = GetNode<Timer>("DashGhostTimer");
-		DashGhostTimer.Timeout += () => InstanceGhost();
+		sprite = GetNode<AnimatedSprite2D>("Model/AnimatedSprite");
+		hurtbox = GetNode<Area2D>("Hurtbox");
+		stateText = GetNode<RichTextLabel>("StateText");
+		dashGhostTimer = GetNode<Timer>("DashGhostTimer");
+		dashGhostTimer.Timeout += () => InstanceGhost();
 		InstanceBaseAttacks();
     }
 
@@ -66,38 +63,38 @@ public partial class Player : Character
 
 	private void InstanceBaseAttacks()
 	{
-        KnifeSwingScene = GD.Load<PackedScene>("uid://mksol6otni8d");
-		ThrowingCardScene = GD.Load<PackedScene>("uid://sara4ouoatq5");
+        knifeSwingScene = GD.Load<PackedScene>("uid://mksol6otni8d");
+		throwingCardScene = GD.Load<PackedScene>("uid://sara4ouoatq5");
 	}
 
 	private void ProcessMovement(double delta)
 	{
         Vector2 NewVelocity = Velocity;
-        if (!CanMove)
+        if (!canMove)
 		{
 			NewVelocity.X = 0;
 			Velocity = NewVelocity;
             return;
         }
 
-		Direction = Input.GetAxis("left", "right");
-		if(Direction != 0)
+        direction = Input.GetAxis("left", "right");
+		if(direction != 0)
 		{
-			SprintDir = Direction;
+			sprintDir = direction;
 		}
 
-		if (IsSprinting && !IsDashing)
+		if (isSprinting && !isDashing)
 		{
 			CurrState = States.Sprint;
 			
 		}
-		else if (IsDashing)
+		else if (isDashing)
 		{
 			CurrState = States.Dash;
 		}
 		else
 		{
-            if(Direction == 0)
+            if(direction == 0)
 			{
 				CurrState = States.Idle;
 			}
@@ -109,19 +106,19 @@ public partial class Player : Character
 
 		if (Velocity.X > 0)
 		{
-			Sprite.FlipH = false;
-			FacingRight = true;
+			sprite.FlipH = false;
+			facingRight = true;
 		} else if (Velocity.X < 0)
 		{
-			Sprite.FlipH = true;
-            FacingRight = false;
+			sprite.FlipH = true;
+            facingRight = false;
         }
 
 		switch (CurrState)
 		{
 			case States.Dash:
 				{
-                    if (FacingRight)
+                    if (facingRight)
                     {
                         NewVelocity.X = Speed * DashMultiplier;
                     }
@@ -133,10 +130,10 @@ public partial class Player : Character
 					break;
                 }
 			case States.Sprint:
-                NewVelocity.X = Speed * SprintDir * 2;
+                NewVelocity.X = Speed * sprintDir * 2;
 				break;
             case States.Walk:
-                NewVelocity.X = Direction * Speed;
+                NewVelocity.X = direction * Speed;
 				break;
 			case States.Idle:
 				NewVelocity.X = 0;
@@ -152,23 +149,23 @@ public partial class Player : Character
 			NewVelocity.Y -= JumpHeight;
 		}
 
-		if (Input.IsActionJustPressed("dash") && CanDash)
+		if (Input.IsActionJustPressed("dash") && canDash)
 		{
 			Dash();
 		}
 
-		if (Input.IsActionJustReleased("dash") && IsSprinting)
+		if (Input.IsActionJustReleased("dash") && isSprinting)
 		{
-			IsSprinting = false;
+			isSprinting = false;
 		}
 
 
-		if (!IsOnFloor() && !IsDashing)
+		if (!IsOnFloor() && !isDashing)
 		{
 			NewVelocity.Y += Gravity;
 		}
 
-		StateText.Text = "State: " + CurrState;
+		stateText.Text = "State: " + CurrState;
 
 
 		ProcessWallCling(delta);
@@ -182,21 +179,21 @@ public partial class Player : Character
 
 	private async Task ProcessAtk(double delta)
 	{
-		if (Input.IsActionJustPressed("knife_attack") && CanAttack)
+		if (Input.IsActionJustPressed("knife_attack") && canAttack)
 		{
-			int AtkDir = GetPlayerDirection();
-            CanAttack = false;
-            KnifeSwing SwingInst = KnifeSwingScene.Instantiate<KnifeSwing>();
+			Direction AtkDir = GetPlayerDirection();
+            canAttack = false;
+            KnifeSwing SwingInst = knifeSwingScene.Instantiate<KnifeSwing>();
 			AddChild(SwingInst);
 			SwingInst.Attack(AtkDir);
 
             await DelaysCS.Wait(0.3f); // todo: add this value to the attack itself
-			CanAttack = true;
+			canAttack = true;
         }
 
 		if (Input.IsActionJustPressed("throw_card_attack"))
 		{
-            int AtkDir = GetPlayerDirection(true);
+            Direction AtkDir = GetPlayerDirection(true);
             //CanAttack = false;
             ThrowingCardAttack(AtkDir);
 		}
@@ -212,68 +209,67 @@ public partial class Player : Character
 		Velocity = vel;
 	}
 
-	private void ThrowingCardAttack(int direc)
+	private void ThrowingCardAttack(Action.Direction direction)
 	{
-		if(ThrowingCardInst == null)
+		if(throwingCardInst == null)
 		{
-			ThrowingCardInst = ThrowingCardScene.Instantiate<ThrowingCard>();
-            AddChild(ThrowingCardInst);
+			throwingCardInst = throwingCardScene.Instantiate<ThrowingCard>();
+            AddChild(throwingCardInst);
             
 		}
-		if (!ThrowingCardInst.OnCooldown)
+		if (!throwingCardInst.OnCooldown)
 		{
-            ThrowingCardInst.Spawn(direc);
+            throwingCardInst.Spawn(direction);
 		}
 	}
 
 	private async Task Dash()
 	{
-		Hurtbox.SetDeferred("monitoring", false);
-		CanDash = false;
-		IsDashing = true;
-		DashGhostTimer.Start();
+		hurtbox.SetDeferred("monitoring", false);
+		canDash = false;
+		isDashing = true;
+		dashGhostTimer.Start();
         await DelaysCS.Wait(0.2f);
-        IsDashing = false;
-        DashGhostTimer.Stop();
+        isDashing = false;
+        dashGhostTimer.Stop();
         if (Input.IsActionPressed("dash"))
 		{
-            IsSprinting = true;
+            isSprinting = true;
         }
-        Hurtbox.SetDeferred("monitoring", true);
+        hurtbox.SetDeferred("monitoring", true);
         await DelaysCS.Wait(0.2f);
-		CanDash = true;
+		canDash = true;
     }
 
 	private void InstanceGhost()
 	{
 		PackedScene scene = GD.Load<PackedScene>("uid://cpu6bpre70y1m");
         var inst = scene.Instantiate<Ghost>();
-		inst.Hframes = Sprite.SpriteFrames.GetFrameCount(Sprite.Animation);
-        inst.Frame = Sprite.Frame;
-		inst.FlipH = !FacingRight;
+		inst.Hframes = sprite.SpriteFrames.GetFrameCount(sprite.Animation);
+        inst.Frame = sprite.Frame;
+		inst.FlipH = !facingRight;
 		AddSibling(inst);
 		inst.Position = Position;
 	}
 
-	private int GetPlayerDirection(bool atkWhileGrounded = false)
+	private Direction GetPlayerDirection(bool atkWhileGrounded = false)
 	{
 
-        // 1=Left,2=Up,3=Right,4=Down 
         if ((atkWhileGrounded || !IsOnFloor()) && Input.IsActionPressed("down"))
         {
-            return 4;
+            return Direction.Down;
         }
         else if (Input.IsActionPressed("up"))
         {
-            return 2;
+            return Direction.Up;
         }
-        else if (!FacingRight)
+        else if (!facingRight)
         {
-            return 1;
+            return Direction.Left;
         }
         else
         {
-            return 3;
+            return Direction.Right;
         }
     }
 }

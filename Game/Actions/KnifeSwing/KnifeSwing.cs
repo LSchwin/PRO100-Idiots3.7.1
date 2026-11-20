@@ -10,9 +10,9 @@ public partial class KnifeSwing : Action
         base._Ready();
     }
 
-    public override void Attack(int direc)
+    public override void Attack(Direction direction)
     {
-        base.Attack(direc);
-        SetPosition(direc, 16);
+        base.Attack(direction);
+        SetPosition(direction, 16);
     }
 }

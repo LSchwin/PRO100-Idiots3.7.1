@@ -26,13 +26,11 @@ public partial class BenTestingScene : Control
 		await DelaysCS.Wait(1.5f);
 		GD.Print("delayed 1.5 seconds!");
     }
+
 	public async void OnButton2Pressed()
 	{
 		//MusicCS.Play("Test 1");
 		await DelaysCS.Wait(3.0f);
 		GD.Print("delayed 3.0 seconds!");
     }
-
-	
-	
 }

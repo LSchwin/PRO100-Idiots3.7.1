@@ -4,7 +4,7 @@ using System;
 public partial class Action : Node2D
 {
     [Export]
-    private Entity owner = null;
+    private Entity entityOwner = null;
     [Export]
     public float Lifespan
     {
@@ -25,10 +25,10 @@ public partial class Action : Node2D
         lifespan.Start();
     }
 
-    public Entity GetActionOwner() { return owner; }
-    public void SetActionOwner(Entity newOwner) { owner = newOwner; }
+    public Entity GetActionOwner() { return entityOwner; }
+    public void SetActionOwner(Entity newOwner) { entityOwner = newOwner; }
 
-    public virtual void Attack(int direc) 
+    public virtual void Attack(Direction direc) 
     {
         DespawnAction += () => AttackFinish();
     }
@@ -45,24 +45,23 @@ public partial class Action : Node2D
     {
         EmitSignal(SignalName.DespawnAction);
         QueueFree();
-        
     }
 
-    public void SetPosition(int direc = 1, int offset = 0)
+    public enum Direction { Left = 1, Up = 2, Right = 3 , Down = 4 }
+    public void SetPosition(Direction direction = Direction.Left, int offset = 0)
     {
         Vector2 SwingPos = Position;
-        switch (direc)
+        switch (direction)
         {
-            // 1 is left, 2 is up, 3 is right, 4 is down
-            case 1:
+            case Direction.Left:
                 Rotation = float.Pi;
                 SwingPos.X -= 16;
                 break;
-            case 2:
+            case Direction.Up:
                 Rotation = (3 * float.Pi) / 2;
                 SwingPos.Y -= 16;
                 break;
-            case 4:
+            case Direction.Down:
                 Rotation = float.Pi / 2;
                 SwingPos.Y += 16;
                 break;

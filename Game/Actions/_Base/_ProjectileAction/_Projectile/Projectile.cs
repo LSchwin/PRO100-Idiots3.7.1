@@ -1,46 +1,47 @@
 using Godot;
-using System;
+using Direction = Action.Direction;
 
 public partial class Projectile : CharacterBody2D
 {
     [Export]
-    int MoveSpeed;
+    public int MoveSpeed;
     [Export]
-    bool CanDespawn = true;
+    public bool CanDespawn = true;
     [Export]
-    float Duration = 1.0f;
-    public int Direc;
-    private Timer Lifespan;
-    private DamageArea DamageArea;
+    public float Duration = 1.0f;
+
+    public Direction Direction;
+    private Timer lifespan; 
+    private DamageArea damageArea;
 
     public override void _Ready()
     {
         base._Ready();
-        Lifespan = GetNode<Timer>("Lifespan");
-        DamageArea = GetNode<DamageArea>("DamageArea");
-        DamageArea.Hit += Damage;
-        DamageArea.Collide += Collide;
+        lifespan = GetNode<Timer>("Lifespan");
+        damageArea = GetNode<DamageArea>("DamageArea");
+        damageArea.Hit += Damage;
+        damageArea.Collide += Collide;
         if (CanDespawn)
         {
-            Lifespan.Timeout += () => QueueFree();
-            Lifespan.Start();
+            lifespan.Timeout += () => QueueFree();
+            lifespan.Start();
         }
     }
 
     public override void _PhysicsProcess(double delta)
     {
         Vector2 NewVel = Velocity;
-        switch (Direc)
+        switch (Direction)
         {
-            case 1:
+            case Direction.Left:
                 Rotation = float.Pi;
                 NewVel.X = -MoveSpeed;
                 break;
-            case 2:
+            case Direction.Up:
                 Rotation = (3* float.Pi)/2;
                 NewVel.Y = -MoveSpeed;
                 break;
-            case 3:
+            case Direction.Right:
                 NewVel.X = MoveSpeed;
                 break;
             default:
@@ -55,13 +56,13 @@ public partial class Projectile : CharacterBody2D
 
     private void Damage()
     {
-        DamageArea.Hit -= Damage;
+        damageArea.Hit -= Damage;
         QueueFree();
     }
 
     private void Collide()
     {
-        DamageArea.Collide -= Collide;
+        damageArea.Collide -= Collide;
         QueueFree();
     }
 }
