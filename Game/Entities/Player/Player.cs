@@ -23,6 +23,8 @@ public partial class Player : Character
 	private Timer DashGhostTimer;
 
 	private PackedScene KnifeSwingScene;
+	private PackedScene ThrowingCardScene;
+	private ThrowingCard ThrowingCardInst;
 
 	private bool FacingRight = true;
 
@@ -65,6 +67,7 @@ public partial class Player : Character
 	private void InstanceBaseAttacks()
 	{
         KnifeSwingScene = GD.Load<PackedScene>("uid://mksol6otni8d");
+		ThrowingCardScene = GD.Load<PackedScene>("uid://sara4ouoatq5");
 	}
 
 	private void ProcessMovement(double delta)
@@ -202,6 +205,30 @@ public partial class Player : Character
             await DelaysCS.Wait(0.3f);
 			CanAttack = true;
         }
+
+		if (Input.IsActionJustPressed("throw_card_attack"))
+		{
+            int AtkDir = 1;
+            CanAttack = false;
+            // 1=Left,2=Up,3=Right,4=Down 
+            if (Input.IsActionPressed("down"))
+            {
+                AtkDir = 4;
+            }
+            else if (Input.IsActionPressed("up"))
+            {
+                AtkDir = 2;
+            }
+            else if (!FacingRight)
+            {
+                AtkDir = 1;
+            }
+            else
+            {
+                AtkDir = 3;
+            }
+            ThrowingCardAttack(AtkDir);
+		}
 	}
 
 	private void ProcessAnims(double delta)
@@ -243,6 +270,21 @@ public partial class Player : Character
         AddChild(SwingInst);
     }
 
+	private void ThrowingCardAttack(int direc)
+	{
+		if(ThrowingCardInst == null)
+		{
+			ThrowingCardInst = ThrowingCardScene.Instantiate<ThrowingCard>();
+            AddChild(ThrowingCardInst);
+            
+		}
+		if (!ThrowingCardInst.OnCooldown)
+		{
+            GD.Print("Spawn");
+            ThrowingCardInst.Spawn(direc);
+		}
+	}
+
 	private void AttackFinish(Action attack)
 	{
 		attack.DespawnAction -= () => AttackFinish(attack);
@@ -268,8 +310,8 @@ public partial class Player : Character
 
 	private void InstanceGhost()
 	{
-		PackedScene scene = GD.Load<PackedScene>("res://Game/Entities/Player/DashGhost/ghost.tscn");
-		var inst = scene.Instantiate<Ghost>();
+		PackedScene scene = GD.Load<PackedScene>("uid://baojxacg276wf");
+        var inst = scene.Instantiate<Ghost>();
 		inst.Hframes = Sprite.SpriteFrames.GetFrameCount(Sprite.Animation);
         inst.Frame = Sprite.Frame;
 		inst.FlipH = !FacingRight;

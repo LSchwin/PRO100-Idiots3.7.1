@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://qalfv67jdq2v"]
+
+[ext_resource type="Script" uid="uid://ds8teu2grupq0" path="res://Game/Actions/_Base/_ProjectileAction/_Projectile/Projectile.cs" id="1_u1w2o"]
+[ext_resource type="PackedScene" uid="uid://csp1t48um74k3" path="res://Game/DamageArea/damage_area.tscn" id="2_m1vmy"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_28558"]
+
+[node name="Projectile" type="CharacterBody2D" unique_id=1603718596]
+top_level = true
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_u1w2o")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1250045358]
+sprite_frames = SubResource("SpriteFrames_28558")
+
+[node name="DamageArea" parent="." unique_id=1713322864 instance=ExtResource("2_m1vmy")]
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1972887306]

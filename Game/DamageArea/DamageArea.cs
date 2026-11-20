@@ -39,6 +39,7 @@ public partial class DamageArea : Area2D
         if (entity is null) return;
         if (Team == ETeam.None || Team != entity.Team)
         {
+            EmitSignal(SignalName.Hit);
             if (entity.TakeDamage(Damage))
             {
                 // To be implemented at a later date vvvvvvvvvv
@@ -54,4 +55,6 @@ public partial class DamageArea : Area2D
 
     [Signal]
     public delegate void MaxPiercesReachedEventHandler();
+    [Signal]
+    public delegate void HitEventHandler();
 }

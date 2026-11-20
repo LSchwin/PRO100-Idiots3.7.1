@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://sara4ouoatq5"]
+
+[ext_resource type="PackedScene" uid="uid://b3p4f1203pfkx" path="res://Game/Actions/_Base/_ProjectileAction/projectile_action.tscn" id="1_ohitg"]
+[ext_resource type="Script" uid="uid://coyv17g1nlok4" path="res://Game/Actions/ThrowingCard/ThrowingCard.cs" id="2_vpv7x"]
+
+[node name="ThrowingCard" unique_id=1122220393 instance=ExtResource("1_ohitg")]
+script = ExtResource("2_vpv7x")
+ProjectileUID = "uid://xdmggv83i66l"
+Cooldown = 0.5
+
+[node name="Spawner" type="ColorRect" parent="." index="2" unique_id=151340687]
+offset_top = -3.0
+offset_right = 6.0
+offset_bottom = 3.0

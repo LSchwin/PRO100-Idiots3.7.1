@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://b3p4f1203pfkx"]
+
+[ext_resource type="PackedScene" uid="uid://b0o45l0g3oulp" path="res://Game/Actions/_Base/action.tscn" id="1_16rje"]
+[ext_resource type="Script" uid="uid://lcfes04pgkhn" path="res://Game/Actions/_Base/_ProjectileAction/ProjectileAction.cs" id="2_dousb"]
+
+[node name="ProjectileAction" unique_id=1122220393 instance=ExtResource("1_16rje")]
+script = ExtResource("2_dousb")
+ProjectileUID = ""
+
+[node name="Cooldown" type="Timer" parent="." index="1" unique_id=1365135257]

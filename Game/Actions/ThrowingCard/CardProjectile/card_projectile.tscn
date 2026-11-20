@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://xdmggv83i66l"]
+
+[ext_resource type="PackedScene" uid="uid://qalfv67jdq2v" path="res://Game/Actions/_Base/_ProjectileAction/_Projectile/projectile.tscn" id="1_67ehr"]
+[ext_resource type="Script" uid="uid://ncbdlbodebpw" path="res://Game/Actions/ThrowingCard/CardProjectile/CardProjectile.cs" id="2_ki7aj"]
+[ext_resource type="Texture2D" uid="uid://odlu4rlk55j4" path="res://Game/Actions/ThrowingCard/CardProjectile/TestCard.png" id="3_w5f78"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vpv7x"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_w5f78")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w5f78"]
+size = Vector2(15, 13)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lqti7"]
+size = Vector2(11, 9)
+
+[node name="CardProjectile" unique_id=1603718596 instance=ExtResource("1_67ehr")]
+script = ExtResource("2_ki7aj")
+MoveSpeed = 300
+
+[node name="AnimatedSprite2D" parent="." index="0" unique_id=1250045358]
+sprite_frames = SubResource("SpriteFrames_vpv7x")
+
+[node name="DamageArea" parent="." index="1" unique_id=1713322864]
+Team = 1
+Damage = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea" index="0" unique_id=302365528]
+position = Vector2(0.5, 0.5)
+shape = SubResource("RectangleShape2D_w5f78")
+
+[node name="CollisionShape2D" parent="." index="2" unique_id=1972887306]
+position = Vector2(0.5, 0.5)
+shape = SubResource("RectangleShape2D_lqti7")
