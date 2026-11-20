@@ -35,6 +35,11 @@ public partial class DamageArea : Area2D
 
     private void OnBodyEntered(Node2D body)
     {
+        if (body is TileMapLayer)
+        {
+            GD.Print("tilemap");
+            EmitSignal(SignalName.Collide);
+        }
         Entity entity = body as Entity;
         if (entity is null) return;
         if (Team == ETeam.None || Team != entity.Team)
@@ -57,4 +62,6 @@ public partial class DamageArea : Area2D
     public delegate void MaxPiercesReachedEventHandler();
     [Signal]
     public delegate void HitEventHandler();
+    [Signal]
+    public delegate void CollideEventHandler();
 }

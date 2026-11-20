@@ -196,7 +196,7 @@ public partial class Player : Character
 
 		if (Input.IsActionJustPressed("throw_card_attack"))
 		{
-            int AtkDir = GetPlayerDirection();
+            int AtkDir = GetPlayerDirection(true);
             //CanAttack = false;
             ThrowingCardAttack(AtkDir);
 		}
@@ -222,7 +222,6 @@ public partial class Player : Character
 		}
 		if (!ThrowingCardInst.OnCooldown)
 		{
-            GD.Print("Spawn");
             ThrowingCardInst.Spawn(direc);
 		}
 	}
@@ -260,7 +259,7 @@ public partial class Player : Character
 	{
 
         // 1=Left,2=Up,3=Right,4=Down 
-        if (!IsOnFloor() && Input.IsActionPressed("down"))
+        if ((atkWhileGrounded || !IsOnFloor()) && Input.IsActionPressed("down"))
         {
             return 4;
         }

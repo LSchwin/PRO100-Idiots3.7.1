@@ -18,3 +18,5 @@ sprite_frames = SubResource("SpriteFrames_28558")
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1972887306]
+
+[node name="Lifespan" type="Timer" parent="." unique_id=989171462]
