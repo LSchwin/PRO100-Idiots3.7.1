@@ -154,9 +154,9 @@ menu_press={
 "meta_pressed": false,
 "pressed": false,
 "keycode": 0,
-"physical_keycode": 32,
+"physical_keycode": 90,
 "key_label": 0,
-"unicode": 32,
+"unicode": 122,
 "location": 0,
 "echo": false,
 "script": null
