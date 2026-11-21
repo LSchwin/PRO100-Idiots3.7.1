@@ -28,6 +28,8 @@ public partial class GameCS : Node
     }
     public static int BaseAtk { get; set { field = (value < 0) ? 0 : value; } }
     public static int Atk { get; set { field = (value < 0) ? 0 : value; } }
+    public static float BaseAtkCooldown { get; set { field = (value < 0) ? 0 : value; } } = 0.3f;
+    public static float AtkCooldown { get; set { field = (value < 0) ? 0 : value; } } = 0.3f;
 
 
     // Called when the node enters the scene tree for the first time.

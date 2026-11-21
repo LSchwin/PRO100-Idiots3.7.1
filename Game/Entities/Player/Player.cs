@@ -24,7 +24,6 @@ public partial class Player : Character
 
 	private PackedScene knifeSwingScene;
 	private PackedScene throwingCardScene;
-	private ThrowingCard throwingCardInst;
 
 	private bool facingRight = true;
 
@@ -33,6 +32,7 @@ public partial class Player : Character
 	private bool canJump = true;
 	private bool willJump = false;
 	private bool canAttack = true;
+	private bool canThrow = true;
 	private bool isDashing = false;
 	private bool isSprinting = false;
 	private bool isJumping = false;
@@ -245,23 +245,16 @@ public partial class Player : Character
 
 	private async Task ProcessAtk(double delta)
 	{
-		if (Input.IsActionJustPressed("knife_attack") && canAttack)
-		{
-			Direction AtkDir = GetPlayerDirection();
-            canAttack = false;
-            KnifeSwing SwingInst = knifeSwingScene.Instantiate<KnifeSwing>();
-			AddChild(SwingInst);
-			SwingInst.Attack(AtkDir);
+        Direction AtkDir = GetPlayerDirection();
 
-            await DelaysCS.Wait(0.3f); // todo: add this value to the attack itself
-			canAttack = true;
+        if (Input.IsActionJustPressed("knife_attack") && canAttack)
+		{
+			await KnifeAttack(AtkDir);
         }
 
-		if (Input.IsActionJustPressed("throw_card_attack"))
+		if (Input.IsActionJustPressed("throw_card_attack") && canThrow)
 		{
-            Direction AtkDir = GetPlayerDirection(true);
-            //CanAttack = false;
-            ThrowingCardAttack(AtkDir);
+            await ThrowingCardAttack(AtkDir);
 		}
 
 		if (Input.IsActionJustPressed("card_1")) { await SpecialAttack(1); }
@@ -277,11 +270,23 @@ public partial class Player : Character
         }
 	}
 
-	/// <summary>
-	/// 
-	/// </summary>
-	/// <param name="slot">a number between 1 and 3 corresponding to the slot the card is in</param>
-	private async Task SpecialAttack(int slot)
+	
+
+	private void ProcessAnims(double delta)
+	{
+
+	}
+
+	private void SetVel(Vector2 vel)
+	{
+		Velocity = vel;
+	}
+
+    /// <summary>
+    /// hi
+    /// </summary>
+    /// <param name="slot">a number between 1 and 3 corresponding to the slot the card is in</param>
+    private async Task SpecialAttack(int slot)
 	{
 		if (GameCS.hand.Count < slot) return;
 		CardResource card = (CardResource) GameCS.hand[slot - 1];
@@ -297,31 +302,28 @@ public partial class Player : Character
 			await DelaysCS.Wait(card.BaseCooldown);
 			card.OnCooldown = false;
 		}
-
     }
 
-	private void ProcessAnims(double delta)
+	private async Task KnifeAttack(Direction direction)
 	{
+        canAttack = false;
+        KnifeSwing SwingInst = knifeSwingScene.Instantiate<KnifeSwing>();
+        AddChild(SwingInst);
+        SwingInst.Attack(direction);
 
-	}
+        await DelaysCS.Wait(GameCS.AtkCooldown);
+        canAttack = true;
+    }
 
-	private void SetVel(Vector2 vel)
+	private async Task ThrowingCardAttack(Direction direction)
 	{
-		Velocity = vel;
-	}
+        canThrow = false;
+        ThrowingCard throwingCardInst = throwingCardScene.Instantiate<ThrowingCard>();
+        AddChild(throwingCardInst);
+        throwingCardInst.Attack(direction);
 
-	private void ThrowingCardAttack(Action.Direction direction)
-	{
-		if(throwingCardInst == null)
-		{
-			throwingCardInst = throwingCardScene.Instantiate<ThrowingCard>();
-            AddChild(throwingCardInst);
-            
-		}
-		if (!throwingCardInst.OnCooldown)
-		{
-            throwingCardInst.Spawn(direction);
-		}
+        await DelaysCS.Wait(GameCS.AtkCooldown);
+        canThrow = true;    
 	}
 
 	private async Task Dash()

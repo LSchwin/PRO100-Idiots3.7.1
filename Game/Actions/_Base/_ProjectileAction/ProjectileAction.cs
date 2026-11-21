@@ -6,10 +6,6 @@ public partial class ProjectileAction : Action
 {
     [Export]
     String ProjectileUID;
-    [Export]
-    public float Cooldown;
-    private Timer cooldownTimer;
-    public bool OnCooldown { get; set; } = false;
 
     [Signal]
     public delegate void OffCooldownEventHandler();
@@ -20,18 +16,20 @@ public partial class ProjectileAction : Action
     }
     public override void _Ready()
     {
-        cooldownTimer = GetNode<Timer>("Cooldown");
-        cooldownTimer.WaitTime = Cooldown;
-        cooldownTimer.Timeout += () => { OnCooldown = false; EmitSignal(SignalName.OffCooldown); };
         if(Lifespan > 0)
         {
             base._Ready();
         }
     }
 
+    public override void Attack(Direction direc)
+    {
+        base.Attack(direc);
+        Spawn(direc);
+    }
+
     public async Task Spawn(Direction direction)
     {
-        OnCooldown = true;
         if (!ProjectileUID.IsWhiteSpace())
         {
             PackedScene ProjectileScene = GD.Load<PackedScene>(ProjectileUID);
@@ -40,6 +38,5 @@ public partial class ProjectileAction : Action
             ProjectileInst.Position = GlobalPosition;
             AddChild(ProjectileInst);
         }
-        cooldownTimer.Start();
     }
 }
