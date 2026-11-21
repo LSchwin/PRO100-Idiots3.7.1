@@ -263,7 +263,42 @@ public partial class Player : Character
             //CanAttack = false;
             ThrowingCardAttack(AtkDir);
 		}
+
+		if (Input.IsActionJustPressed("card_1")) { await SpecialAttack(1); }
+		if (Input.IsActionJustPressed("card_2")) { await SpecialAttack(2); }
+		if (Input.IsActionJustPressed("card_3")) { await SpecialAttack(3); }
+
+		if (Input.IsActionJustPressed("test_card_swap")) 
+		{ 
+			if (GameCS.hand.Count == 1) 
+				GameCS.RemoveFromHand((CardResource) GameCS.hand[0]);
+			else 
+				GameCS.MoveToHand((CardResource)GameCS.deck[0]);
+        }
 	}
+
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="slot">a number between 1 and 3 corresponding to the slot the card is in</param>
+	private async Task SpecialAttack(int slot)
+	{
+		if (GameCS.hand.Count < slot) return;
+		CardResource card = (CardResource) GameCS.hand[slot - 1];
+		if (card.GetAction() == null) return;
+
+		if (!card.OnCooldown)
+		{
+			Direction atkDir = GetPlayerDirection();
+			card.OnCooldown = true;
+			Action atkInst = card.GetAction().Instantiate<Action>();
+			AddChild(atkInst);
+			atkInst.Attack(atkDir);
+			await DelaysCS.Wait(card.BaseCooldown);
+			card.OnCooldown = false;
+		}
+
+    }
 
 	private void ProcessAnims(double delta)
 	{
