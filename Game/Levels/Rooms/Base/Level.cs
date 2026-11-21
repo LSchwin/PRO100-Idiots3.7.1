@@ -1,8 +1,54 @@
 using Godot;
 using System;
+using System.Collections.Generic;
+
+using Godot.Collections;
+
+using RoomType = Room.RoomType;
+using Connection = Room.Connection;
+using RoomTypeArray = Godot.Collections.Array<Room.RoomType>;
+using BranchRoomTypeArray = Godot.Collections.Array<Godot.Collections.Array<Room.RoomType>>;
+using PackedSceneArray = Godot.Collections.Array<Godot.PackedScene>;
+using RoomDictionary = Godot.Collections.Dictionary<Room.RoomType, Godot.Collections.Array<Godot.PackedScene>>;
+
 
 public partial class Level : Node2D
 {
+
+    /// <summary>
+    /// This is the order the rooms appear on the main branch.
+    /// </summary>
+    [Export]
+    public RoomTypeArray roomOrder = new RoomTypeArray();
+
+    /// <summary>
+    /// This is the order the rooms appear on the main branch.
+    /// </summary>
+    [Export]
+    public BranchRoomTypeArray branchRoomOrders = new BranchRoomTypeArray();
+
+    /// <summary>
+    /// This is the types of enemies that can appear in the level.
+    /// </summary>
+    [Export]
+    public PackedSceneArray spawnableEnemies = new PackedSceneArray();
+
+    /// <summary>
+    /// This is the types of roomcs that can appear in the level.
+    /// </summary>
+    [Export]
+    public RoomDictionary AvailableRooms = new RoomDictionary()
+    {
+        {RoomType.Normal,   new PackedSceneArray() },
+        {RoomType.Treasure, new PackedSceneArray() },
+        {RoomType.Start,    new PackedSceneArray() },
+        {RoomType.Exit,     new PackedSceneArray() },
+        {RoomType.Shop,     new PackedSceneArray() },
+        {RoomType.Side,     new PackedSceneArray() }
+    };
+
+    public List<Room> allUsedRooms = new List<Room>();
+
     public int enemyScore { get; set; }
     public int lootScore { get; set; }
 

@@ -15,7 +15,17 @@ public partial class Room : Node2D
 		Down
 	}
 
-	public struct Connection
+    public enum RoomType
+    {
+        Normal = 0,
+		Treasure,
+		Start,
+		Exit,
+		Shop,
+		Side
+    }
+
+    public struct Connection
 	{
 		public Connection() {}
         public Vector2I coordinates;
@@ -27,6 +37,8 @@ public partial class Room : Node2D
 	public static Vector2I connectTileStartUp = new Vector2I(2, 0);
 	public static Vector2I connectTileStartDown = new Vector2I(2, 1);
 
+	[Export]
+	public RoomType roomType;
 
     public ConnectDirection comingFrom;
     public ConnectDirection goingTo;
