@@ -127,3 +127,17 @@ text = "State: Idle"
 horizontal_alignment = 1
 
 [node name="Camera" type="Camera2D" parent="." index="6" unique_id=387934811]
+
+[node name="JumpTimers" type="Node" parent="." index="7" unique_id=6647378]
+
+[node name="JumpBuffer" type="Timer" parent="JumpTimers" index="0" unique_id=1104183159]
+wait_time = 0.2
+one_shot = true
+
+[node name="CoyoteTime" type="Timer" parent="JumpTimers" index="1" unique_id=1715397225]
+wait_time = 0.2
+one_shot = true
+
+[node name="JumpCooldown" type="Timer" parent="JumpTimers" index="2" unique_id=1577858418]
+wait_time = 0.1
+one_shot = true

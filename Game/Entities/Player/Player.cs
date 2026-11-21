@@ -18,6 +18,9 @@ public partial class Player : Character
 	private Area2D hurtbox;
 	private RichTextLabel stateText;
 	private Timer dashGhostTimer;
+	private Timer jumpBufferTimer;
+	private Timer coyoteTimeTimer;
+	private Timer jumpCooldownTimer;
 
 	private PackedScene knifeSwingScene;
 	private PackedScene throwingCardScene;
@@ -27,9 +30,13 @@ public partial class Player : Character
 
 	private bool canDash = true;
 	private bool canMove = true;
+	private bool canJump = true;
+	private bool willJump = false;
 	private bool canAttack = true;
 	private bool isDashing = false;
 	private bool isSprinting = false;
+	private bool isJumping = false;
+	private bool jumpOffCooldown = true;
 	private float direction;
 	private float sprintDir;
 	States CurrState = States.Idle;
@@ -48,8 +55,14 @@ public partial class Player : Character
 		hurtbox = GetNode<Area2D>("Hurtbox");
 		stateText = GetNode<RichTextLabel>("StateText");
 		dashGhostTimer = GetNode<Timer>("DashGhostTimer");
+		jumpBufferTimer = GetNode<Timer>("JumpTimers/JumpBuffer");
+		coyoteTimeTimer = GetNode<Timer>("JumpTimers/CoyoteTime");
+		jumpCooldownTimer = GetNode<Timer>("JumpTimers/JumpCooldown");
 		dashGhostTimer.Timeout += () => InstanceGhost();
-		InstanceBaseAttacks();
+		coyoteTimeTimer.Timeout += () => canJump = false;
+        jumpBufferTimer.Timeout += () => willJump = false;
+		jumpCooldownTimer.Timeout += () => jumpOffCooldown = true;
+        InstanceBaseAttacks();
     }
 
 	public override void _PhysicsProcess(double delta)
@@ -143,12 +156,6 @@ public partial class Player : Character
 					break;
 		}
 
-
-		if (Input.IsActionJustPressed("jump") && IsOnFloor() && CurrState != States.Dash)
-		{
-			NewVelocity.Y -= JumpHeight;
-		}
-
 		if (Input.IsActionJustPressed("dash") && canDash)
 		{
 			Dash();
@@ -159,18 +166,77 @@ public partial class Player : Character
 			isSprinting = false;
 		}
 
+		stateText.Text = "State: " + CurrState;
 
+
+		NewVelocity = ProcessJump(delta, NewVelocity);
+		ProcessWallCling(delta);
+		SetVel(NewVelocity);
+	}
+
+	private Vector2 ProcessJump(double delta, Vector2 NewVelocity)
+	{ 
 		if (!IsOnFloor() && !isDashing)
 		{
 			NewVelocity.Y += Gravity;
 		}
 
-		stateText.Text = "State: " + CurrState;
+		// Coyote time
+		if (!canJump && IsOnFloor())
+		{
+			canJump = true;
+			if (!coyoteTimeTimer.IsStopped())
+			{
+				coyoteTimeTimer.Stop();
+			}
+		}
 
+		if (!IsOnFloor() && canJump && coyoteTimeTimer.IsStopped())
+		{
+			coyoteTimeTimer.Start();
+		}
 
-		ProcessWallCling(delta);
-		SetVel(NewVelocity);
-	}
+		// Normal jump
+		if (Input.IsActionJustPressed("jump") && jumpOffCooldown && CurrState != States.Dash && (IsOnFloor() || canJump)) 
+		{
+			isJumping = true;
+			NewVelocity.Y = 0;
+            NewVelocity.Y -= JumpHeight;
+			canJump = false;
+            jumpCooldownTimer.Start();
+        }
+		
+		// Jump buffer
+        if (Input.IsActionJustPressed("jump") && CurrState != States.Dash && !IsOnFloor())
+        {
+            willJump = true;
+			jumpBufferTimer.Start();
+			jumpCooldownTimer.Start();
+        }
+
+		if (willJump && IsOnFloor())
+		{
+			NewVelocity.Y -= JumpHeight;
+		}
+
+        if (IsOnFloor())
+        {
+            willJump = false;
+			isJumping = false;
+            jumpBufferTimer.Stop();
+        }
+
+		// Variable jump height
+		if (Input.IsActionJustReleased("jump") && NewVelocity.Y < 0)
+		{
+			while(NewVelocity.Y < 0)
+			{
+				NewVelocity.Y += Gravity;
+			}
+		}
+
+        return NewVelocity;
+    }
 
 	private void ProcessWallCling(double delta)
 	{
