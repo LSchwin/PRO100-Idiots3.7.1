@@ -15,8 +15,7 @@ func _on_btn_fullscreen_pressed() -> void:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 	else:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
-	Persistent.set_setting("window_mode", DisplayServer.window_get_mode())
-	Persistent.update_settings()
+	update_settings()
 
 func _on_btn_sound_pressed() -> void:
 	var vol: float = Persistent.get_setting("sound")
@@ -26,7 +25,7 @@ func _on_btn_sound_pressed() -> void:
 		vol += 10
 	Persistent.set_setting("sound", vol)
 	$BarSound.value = vol
-	Persistent.update_settings()
+	update_settings()
 
 func _on_btn_music_pressed() -> void:
 	var vol: float = Persistent.get_setting("music")
@@ -36,4 +35,8 @@ func _on_btn_music_pressed() -> void:
 		vol += 10
 	Persistent.set_setting("music", vol)
 	$BarMusic.value = vol
+	update_settings()
+
+func update_settings() -> void:
+	Persistent.set_setting("window_mode", DisplayServer.window_get_mode())
 	Persistent.update_settings()
