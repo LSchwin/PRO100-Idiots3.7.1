@@ -1,15 +1,14 @@
 using Godot;
+using Godot.Collections;
 using System;
 using System.Collections.Generic;
-
-using Godot.Collections;
-
-using RoomType = Room.RoomType;
-using Connection = Room.Connection;
-using RoomTypeArray = Godot.Collections.Array<Room.RoomType>;
+using static Room;
 using BranchRoomTypeArray = Godot.Collections.Array<Godot.Collections.Array<Room.RoomType>>;
+using Connection = Room.Connection;
 using PackedSceneArray = Godot.Collections.Array<Godot.PackedScene>;
 using RoomDictionary = Godot.Collections.Dictionary<Room.RoomType, Godot.Collections.Array<Godot.PackedScene>>;
+using RoomType = Room.RoomType;
+using RoomTypeArray = Godot.Collections.Array<Room.RoomType>;
 
 
 public partial class Level : Node2D
@@ -83,6 +82,8 @@ public partial class Level : Node2D
 
         DeleteConnection(room2, room3);
 
+        
+
     }
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -115,80 +116,45 @@ public partial class Level : Node2D
 		switch(comingFromRoom.goingTo)
 		{
 			case Room.ConnectDirection.Left:
-                foreach (Room.Connection connection in comingFromRoom.connectionsLeft)
-                {
-                    if (!connection.open) continue;
-                    comingFromRoom.decorLayer.EraseCell(connection.coordinates - new Vector2I(0, 1));
-                    comingFromRoom.decorLayer.EraseCell(connection.coordinates + new Vector2I(0, 1));
-                    comingFromRoom.decorLayer.EraseCell(connection.coordinates);
-                    comingFromRoom.connectionLayer.EraseCell(connection.coordinates);
-                }
-                foreach (Room.Connection connection in goingToRoom.connectionsRight)
-                {
-                    if (!connection.open) continue;
-                    goingToRoom.decorLayer.EraseCell(connection.coordinates - new Vector2I(0, 1));
-                    goingToRoom.decorLayer.EraseCell(connection.coordinates + new Vector2I(0, 1));
-                    goingToRoom.decorLayer.EraseCell(connection.coordinates);
-                    goingToRoom.connectionLayer.EraseCell(connection.coordinates);
-                }
+                EraseConnection(comingFromRoom, comingFromRoom.connectionsLeft, new Vector2I(0, 1));
+                EraseConnection(goingToRoom, goingToRoom.connectionsRight, new Vector2I(0, 1));
                 break;
 
             case Room.ConnectDirection.Right:
-				foreach(Room.Connection connection in comingFromRoom.connectionsRight)
-				{
-					if (!connection.open) continue;
-					comingFromRoom.decorLayer.EraseCell(connection.coordinates - new Vector2I(0, 1));
-					comingFromRoom.decorLayer.EraseCell(connection.coordinates + new Vector2I(0, 1));
-					comingFromRoom.decorLayer.EraseCell(connection.coordinates);
-					comingFromRoom.connectionLayer.EraseCell(connection.coordinates);
-				}
-                foreach (Room.Connection connection in goingToRoom.connectionsLeft)
-                {
-                    if (!connection.open) continue;
-                    goingToRoom.decorLayer.EraseCell(connection.coordinates - new Vector2I(0, 1));
-                    goingToRoom.decorLayer.EraseCell(connection.coordinates + new Vector2I(0, 1));
-                    goingToRoom.decorLayer.EraseCell(connection.coordinates);
-                    goingToRoom.connectionLayer.EraseCell(connection.coordinates);
-                }
+                EraseConnection(comingFromRoom, comingFromRoom.connectionsRight, new Vector2I(0, 1));
+                EraseConnection(goingToRoom, goingToRoom.connectionsLeft, new Vector2I(0, 1));
                 break;
 
             case Room.ConnectDirection.Up:
-                foreach (Room.Connection connection in comingFromRoom.connectionsUp)
-                {
-                    if (!connection.open) continue;
-                    comingFromRoom.decorLayer.EraseCell(connection.coordinates - new Vector2I(1, 0));
-                    comingFromRoom.decorLayer.EraseCell(connection.coordinates + new Vector2I(1, 0));
-                    comingFromRoom.decorLayer.EraseCell(connection.coordinates);
-                    comingFromRoom.connectionLayer.EraseCell(connection.coordinates);
-                }
-                foreach (Room.Connection connection in goingToRoom.connectionsDown)
-                {
-                    if (!connection.open) continue;
-                    goingToRoom.decorLayer.EraseCell(connection.coordinates - new Vector2I(1, 0));
-                    goingToRoom.decorLayer.EraseCell(connection.coordinates + new Vector2I(1, 0));
-                    goingToRoom.decorLayer.EraseCell(connection.coordinates);
-                    goingToRoom.connectionLayer.EraseCell(connection.coordinates);
-                }
+                EraseConnection(comingFromRoom, comingFromRoom.connectionsUp, new Vector2I(1, 0));
+                EraseConnection(goingToRoom, goingToRoom.connectionsDown, new Vector2I(1, 0));
                 break;
 
             case Room.ConnectDirection.Down:
-                foreach (Room.Connection connection in comingFromRoom.connectionsDown)
-                {
-                    if (!connection.open) continue;
-                    comingFromRoom.decorLayer.EraseCell(connection.coordinates - new Vector2I(1, 0));
-                    comingFromRoom.decorLayer.EraseCell(connection.coordinates + new Vector2I(1, 0));
-                    comingFromRoom.decorLayer.EraseCell(connection.coordinates);
-                    comingFromRoom.connectionLayer.EraseCell(connection.coordinates);
-                }
-                foreach (Room.Connection connection in goingToRoom.connectionsUp)
-                {
-                    if (!connection.open) continue;
-                    goingToRoom.decorLayer.EraseCell(connection.coordinates - new Vector2I(1, 0));
-                    goingToRoom.decorLayer.EraseCell(connection.coordinates + new Vector2I(1, 0));
-                    goingToRoom.decorLayer.EraseCell(connection.coordinates);
-                    goingToRoom.connectionLayer.EraseCell(connection.coordinates);
-                }
+                EraseConnection(comingFromRoom, comingFromRoom.connectionsDown, new Vector2I(1, 0));
+                EraseConnection(goingToRoom, goingToRoom.connectionsUp, new Vector2I(1, 0));
                 break;
         }
+    }
+
+    private void EraseConnection(Room room, List<Connection> connections, Vector2I tileCoordinates)
+    {
+        foreach (Room.Connection connection in connections)
+        {
+            if (!connection.open) continue;
+            room.decorLayer.EraseCell(connection.coordinates - tileCoordinates);
+            room.decorLayer.EraseCell(connection.coordinates + tileCoordinates);
+            room.decorLayer.EraseCell(connection.coordinates);
+            room.connectionLayer.EraseCell(connection.coordinates);
+
+            //var num = room.connectionLayer.ToGlobal(connection.coordinates);
+            //var num2 = room.connectionLayer.ToLocal(num);
+            //
+            //GD.Print(connection.coordinates);
+            //GD.Print(num);
+            //GD.Print(num2);
+        }
+
+        
     }
 }

@@ -6,7 +6,6 @@
 
 [node name="Level" type="Node2D" unique_id=1729542830]
 script = ExtResource("1_dnph4")
-spawnableEnemies = Array[PackedScene]([null])
 
 [node name="Room1" parent="." unique_id=604999735 instance=ExtResource("2_1rdcc")]
 position = Vector2(67, 54)
