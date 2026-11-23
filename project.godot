@@ -58,6 +58,7 @@ folder_colors={
 [gui]
 
 common/auto_focus_strategy=1
+theme/custom_font="uid://ccqu2tt64ere"
 
 [input]
 
