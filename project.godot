@@ -12,6 +12,8 @@ config_version=5
 
 config/name="CallingCard"
 run/main_scene="uid://cjjanmmuxihyw"
+config/use_custom_user_dir=true
+config/custom_user_dir_name="Idiots3/Cardistry"
 config/features=PackedStringArray("4.8", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -21,6 +23,8 @@ buses/default_bus_layout="uid://b8tmxk2eabuek"
 
 [autoload]
 
+Persistent="*uid://jkp3jkwkfknn"
+PersistentCS="*uid://g0c6kdfycvr2"
 Delays="*uid://tqlbaksajrhu"
 DelaysCS="*uid://dioqk6ay4vbbq"
 Music="*uid://b24lljs7tywiw"

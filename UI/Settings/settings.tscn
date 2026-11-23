@@ -1,0 +1,79 @@
+[gd_scene format=3 uid="uid://dk7tnetoxg6mk"]
+
+[ext_resource type="Script" uid="uid://dq71lu0gfk1h6" path="res://UI/Settings/settings.gd" id="1_6ukun"]
+[ext_resource type="PackedScene" uid="uid://dps3y1we7nxv6" path="res://UI/UIButton/ui_button.tscn" id="1_jjy6o"]
+[ext_resource type="Script" uid="uid://du7rbubtw0rx" path="res://UI/UIButtonSelection/ui_button_selection.gd" id="2_yuh4y"]
+
+[node name="Settings" type="Control" unique_id=142670989]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_6ukun")
+
+[node name="Title" type="RichTextLabel" parent="." unique_id=1230435927]
+layout_mode = 0
+offset_right = 768.0
+offset_bottom = 87.0
+theme_override_font_sizes/normal_font_size = 48
+text = "Settings"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="UIButtonSelection" type="Node" parent="." unique_id=603855107 node_paths=PackedStringArray("buttons")]
+script = ExtResource("2_yuh4y")
+buttons = [NodePath("BtnBack"), NodePath("BtnFullscreen"), NodePath("BtnSound"), NodePath("BtnMusic")]
+metadata/_custom_type_script = "uid://du7rbubtw0rx"
+
+[node name="BtnBack" parent="UIButtonSelection" unique_id=1432803026 instance=ExtResource("1_jjy6o")]
+offset_left = 60.0
+offset_top = 79.0
+offset_right = -580.0
+offset_bottom = -329.0
+text = "Back"
+
+[node name="BtnFullscreen" parent="UIButtonSelection" unique_id=1774348555 instance=ExtResource("1_jjy6o")]
+offset_left = 60.0
+offset_top = 111.0
+offset_right = -580.0
+offset_bottom = -297.0
+text = "Fullscreen"
+
+[node name="BtnSound" parent="UIButtonSelection" unique_id=1404999632 instance=ExtResource("1_jjy6o")]
+offset_left = 60.0
+offset_top = 143.0
+offset_right = -580.0
+offset_bottom = -265.0
+text = "Sound Volume"
+
+[node name="BtnMusic" parent="UIButtonSelection" unique_id=2127989225 instance=ExtResource("1_jjy6o")]
+offset_left = 60.0
+offset_top = 175.0
+offset_right = -580.0
+offset_bottom = -233.0
+text = "Music Volume"
+
+[node name="BarSound" type="ProgressBar" parent="." unique_id=1151078453]
+layout_mode = 0
+offset_left = 216.0
+offset_top = 143.0
+offset_right = 714.0
+offset_bottom = 170.0
+step = 10.0
+value = 100.0
+
+[node name="BarMusic" type="ProgressBar" parent="." unique_id=913723953]
+layout_mode = 0
+offset_left = 216.0
+offset_top = 175.0
+offset_right = 714.0
+offset_bottom = 202.0
+step = 10.0
+value = 100.0
+
+[connection signal="pressed" from="UIButtonSelection/BtnBack" to="." method="_on_btn_back_pressed"]
+[connection signal="pressed" from="UIButtonSelection/BtnFullscreen" to="." method="_on_btn_fullscreen_pressed"]
+[connection signal="pressed" from="UIButtonSelection/BtnSound" to="." method="_on_btn_sound_pressed"]
+[connection signal="pressed" from="UIButtonSelection/BtnMusic" to="." method="_on_btn_music_pressed"]

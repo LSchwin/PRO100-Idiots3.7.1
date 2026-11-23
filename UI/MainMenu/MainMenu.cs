@@ -21,6 +21,7 @@ public partial class MainMenu : Control
 
     public void OnBtnQuitPressed()
 	{
+		PersistentCS.SaveSettings();
 		GetTree().Quit();
 	}
 }
