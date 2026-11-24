@@ -263,10 +263,10 @@ public partial class Player : Character
 
 		if (Input.IsActionJustPressed("test_card_swap")) 
 		{ 
-			if (GameCS.hand.Count == 1) 
-				GameCS.Instance.RemoveFromHand((CardResource) GameCS.hand[0]);
+			if (GameCS.Instance.hand.Count == 1) 
+				GameCS.RemoveFromHand((CardResource) GameCS.Instance.hand[0]);
 			else 
-				GameCS.Instance.MoveToHand((CardResource)GameCS.deck[0]);
+				GameCS.Instance.MoveToHand((CardResource)GameCS.Instance.deck[0]);
         }
 	}
 
@@ -288,8 +288,8 @@ public partial class Player : Character
     /// <param name="slot">a number between 1 and 3 corresponding to the slot the card is in</param>
     private async Task SpecialAttack(int slot)
 	{
-		if (GameCS.hand.Count < slot) return;
-		CardResource card = (CardResource) GameCS.hand[slot - 1];
+		if (GameCS.Instance.hand.Count < slot) return;
+		CardResource card = (CardResource) GameCS.Instance.hand[slot - 1];
 		if (card.GetAction() == null) return;
 
 		if (!card.OnCooldown)
@@ -311,7 +311,7 @@ public partial class Player : Character
         AddChild(SwingInst);
         SwingInst.Attack(direction);
 
-        await DelaysCS.Wait(GameCS.AtkCooldown);
+        await DelaysCS.Wait(GameCS.Instance.AtkCooldown);
         canAttack = true;
     }
 
@@ -322,7 +322,7 @@ public partial class Player : Character
         AddChild(throwingCardInst);
         throwingCardInst.Attack(direction);
 
-        await DelaysCS.Wait(GameCS.AtkCooldown);
+        await DelaysCS.Wait(GameCS.Instance.AtkCooldown);
         canThrow = true;    
 	}
 
