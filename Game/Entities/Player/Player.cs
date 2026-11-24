@@ -264,9 +264,9 @@ public partial class Player : Character
 		if (Input.IsActionJustPressed("test_card_swap")) 
 		{ 
 			if (GameCS.hand.Count == 1) 
-				GameCS.RemoveFromHand((CardResource) GameCS.hand[0]);
+				GameCS.Instance.RemoveFromHand((CardResource) GameCS.hand[0]);
 			else 
-				GameCS.MoveToHand((CardResource)GameCS.deck[0]);
+				GameCS.Instance.MoveToHand((CardResource)GameCS.deck[0]);
         }
 	}
 

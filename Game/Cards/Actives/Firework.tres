@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="CardResource" format=3 uid="uid://kxen5jasll2d"]
+
+[ext_resource type="Script" uid="uid://qkw8vi0mpkh3" path="res://Game/Cards/_Base/CardResource.cs" id="1_agpvw"]
+[ext_resource type="PackedScene" uid="uid://b7lesglukwnks" path="res://Game/Actions/Firework/firework_action.tscn" id="1_yn7r4"]
+
+[sub_resource type="MeshTexture" id="MeshTexture_3kfj7"]
+
+[resource]
+script = ExtResource("1_agpvw")
+Action = ExtResource("1_yn7r4")
+Name = "Firework"
+Description = "Throw a small firework that explodes on impact."
+Texture = SubResource("MeshTexture_3kfj7")
+BaseCooldown = 1.0
+metadata/_custom_type_script = "uid://qkw8vi0mpkh3"
