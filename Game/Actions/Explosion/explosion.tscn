@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://vvqotoj4crx"]
+
+[ext_resource type="Script" uid="uid://hf2wqyhu084c" path="res://Game/Actions/Explosion/Explosion.cs" id="1_u8arv"]
+[ext_resource type="PackedScene" uid="uid://csp1t48um74k3" path="res://Game/DamageArea/damage_area.tscn" id="2_twy0o"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_twy0o"]
+
+[node name="Explosion" type="Node2D" unique_id=1025920924]
+script = ExtResource("1_u8arv")
+ExplosionSize = 10.0
+
+[node name="Damage" parent="." unique_id=1713322864 instance=ExtResource("2_twy0o")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Damage" unique_id=1845956335]
+shape = SubResource("CircleShape2D_twy0o")
+
+[node name="Lifespan" type="Timer" parent="." unique_id=115378765]
+one_shot = true
