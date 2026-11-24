@@ -1,3 +1,16 @@
 [gd_scene format=3 uid="uid://cnbqf8tjk2pjl"]
 
+[ext_resource type="PackedScene" uid="uid://vvqotoj4crx" path="res://Game/Actions/Explosion/explosion.tscn" id="1_u4gp8"]
+[ext_resource type="Script" uid="uid://c2tnjpvfkqehd" path="res://Game/Actions/Firework/FireworkProjectile.cs" id="1_wu63i"]
+
 [node name="FireworkProjectile" type="Node2D" unique_id=1899850932]
+script = ExtResource("1_wu63i")
+
+[node name="Explosion" parent="." unique_id=1025920924 instance=ExtResource("1_u4gp8")]
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=2029591324]
+offset_left = -1.0
+offset_top = -1.0
+offset_right = 1.0
+offset_bottom = 1.0
+color = Color(0.26447403, 0.48304254, 1, 1)

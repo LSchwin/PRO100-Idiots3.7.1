@@ -27,7 +27,6 @@ public partial class Explosion : Node2D
         lifespan.Timeout += Despawn;
     }
 
-
     public void Explode()
     {
         lifespan.Start();
