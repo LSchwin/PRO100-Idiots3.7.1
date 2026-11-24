@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://b7lesglukwnks"]
+
+[ext_resource type="Script" uid="uid://df0dchkh43le1" path="res://Game/Actions/Firework/FireworkAction.cs" id="1_g267v"]
+
+[node name="FireworkAction" type="Node2D" unique_id=1445128418]
+script = ExtResource("1_g267v")
+ProjectileUID = "uid://cnbqf8tjk2pjl"

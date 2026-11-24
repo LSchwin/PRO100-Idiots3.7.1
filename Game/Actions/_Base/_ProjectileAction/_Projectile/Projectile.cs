@@ -54,13 +54,13 @@ public partial class Projectile : CharacterBody2D
         MoveAndSlide();
     }
 
-    private void Damage()
+    public virtual void Damage()
     {
         damageArea.Hit -= Damage;
         QueueFree();
     }
 
-    private void Collide()
+    public virtual void Collide()
     {
         damageArea.Collide -= Collide;
         QueueFree();

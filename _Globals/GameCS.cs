@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using GDArray = Godot.Collections.Array;
 
-[GlobalClass]
 public partial class GameCS : Node
 {
     public static GameCS Instance { get; private set; }
@@ -12,8 +11,8 @@ public partial class GameCS : Node
     public static GDArray hand = new GDArray();
     public static float Notoriety { get; set { field = (value < 0.0f) ? 0.0f : value; } }
     public static int Money { get; set { field = (value < 0) ? 0 : value; } }
-    public static int BaseHealth { get; set { field = (value < 0) ? 0 : value; } }
-    public static int MaxHealth { get; set { field = (value < 0) ? 0 : value; } }
+    public static int BaseHealth { get; set { field = (value < 0) ? 0 : value; } } = 5;
+    public static int MaxHealth { get; set { field = (value < 0) ? 0 : value; } } = 5;
     public static int Health
     {
         get;
@@ -25,7 +24,7 @@ public partial class GameCS : Node
                     ? 0
                     : value;
         }
-    }
+    } = 5;
     public static int BaseAtk { get; set { field = (value < 0) ? 0 : value; } }
     public static int Atk { get; set { field = (value < 0) ? 0 : value; } }
     public static float BaseAtkCooldown { get; set { field = (value < 0) ? 0 : value; } } = 0.3f;
@@ -41,6 +40,15 @@ public partial class GameCS : Node
 
         AddToDeck(active);
         MoveToHand(active);
+    }
+
+    public GDArray GetDeck()
+    {
+        return deck;
+    }
+    public GDArray GetHand()
+    {
+        return hand;
     }
 
     public bool SwapCard(CardResource idle, CardResource active)
@@ -72,7 +80,7 @@ public partial class GameCS : Node
         return success;
     }
 
-    public static bool MoveToHand(CardResource card)
+    public bool MoveToHand(CardResource card)
     {
         // can't move a card to your hand if it doesn't exist in your deck
         if (!deck.Contains(card)) return false;
@@ -83,7 +91,7 @@ public partial class GameCS : Node
         return success;
     }
 
-    public static bool RemoveFromHand(CardResource card)
+    public bool RemoveFromHand(CardResource card)
     {
         // can't remove a card from your hand if it's not there
         if (!hand.Contains(card)) return false;
@@ -99,7 +107,7 @@ public partial class GameCS : Node
         return success;
     }
 
-    public static bool RotateFromHand(CardResource card)
+    public bool RotateFromHand(CardResource card)
     {
         if (hand.Contains(card)) return RemoveFromHand(card);
         else if (deck.Contains(card)) return MoveToHand(card);
