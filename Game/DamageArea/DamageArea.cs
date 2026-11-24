@@ -1,4 +1,5 @@
 using Godot;
+using Node2DArray = Godot.Collections.Array<Godot.Node2D>;
 using System;
 
 public partial class DamageArea : Area2D
@@ -6,7 +7,6 @@ public partial class DamageArea : Area2D
     public override void _Ready()
     {
         Area2D area = GetNode<Area2D>(".");
-        area.BodyEntered += OnBodyEntered;
     }
 
     [Export]
@@ -33,23 +33,35 @@ public partial class DamageArea : Area2D
         }
     }
 
-    private void OnBodyEntered(Node2D body)
+    public override void _PhysicsProcess(double delta)
     {
-        if (body is TileMapLayer)
+        Node2DArray bodies = GetOverlappingBodies();
+        
+        foreach(Node2D body in bodies)
         {
-            GD.Print("tilemap");
-            EmitSignal(SignalName.Collide);
-        }
-        Entity entity = body as Entity;
-        if (entity is null) return;
-        if (Team == ETeam.None || Team != entity.Team)
-        {
-            EmitSignal(SignalName.Hit);
-            if (entity.TakeDamage(Damage))
+            if (body is TileMapLayer)
             {
-                 entity.Die();
+                GD.Print("tilemap");
+                EmitSignal(SignalName.Collide);
+            }
+            Entity entity = body as Entity;
+            if (entity is null) return;
+            if (Team == ETeam.None || Team != entity.Team)
+            {
+                EmitSignal(SignalName.Hit);
+                NumPierces = (NumPierces <= 0) ? NumPierces : NumPierces - 1;
+                GD.Print($"Num Pierces : {NumPierces}");
+                if (entity.TakeDamage(Damage))
+                {
+                    entity.Die();
+                }
+                if (NumPierces == 0)
+                {
+                    QueueFree();
+                }
             }
         }
+
     }
 
     [Signal]
