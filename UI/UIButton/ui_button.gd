@@ -4,14 +4,7 @@
 @onready var background: ColorRect = $Background
 @onready var label: RichTextLabel = $Label
 
-@export_tool_button("Refresh") var refresh := func() -> void:
-	label.size = self.size
-	background.size = self.size
-	label.global_position = self.global_position
-	label.text = text
-	background.global_position = self.global_position
-	background.color = color_default
-	label.add_theme_color_override("default_color", color_text_default)
+@export_tool_button("Refresh") var refresh_button := refresh
 @export var text := "Button Text"
 @export_group("Colors")
 @export var color_default := Color(0.25, 0.25, 0.25, 1.0)
@@ -23,7 +16,7 @@
 
 
 func _ready() -> void:
-	refresh.call()
+	refresh()
 
 func _process(delta: float) -> void:
 	if Engine.is_editor_hint(): return
@@ -37,16 +30,37 @@ func _process(delta: float) -> void:
 		color = LerpHelper.l(color, color_text_hover, 8.0, delta)
 	label.add_theme_color_override("default_color", color)
 
+func _input(event: InputEvent) -> void:
+	if not is_hovered: return
+	for action in InputMap.get_actions():
+		if action.left(2) == "ui": continue
+		if event.is_action(action): 
+			if event.is_pressed():
+				hovered_input.emit(str(action), true)
+			elif event.is_released():
+				hovered_input.emit(str(action), false)
+	
+
 func _on_resized() -> void:
 	if not Engine.is_editor_hint(): return
 	
-	refresh.call()
+	refresh()
+
+func refresh() -> void:
+	label.size = self.size
+	background.size = self.size
+	label.global_position = self.global_position
+	label.text = text
+	background.global_position = self.global_position
+	background.color = color_default
+	label.add_theme_color_override("default_color", color_text_default)
 
 
 var is_hovered := false
 signal hovered
 signal unhovered
 signal pressed
+signal hovered_input(action: String, pressed: bool)
 
 func hover() -> void:
 	is_hovered = true
