@@ -1,16 +1,28 @@
-[gd_scene format=3 uid="uid://cnbqf8tjk2pjl"]
+[gd_scene format=3 uid="uid://cb2lq8b6kqhjd"]
 
+[ext_resource type="PackedScene" uid="uid://qalfv67jdq2v" path="res://Game/Actions/_Base/_ProjectileAction/_Projectile/projectile.tscn" id="1_8lrdt"]
 [ext_resource type="PackedScene" uid="uid://vvqotoj4crx" path="res://Game/Actions/Explosion/explosion.tscn" id="1_u4gp8"]
 [ext_resource type="Script" uid="uid://c2tnjpvfkqehd" path="res://Game/Actions/Firework/FireworkProjectile.cs" id="1_wu63i"]
 
-[node name="FireworkProjectile" type="Node2D" unique_id=1899850932]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yi4nw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ce5bi"]
+
+[node name="FireworkProjectile" unique_id=1603718596 instance=ExtResource("1_8lrdt")]
 script = ExtResource("1_wu63i")
 
-[node name="Explosion" parent="." unique_id=1025920924 instance=ExtResource("1_u4gp8")]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea" parent_id_path=PackedInt32Array(1713322864) index="0" unique_id=2142193134]
+shape = SubResource("RectangleShape2D_yi4nw")
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=2029591324]
-offset_left = -1.0
-offset_top = -1.0
-offset_right = 1.0
-offset_bottom = 1.0
-color = Color(0.26447403, 0.48304254, 1, 1)
+[node name="CollisionShape2D" parent="." index="2" unique_id=1972887306]
+shape = SubResource("RectangleShape2D_ce5bi")
+
+[node name="ColorRect" type="ColorRect" parent="." index="4" unique_id=500101556]
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+color = Color(1, 0.27058825, 0, 1)
+
+[node name="Explosion" parent="." index="5" unique_id=1025920924 instance=ExtResource("1_u4gp8")]
+ExplosionSize = 20.0

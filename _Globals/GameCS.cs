@@ -37,9 +37,10 @@ public partial class GameCS : Node
         Instance = this;
         var passive = GD.Load<CardResource>("uid://d1hdj7c0phhqv");
         var active = GD.Load<CardResource>("uid://cibfkthvglfax");
+        var firework = GD.Load<CardResource>("uid://kxen5jasll2d");
 
-        AddToDeck(active);
-        MoveToHand(active);
+        AddToDeck(firework);
+        MoveToHand(firework);
     }
 
     public GDArray GetDeck()

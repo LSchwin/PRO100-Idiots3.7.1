@@ -254,6 +254,7 @@ public partial class Player : Character
 
 		if (Input.IsActionJustPressed("throw_card_attack") && canThrow)
 		{
+			GD.Print("supposed to throw a card");
             await ThrowingCardAttack(AtkDir);
 		}
 
@@ -321,6 +322,7 @@ public partial class Player : Character
         ThrowingCard throwingCardInst = throwingCardScene.Instantiate<ThrowingCard>();
         AddChild(throwingCardInst);
         throwingCardInst.Attack(direction);
+		GD.Print("Card thrown");
 
         await DelaysCS.Wait(GameCS.Instance.AtkCooldown);
         canThrow = true;    
