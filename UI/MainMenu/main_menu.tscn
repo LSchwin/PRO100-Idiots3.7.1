@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://dps3y1we7nxv6" path="res://UI/UIButton/ui_button.tscn" id="1_jld46"]
 [ext_resource type="Script" uid="uid://bqtxk8flgf1xt" path="res://UI/MainMenu/MainMenu.cs" id="1_t17p2"]
 [ext_resource type="FontFile" uid="uid://8vlqsmtheggr" path="res://Assets/Fonts/OldeTome.ttf" id="2_h8rmy"]
+[ext_resource type="Script" uid="uid://dm4ixa30ll4tb" path="res://UI/MainMenu/background_searchlight.gd" id="2_iyy2y"]
 [ext_resource type="Script" uid="uid://4vu2p5p5fueo" path="res://UI/UIButtonSelection/UIButtonSelection.cs" id="3_h8rmy"]
 
 [node name="MainMenu" type="Control" unique_id=1495823899]
@@ -12,10 +13,28 @@ offset_right = 769.0
 offset_bottom = 432.0
 script = ExtResource("1_t17p2")
 
+[node name="BackgroundColor" type="ColorRect" parent="." unique_id=1443701486]
+layout_mode = 0
+offset_left = 185.32634
+offset_top = -347.79837
+offset_right = 1132.2366
+offset_bottom = 420.8757
+rotation = 0.5235988
+color = Color(0, 0, 0, 1)
+
+[node name="BackgroundSearchlight" type="Polygon2D" parent="." unique_id=331817652]
+position = Vector2(-76.00001, -45.000004)
+rotation = 0.2617994
+color = Color(0.56, 0.41085333, 0.033600003, 1)
+polygon = PackedVector2Array(1080, 400, 1295.3601, 74.266754, 0, 0)
+script = ExtResource("2_iyy2y")
+
 [node name="Title" type="RichTextLabel" parent="." unique_id=1922367028]
 layout_mode = 0
 offset_right = 769.0
 offset_bottom = 235.0
+theme_override_colors/default_color = Color(0.85490197, 0.64705884, 0.1254902, 1)
+theme_override_constants/outline_size = 4
 theme_override_fonts/normal_font = ExtResource("2_h8rmy")
 theme_override_font_sizes/normal_font_size = 160
 bbcode_enabled = true
@@ -29,24 +48,24 @@ script = ExtResource("3_h8rmy")
 Buttons = [NodePath("BtnStart"), NodePath("BtnSettings"), NodePath("BtnQuit")]
 
 [node name="BtnStart" parent="Buttons" unique_id=1432803026 instance=ExtResource("1_jld46")]
-offset_left = 320.0
-offset_top = 236.0
-offset_right = -320.0
-offset_bottom = -172.0
+offset_left = 40.0
+offset_top = 268.0
+offset_right = -600.0
+offset_bottom = -140.0
 text = "Start"
 
 [node name="BtnSettings" parent="Buttons" unique_id=1481425924 instance=ExtResource("1_jld46")]
-offset_left = 320.0
-offset_top = 284.0
-offset_right = -320.0
-offset_bottom = -124.0
+offset_left = 40.0
+offset_top = 316.0
+offset_right = -600.0
+offset_bottom = -92.0
 text = "Settings"
 
 [node name="BtnQuit" parent="Buttons" unique_id=252068767 instance=ExtResource("1_jld46")]
-offset_left = 320.0
-offset_top = 332.0
-offset_right = -320.0
-offset_bottom = -76.0
+offset_left = 40.0
+offset_top = 364.0
+offset_right = -600.0
+offset_bottom = -44.0
 text = "Quit"
 
 [connection signal="pressed" from="Buttons/BtnStart" to="." method="OnBtnStartPressed"]

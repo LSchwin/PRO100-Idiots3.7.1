@@ -14,10 +14,10 @@
 	label.add_theme_color_override("default_color", color_text_default)
 @export var text := "Button Text"
 @export_group("Colors")
-@export var color_default := Color.DIM_GRAY
-@export var color_hover := Color.DARK_BLUE
+@export var color_default := Color(0.25, 0.25, 0.25, 1.0)
+@export var color_hover := Color.GOLDENROD
 @export var color_text_default := Color.WHITE
-@export var color_text_hover := Color.ROYAL_BLUE
+@export var color_text_hover := Color.BLACK
 @export_group("Tooltips")
 @export var tooltip_text_ := ""
 
