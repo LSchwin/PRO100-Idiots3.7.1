@@ -1,0 +1,29 @@
+[gd_scene format=4 uid="uid://r061hlwl7vms"]
+
+[ext_resource type="Script" uid="uid://cv5xboyvvvowf" path="res://Game/Levels/Rooms/Base/Room.cs" id="1_rjkag"]
+[ext_resource type="TileSet" uid="uid://dkcydra3tvoxh" path="res://Game/Levels/Rooms/Base/TestTileset.tres" id="2_r0dqm"]
+[ext_resource type="TileSet" uid="uid://uge70vmk7vm2" path="res://Game/Levels/Rooms/Base/ConnectionTileset.tres" id="3_fkynn"]
+[ext_resource type="PackedScene" uid="uid://baojxacg276wf" path="res://Game/Entities/Player/player.tscn" id="4_bycn3"]
+[ext_resource type="PackedScene" uid="uid://cfvea80lt7px1" path="res://Game/Entities/Enemy/Charlie/charlie_test.tscn" id="4_r0dqm"]
+
+[node name="EnemyTestLevel" type="Node2D" unique_id=1499752467]
+script = ExtResource("1_rjkag")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=857297003]
+tile_map_data = PackedByteArray("AAD//wQAAAAAAAAAAAAAAAQAAAAAAAAAAAABAAQAAAAAAAAAAAACAAQAAAAAAAAAAAADAAQAAAAAAAAAAAAEAAQAAAAAAAAAAAAFAAQAAAAAAAAAAAAGAAQAAAAAAAAAAAAHAAQAAAAAAAAAAAAIAAQAAAAAAAAAAAAJAAQAAAAAAAAAAAAKAAQAAAAAAAAAAAALAAQAAAAAAAAAAAAMAAQAAAAAAAAAAAD+/wQAAAAAAAAAAAD9/wQAAAAAAAAAAAD8/wQAAAAAAAAAAAD7/wQAAAAAAAAAAAD6/wQAAAAAAAAAAAD5/wQAAAAAAAAAAAANAAQAAAAAAAAAAAAOAAQAAAAAAAAAAAAPAAQAAAAAAAAAAAAQAAQAAAAAAAAAAAD4/wQAAAAAAAAAAAA=")
+tile_set = ExtResource("2_r0dqm")
+
+[node name="ConnectionTileMapLayer" type="TileMapLayer" parent="." unique_id=946790892]
+tile_set = ExtResource("3_fkynn")
+
+[node name="Enemies" type="Node2D" parent="." unique_id=1070813491]
+
+[node name="CharlieTest" parent="Enemies" unique_id=1282068283 instance=ExtResource("4_r0dqm")]
+position = Vector2(40, 112)
+collision_layer = 1
+collision_mask = 1
+
+[node name="Loot" type="Node2D" parent="." unique_id=1124457309]
+
+[node name="Player" parent="." unique_id=72022920 instance=ExtResource("4_bycn3")]
+position = Vector2(144, 109)

@@ -20,4 +20,9 @@ public partial class Destructable : WorldObject
         await ToSignal(particleSpawner, "finished");
         QueueFree();
     }
+
+    public override void Die()
+    {
+        Destroy();
+    }
 }

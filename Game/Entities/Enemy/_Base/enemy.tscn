@@ -6,6 +6,8 @@
 [sub_resource type="SpriteFrames" id="SpriteFrames_5l82k"]
 
 [node name="Enemy" unique_id=1282068283 instance=ExtResource("1_tnwx4")]
+collision_layer = 2
+collision_mask = 3
 script = ExtResource("2_g4m3r")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Model" parent_id_path=PackedInt32Array(794789529) index="0" unique_id=1749627644]

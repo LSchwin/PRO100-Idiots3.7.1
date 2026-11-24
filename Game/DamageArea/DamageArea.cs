@@ -47,13 +47,7 @@ public partial class DamageArea : Area2D
             EmitSignal(SignalName.Hit);
             if (entity.TakeDamage(Damage))
             {
-                // To be implemented at a later date vvvvvvvvvv
-                // areaParent.Die();
-                // For now,
-                if ((entity as Destructable) is not null)
-                {
-                    (entity as Destructable).Destroy();
-                }
+                 entity.Die();
             }
         }
     }

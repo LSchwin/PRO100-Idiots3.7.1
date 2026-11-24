@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://cfvea80lt7px1"]
+
+[ext_resource type="PackedScene" uid="uid://kjgmkdk472an" path="res://Game/Entities/Enemy/_Base/enemy.tscn" id="1_qbpfk"]
+[ext_resource type="Texture2D" uid="uid://jqp4ke8tn3mh" path="res://Game/Entities/Enemy/Charlie/tiny_charlie.png" id="2_cfsxp"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cfsxp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_cfsxp")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dfvev"]
+size = Vector2(15, 16)
+
+[node name="CharlieTest" unique_id=1282068283 instance=ExtResource("1_qbpfk")]
+Team = 2
+Health = 8
+
+[node name="AnimatedSprite2D" parent="Model" parent_id_path=PackedInt32Array(794789529) index="0" unique_id=1749627644]
+sprite_frames = SubResource("SpriteFrames_cfsxp")
+
+[node name="Collision" parent="." index="1" unique_id=1544639454]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_dfvev")

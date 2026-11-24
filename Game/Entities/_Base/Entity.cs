@@ -28,7 +28,12 @@ public partial class Entity : CharacterBody2D
 	public bool TakeDamage(int damage)
 	{
 		Health -= damage;
+		GD.Print($"I need healing!!!!!!!! ({Health})");
 		return Health == 0;
 	}
 
+	public virtual void Die()
+	{
+		QueueFree();
+	}
 }
