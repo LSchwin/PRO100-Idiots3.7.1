@@ -641,8 +641,9 @@ joypads/ignore_joypad_on_unfocused_application=true
 
 [layer_names]
 
-2d_physics/layer_1="Environment"
-2d_physics/layer_2="Enemies"
+2d_physics/layer_1="Environment_Player"
+2d_physics/layer_2="Environment_Enemy"
+2d_physics/layer_3="Attacks"
 
 [physics]
 
