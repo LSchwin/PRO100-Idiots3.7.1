@@ -4,4 +4,4 @@
 
 [node name="FireworkAction" type="Node2D" unique_id=1445128418]
 script = ExtResource("1_g267v")
-ProjectileUID = "uid://cnbqf8tjk2pjl"
+ProjectileUID = "uid://cb2lq8b6kqhjd"

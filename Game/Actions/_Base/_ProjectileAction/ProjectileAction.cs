@@ -16,7 +16,7 @@ public partial class ProjectileAction : Action
     }
     public override void _Ready()
     {
-        if(Lifespan > 0)
+        if (Lifespan > 0)
         {
             base._Ready();
         }
@@ -36,6 +36,7 @@ public partial class ProjectileAction : Action
             Projectile ProjectileInst = ProjectileScene.Instantiate<Projectile>();
             ProjectileInst.Direction = direction;
             ProjectileInst.Position = GlobalPosition;
+            ProjectileInst.Team = Team;
             AddChild(ProjectileInst);
         }
     }

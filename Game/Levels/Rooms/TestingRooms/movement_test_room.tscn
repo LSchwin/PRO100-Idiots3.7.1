@@ -3,7 +3,6 @@
 [ext_resource type="PackedScene" uid="uid://ll8isa8qur8o" path="res://Game/Levels/Rooms/Base/Room.tscn" id="1_n0qeq"]
 [ext_resource type="PackedScene" uid="uid://baojxacg276wf" path="res://Game/Entities/Player/player.tscn" id="2_djcwc"]
 [ext_resource type="PackedScene" uid="uid://5nwjnlhcctjj" path="res://Game/Entities/Destructable/TempBulb/temp_bulb.tscn" id="3_1y0ic"]
-[ext_resource type="PackedScene" uid="uid://vvqotoj4crx" path="res://Game/Actions/Explosion/explosion.tscn" id="4_4umub"]
 
 [node name="MovementTestRoom" unique_id=604999735 instance=ExtResource("1_n0qeq")]
 
@@ -16,6 +15,3 @@ JumpHeight = 800.0
 
 [node name="TempBulb" parent="." index="5" unique_id=2073006699 instance=ExtResource("3_1y0ic")]
 position = Vector2(231, 111)
-
-[node name="Explosion" parent="." index="6" unique_id=1025920924 instance=ExtResource("4_4umub")]
-position = Vector2(174, 103)

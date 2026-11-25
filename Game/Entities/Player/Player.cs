@@ -254,7 +254,6 @@ public partial class Player : Character
 
 		if (Input.IsActionJustPressed("throw_card_attack") && canThrow)
 		{
-			GD.Print("supposed to throw a card");
             await ThrowingCardAttack(AtkDir);
 		}
 
@@ -298,8 +297,9 @@ public partial class Player : Character
 			Direction atkDir = GetPlayerDirection();
 			card.OnCooldown = true;
 			Action atkInst = card.GetAction().Instantiate<Action>();
+			atkInst.Team = ETeam.Player;
 			AddChild(atkInst);
-			atkInst.Attack(atkDir);
+            atkInst.Attack(atkDir);
 			await DelaysCS.Wait(card.BaseCooldown);
 			card.OnCooldown = false;
 		}
@@ -320,6 +320,7 @@ public partial class Player : Character
 	{
         canThrow = false;
         ThrowingCard throwingCardInst = throwingCardScene.Instantiate<ThrowingCard>();
+		throwingCardInst.Team = ETeam.Player;
         AddChild(throwingCardInst);
         throwingCardInst.Attack(direction);
 		GD.Print("Card thrown");

@@ -16,6 +16,7 @@ public partial class Action : Node2D
         }
     }
     private Timer lifespan = null;
+    public ETeam Team { get; set; }
 
     public override void _Ready()
     {

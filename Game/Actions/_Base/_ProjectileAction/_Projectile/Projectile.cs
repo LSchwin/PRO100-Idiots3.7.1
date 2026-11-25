@@ -13,12 +13,14 @@ public partial class Projectile : CharacterBody2D
     public Direction Direction;
     private Timer lifespan; 
     private DamageArea damageArea;
+    public ETeam Team { get; set; }
 
     public override void _Ready()
     {
         base._Ready();
         lifespan = GetNode<Timer>("Lifespan");
         damageArea = GetNode<DamageArea>("DamageArea");
+        damageArea.Team = Team;
         damageArea.Hit += Damage;
         damageArea.Collide += Collide;
         if (CanDespawn)

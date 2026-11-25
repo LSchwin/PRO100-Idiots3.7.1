@@ -23,13 +23,12 @@ size = Vector2(11, 9)
 
 [node name="CardProjectile" unique_id=1603718596 instance=ExtResource("1_67ehr")]
 script = ExtResource("2_ki7aj")
-MoveSpeed = 300
+MoveSpeed = 500
 
 [node name="AnimatedSprite2D" parent="." index="0" unique_id=1250045358]
 sprite_frames = SubResource("SpriteFrames_vpv7x")
 
 [node name="DamageArea" parent="." index="1" unique_id=1713322864]
-Team = 1
 Damage = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea" index="0" unique_id=302365528]
