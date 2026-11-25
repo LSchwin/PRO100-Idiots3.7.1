@@ -14,6 +14,7 @@ public partial class Projectile : CharacterBody2D
     private Timer lifespan; 
     private DamageArea damageArea;
     public ETeam Team { get; set; }
+    public bool CanMove = true;
 
     public override void _Ready()
     {
@@ -32,6 +33,7 @@ public partial class Projectile : CharacterBody2D
 
     public override void _PhysicsProcess(double delta)
     {
+        if (!CanMove) { return; }
         Vector2 NewVel = Velocity;
         switch (Direction)
         {

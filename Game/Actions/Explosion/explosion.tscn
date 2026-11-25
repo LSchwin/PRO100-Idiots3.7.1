@@ -10,6 +10,7 @@ script = ExtResource("1_u8arv")
 ExplosionSize = 10.0
 
 [node name="Damage" parent="." unique_id=1713322864 instance=ExtResource("2_twy0o")]
+NumPierces = 1000
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Damage" unique_id=1845956335]
 shape = SubResource("CircleShape2D_twy0o")

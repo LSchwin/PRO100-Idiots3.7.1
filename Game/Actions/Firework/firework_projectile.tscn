@@ -7,11 +7,16 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yi4nw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ce5bi"]
+size = Vector2(14, 14)
 
 [node name="FireworkProjectile" unique_id=1603718596 instance=ExtResource("1_8lrdt")]
 script = ExtResource("1_wu63i")
+MoveSpeed = 650
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea" parent_id_path=PackedInt32Array(1713322864) index="0" unique_id=2142193134]
+[node name="DamageArea" parent="." index="1" unique_id=1713322864]
+Damage = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea" index="0" unique_id=2142193134]
 shape = SubResource("RectangleShape2D_yi4nw")
 
 [node name="CollisionShape2D" parent="." index="2" unique_id=1972887306]

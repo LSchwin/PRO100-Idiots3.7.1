@@ -12,12 +12,14 @@ public partial class FireworkProjectile : Projectile
     }
     public override void Collide()
     {
+        CanMove = false;
         explosion.Explode();
-        base.Collide();
+        //base.Collide();
     }
     public override void Damage()
     {
+        CanMove = false;
         explosion.Explode();
-        base.Damage();
+        //base.Damage();
     }
 }
