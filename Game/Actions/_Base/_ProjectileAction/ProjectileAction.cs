@@ -4,8 +4,12 @@ using System.Threading.Tasks;
 
 public partial class ProjectileAction : Action
 {
+    // ProjectileAction acts as a projectile spawner, which is created when the corresponding card is used.
+    // It ovverides the base attack function to spawn a projectile.
+    // The spawned projectile acts independently of the spawner.
     [Export]
     String ProjectileUID;
+    // Set UID in godot editor
 
     [Signal]
     public delegate void OffCooldownEventHandler();
@@ -16,6 +20,7 @@ public partial class ProjectileAction : Action
     }
     public override void _Ready()
     {
+        // If lifespan <= 0 don't start the lifespan timer
         if (Lifespan > 0)
         {
             base._Ready();

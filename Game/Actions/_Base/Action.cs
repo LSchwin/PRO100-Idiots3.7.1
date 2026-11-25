@@ -17,6 +17,8 @@ public partial class Action : Node2D
     }
     private Timer lifespan = null;
     public ETeam Team { get; set; }
+    // Team is set by the owner of the action
+    // Remember to do that or else the action will damage the owner
 
     public override void _Ready()
     {

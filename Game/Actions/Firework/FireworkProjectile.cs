@@ -4,6 +4,7 @@ using System;
 public partial class FireworkProjectile : Projectile
 {
     private Explosion explosion;
+    // Make an actual explosion effect
 
     public override void _Ready()
     {
@@ -14,12 +15,10 @@ public partial class FireworkProjectile : Projectile
     {
         CanMove = false;
         explosion.Explode();
-        //base.Collide();
     }
     public override void Damage()
     {
         CanMove = false;
         explosion.Explode();
-        //base.Damage();
     }
 }

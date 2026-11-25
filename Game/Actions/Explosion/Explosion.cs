@@ -29,12 +29,14 @@ public partial class Explosion : Node2D
 
     public void Explode()
     {
+        // Start the explosion
         lifespan.Start();
         collisionShape.Disabled = false;
     }
 
     private void Despawn()
     {
+        // Ends the explosion and emits a the ExplodeFinish signal, triggers on Lifespan timeout
         lifespan.Timeout -= Despawn;
         collisionShape.Disabled = true;
         EmitSignal(SignalName.ExplodeFinish);

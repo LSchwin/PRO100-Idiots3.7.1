@@ -14,6 +14,7 @@ public partial class Projectile : CharacterBody2D
     private Timer lifespan; 
     private DamageArea damageArea;
     public ETeam Team { get; set; }
+    // Team is set by the ProjectileAction that spawns the projectile. No need to change here.
     public bool CanMove = true;
 
     public override void _Ready()
@@ -33,6 +34,8 @@ public partial class Projectile : CharacterBody2D
 
     public override void _PhysicsProcess(double delta)
     {
+        // Automatically moves in the direction set
+        // If it's not moving make sure MoveSpeed isn't 0
         if (!CanMove) { return; }
         Vector2 NewVel = Velocity;
         switch (Direction)
@@ -60,12 +63,14 @@ public partial class Projectile : CharacterBody2D
 
     public virtual void Damage()
     {
+        // Hit an entity
         damageArea.Hit -= Damage;
         QueueFree();
     }
 
     public virtual void Collide()
     {
+        // Hit terrain
         damageArea.Collide -= Collide;
         QueueFree();
     }

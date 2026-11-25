@@ -41,13 +41,14 @@ public partial class DamageArea : Area2D
         {
             if (body is TileMapLayer)
             {
-                GD.Print("tilemap");
+                // Collide with enviroment
                 EmitSignal(SignalName.Collide);
             }
             Entity entity = body as Entity;
             if (entity is null) return;
             if (Team == ETeam.None || Team != entity.Team)
             {
+                // Damage colliding entity if not on same team
                 EmitSignal(SignalName.Hit);
                 NumPierces = (NumPierces <= 0) ? NumPierces : NumPierces - 1;
                 GD.Print($"Num Pierces : {NumPierces}");
