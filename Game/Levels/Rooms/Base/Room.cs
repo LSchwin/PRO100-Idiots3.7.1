@@ -1,6 +1,7 @@
 using Godot;
 using Microsoft.VisualBasic;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
 using System.Runtime.InteropServices;
@@ -25,10 +26,27 @@ public partial class Room : Node2D
 		Side
     }
 
+	public enum AvailableConnectionDirection //may actually not be able to use this
+	{
+		HorizontalOnly,
+		VerticalOnly,
+		All,
+		LeftDown,
+		RightDown,
+		UpRight,
+		UpLeft,
+		NoLeft,
+		NoRight,
+		NoUp,
+		NoDown,
+	}
+
     public struct Connection
 	{
 		public Connection() {}
-        public Vector2I coordinates;
+		public ConnectDirection direction;
+        public Vector2I coordinatesLocal;
+        public Godot.Vector2 coordinatesWorld;
 		public bool open = false;
 	}
 
@@ -40,13 +58,18 @@ public partial class Room : Node2D
 	[Export]
 	public RoomType roomType;
 
+	[Export]
+    AvailableConnectionDirection connectionDirection;
+
     public ConnectDirection comingFrom;
     public ConnectDirection goingTo;
 	public Vector2I size;
 	public TileMapLayer connectionLayer;
 	public TileMapLayer decorLayer;
 
-	public List<Connection> connectionsLeft = new List<Connection>();
+
+    public List<List<Connection>> allConnections = new List<List<Connection>>();
+    public List<Connection> connectionsLeft = new List<Connection>();
 	public List<Connection> connectionsRight = new List<Connection>();
 	public List<Connection> connectionsUp = new List<Connection>();
 	public List<Connection> connectionsDown = new List<Connection>();
@@ -100,24 +123,58 @@ public partial class Room : Node2D
 
 	private void SetConnections()
 	{
-		AddConnections(ref connectionsLeft, connectTileStartLeft);
-		AddConnections(ref connectionsRight, connectTileStartRight);
-		AddConnections(ref connectionsUp, connectTileStartUp);
-		AddConnections(ref connectionsDown, connectTileStartDown);
+		AddConnections(ref connectionsLeft, connectTileStartLeft, ConnectDirection.Left);
+		AddConnections(ref connectionsRight, connectTileStartRight, ConnectDirection.Right);
+		AddConnections(ref connectionsUp, connectTileStartUp, ConnectDirection.Up);
+		AddConnections(ref connectionsDown, connectTileStartDown, ConnectDirection.Right);
+
+		allConnections.Add(connectionsLeft);
+		allConnections.Add(connectionsRight);
+		allConnections.Add(connectionsUp);
+		allConnections.Add(connectionsDown);
     }
 
-    private void AddConnections(ref List<Connection> connections, Vector2I id)
+    private void AddConnections(ref List<Connection> connections, Vector2I id, ConnectDirection direction)
 	{
         Godot.Collections.Array<Vector2I> connectionCoordinates = connectionLayer.GetUsedCellsById(0, id);
         foreach (Vector2I coordinate in connectionCoordinates)
         {
             Connection connection = new Connection();
-            connection.coordinates = coordinate;
+            connection.coordinatesLocal = coordinate;
+			connection.coordinatesWorld = connectionLayer.ToGlobal(coordinate);
+			connection.direction = direction;
 
-			connection.open = true; // TODO: Remove this line after room generation
+            connection.open = true; // TODO: Remove this line after room generation
 
             connections.Add(connection);
         }
+    }
+
+	public List<Connection> GetAvailableConnections()
+	{
+		List<Connection> avaiableConnections = new List<Connection>();
+
+		foreach(var list in allConnections)
+		{
+			foreach(var connection in list)
+			{
+				if (connection.open) avaiableConnections.Add(connection);
+            }
+		}
+
+		return avaiableConnections;
+    }
+
+    public List<Connection> GetAvailableConnections(List<Connection> connections)
+    {
+        List<Connection> avaiableConnections = new List<Connection>();
+
+        foreach (var connection in connections)
+        {
+            if (connection.open) avaiableConnections.Add(connection);
+        }
+
+        return avaiableConnections;
     }
 
 
