@@ -49,8 +49,11 @@ func _process_selecting(delta: float) -> void:
 		sprite.global_position = target_position - Vector2(8, 0)
 
 
-func set_buttons(b: Array, v := true) -> void:
-	current = 0
+func set_buttons(b: Array, v := true, _current := 0) -> void:
+	if buttons.size() >= 1:
+		var current_button: UIButton = buttons.get(current)
+		if current_button: current_button.unhover()
+	current = _current
 	buttons = b
 	vertical = v
 

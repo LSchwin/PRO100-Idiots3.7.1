@@ -58,6 +58,7 @@ func refresh() -> void:
 
 var is_hovered := false
 signal hovered
+signal hovered_self(_self: UIButton)
 signal unhovered
 signal pressed
 signal hovered_input(action: String, pressed: bool)
@@ -65,6 +66,7 @@ signal hovered_input(action: String, pressed: bool)
 func hover() -> void:
 	is_hovered = true
 	hovered.emit()
+	hovered_self.emit(self)
 	
 	if tooltip_text_ != "" and not tooltip:
 		tooltip = UITooltip.create(tooltip_text_, self)
@@ -86,7 +88,7 @@ func press() -> void:
 	background.color = bg_flash_color
 
 func get_selector_placement() -> Vector2:
-	return global_position + size + Vector2(4, size.y * -0.5)
+	return global_position + (size + Vector2(4, size.y * -0.5)).rotated(rotation) * scale
 
 
 var tooltip: UITooltip = null

@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://dhfrl882fskvf"]
+
+[ext_resource type="PackedScene" uid="uid://dps3y1we7nxv6" path="res://UI/UIButton/ui_button.tscn" id="1_glmle"]
+[ext_resource type="FontFile" uid="uid://8vlqsmtheggr" path="res://Assets/Fonts/OldeTome.ttf" id="2_7e6tl"]
+[ext_resource type="Script" uid="uid://udapqljg46vh" path="res://UI/CardButton/card_button.gd" id="2_pnog0"]
+
+[node name="CardButton" unique_id=1432803026 instance=ExtResource("1_glmle")]
+custom_minimum_size = Vector2(128, 184)
+offset_bottom = -248.0
+pivot_offset_ratio = Vector2(0.5, 0.5)
+offset_transform_enabled = true
+offset_transform_pivot = Vector2(0.5, 0.5)
+script = ExtResource("2_pnog0")
+card = null
+color_default = Color(0.25490198, 0.25490198, 0.1882353, 1)
+color_hover = Color(0.46625698, 0.39532363, 0.18113205, 1)
+
+[node name="Border" type="ColorRect" parent="." index="0" unique_id=2133128435]
+show_behind_parent = true
+layout_mode = 0
+offset_right = 128.0
+offset_bottom = 184.0
+color = Color(0.7373294, 0.735357, 0.7373294, 1)
+
+[node name="Background" parent="." index="1" unique_id=428066948]
+offset_bottom = 184.0
+color = Color(0.25490198, 0.25490198, 0.1882353, 1)
+
+[node name="Label" parent="." index="2" unique_id=1229452719]
+visible = false
+offset_bottom = 184.0
+theme_override_fonts/normal_font = ExtResource("2_7e6tl")
+theme_override_font_sizes/normal_font_size = 20
+vertical_alignment = 0
+
+[node name="Icon" type="Sprite2D" parent="." index="3" unique_id=1458483329]
+position = Vector2(64, 64)
+
+[node name="DescriptionLabel" type="RichTextLabel" parent="." index="4" unique_id=692530353]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 92.0
+offset_right = 124.0
+offset_bottom = 180.0
+text = "The card's description. The card's description would go here. The description of the card. The description, for this card. The card's singular description."
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NameLabel" type="RichTextLabel" parent="." index="5" unique_id=2089207885]
+layout_mode = 0
+offset_right = 128.0
+offset_bottom = 29.0
+theme_override_fonts/normal_font = ExtResource("2_7e6tl")
+text = "Card Name"
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="." index="6" unique_id=343454353]
+visible = false
+show_behind_parent = true
+layout_mode = 0
+offset_left = -4.0
+offset_top = 2.0
+offset_right = 126.0
+offset_bottom = 188.0
+color = Color(0, 0, 0, 0.2)

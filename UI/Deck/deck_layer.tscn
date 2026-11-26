@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://bpr258jbccsna"]
+
+[ext_resource type="Script" uid="uid://vruacx2kheqe" path="res://UI/Deck/deck_layer.gd" id="1_co2qh"]
+
+[node name="DeckLayer" type="CanvasLayer" unique_id=1497774605]
+script = ExtResource("1_co2qh")
+
+[node name="CanvasGroup" type="CanvasGroup" parent="." unique_id=1976634612]
+
+[node name="Shade" type="ColorRect" parent="CanvasGroup" unique_id=1368325222]
+offset_right = 768.0
+offset_bottom = 432.0
+color = Color(0, 0, 0, 0.2)
+
+[node name="CardSpawnPoint" type="Node2D" parent="CanvasGroup" unique_id=793931646]
+position = Vector2(384, 96)
+
+[node name="DeckHolder" type="Control" parent="CanvasGroup" unique_id=2108330877]
+clip_contents = true
+layout_mode = 3
+anchors_preset = 0
+offset_right = 768.0
+offset_bottom = 287.0
+
+[node name="DeckAnchor" type="Node2D" parent="CanvasGroup/DeckHolder" unique_id=597552945]
+
+[node name="HandHolder" type="Node2D" parent="CanvasGroup" unique_id=2094936670]
+position = Vector2(84, 327)

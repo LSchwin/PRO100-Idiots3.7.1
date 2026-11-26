@@ -11,4 +11,5 @@ Passive = {
 "healthMult": 3.0
 }
 Name = "Test Passive"
+Description = "A passive card for testing."
 metadata/_custom_type_script = "uid://qkw8vi0mpkh3"

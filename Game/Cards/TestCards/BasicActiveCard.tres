@@ -7,5 +7,6 @@
 script = ExtResource("1_odcuk")
 Action = ExtResource("1_c3rhv")
 Name = "Active Test"
+Description = "A test active card."
 BaseCooldown = 1.0
 metadata/_custom_type_script = "uid://qkw8vi0mpkh3"
