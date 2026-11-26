@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="CardResource" format=3 uid="uid://daks7s8x1sfyv"]
+
+[ext_resource type="Script" uid="uid://qkw8vi0mpkh3" path="res://Game/Cards/_Base/CardResource.cs" id="1_s6wxk"]
+
+[resource]
+script = ExtResource("1_s6wxk")
+Name = "Encircling Knives"
+Description = "Summons a ring of flying knives that encircle the player, dealing damage to whatever they hit and blocking projectiles."
+metadata/_custom_type_script = "uid://qkw8vi0mpkh3"
