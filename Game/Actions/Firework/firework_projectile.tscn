@@ -30,4 +30,4 @@ offset_bottom = 8.0
 color = Color(1, 0.27058825, 0, 1)
 
 [node name="Explosion" parent="." index="5" unique_id=1025920924 instance=ExtResource("1_u4gp8")]
-ExplosionSize = 20.0
+ExplosionSize = 50.0

@@ -3,7 +3,8 @@ using System;
 
 public partial class Destructable : WorldObject
 {
-    private GpuParticles2D particleSpawner = null; 
+    private GpuParticles2D particleSpawner = null;
+    private bool isDestroying = false;
     public override void _Ready()
     {
         particleSpawner = GetNode<GpuParticles2D>("ParticleSpawner");
@@ -15,10 +16,15 @@ public partial class Destructable : WorldObject
 
     public async void Destroy()
     {
-        GetNode<AnimatedSprite2D>("Model/BulbSprite").Hide();
-        particleSpawner.Emitting = true;
-        await ToSignal(particleSpawner, "finished");
-        QueueFree();
+        if (!isDestroying)
+        {
+            isDestroying = true;
+            GetNode<AnimatedSprite2D>("Model/BulbSprite").Hide();
+            particleSpawner.Emitting = true;
+            GD.Print("Die");
+            await ToSignal(particleSpawner, "finished");
+            QueueFree();
+        }
     }
 
     public override void Die()
