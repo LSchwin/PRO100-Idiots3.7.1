@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://dao10fqgq3kmw"]
+
+[ext_resource type="PackedScene" uid="uid://b0o45l0g3oulp" path="res://Game/Actions/_Base/action.tscn" id="1_nwya4"]
+
+[node name="BullRushAction" unique_id=1122220393 instance=ExtResource("1_nwya4")]

@@ -20,6 +20,6 @@ color = Color(1, 0, 0, 1)
 [node name="DamageArea" parent="." index="2" unique_id=1713322864 instance=ExtResource("3_d88xc")]
 Damage = 5
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea" index="0" unique_id=83582121]
+[node name="DamageShape" type="CollisionShape2D" parent="DamageArea" index="0" unique_id=83582121]
 position = Vector2(17.5, 0)
 shape = SubResource("RectangleShape2D_rwywj")

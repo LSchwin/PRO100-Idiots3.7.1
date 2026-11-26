@@ -20,11 +20,7 @@ public partial class ProjectileAction : Action
     }
     public override void _Ready()
     {
-        // If lifespan <= 0 don't start the lifespan timer
-        if (Lifespan > 0)
-        {
-            base._Ready();
-        }
+        base._Ready();
     }
 
     public override void Attack(Direction direc)

@@ -6,3 +6,5 @@
 script = ExtResource("1_nkuje")
 
 [node name="Lifespan" type="Timer" parent="." unique_id=1540467548]
+
+[node name="ChargeUp" type="Timer" parent="." unique_id=993208908]

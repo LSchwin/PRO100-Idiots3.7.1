@@ -266,7 +266,7 @@ public partial class Player : Character
 			if (GameCS.Instance.hand.Count == 1) 
 				GameCS.RemoveFromHand((CardResource) GameCS.Instance.hand[0]);
 			else 
-				GameCS.Instance.MoveToHand((CardResource)GameCS.Instance.deck[0]);
+				GameCS.MoveToHand((CardResource)GameCS.Instance.deck[0]);
         }
 	}
 

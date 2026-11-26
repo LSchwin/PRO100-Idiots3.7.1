@@ -15,17 +15,39 @@ public partial class Action : Node2D
             else field = value;
         }
     }
+    [Export]
+    public float ChargeUpTime { get; set
+        {
+            field = (value < 0.0f) ? 0.0f: value;
+        }
+    }
     private Timer lifespan = null;
+    protected Timer chargeUp = null;
+    protected bool chargingUp = false;
     public ETeam Team { get; set; }
     // Team is set by the owner of the action
     // Remember to do that or else the action will damage the owner
 
     public override void _Ready()
     {
-        lifespan = GetNode<Timer>("Lifespan");
-        lifespan.WaitTime = Lifespan;
-        lifespan.Timeout += () => Despawn();
-        lifespan.Start();
+        
+        if(Lifespan > 0.0f)
+        {
+            lifespan = GetNode<Timer>("Lifespan");
+            lifespan.WaitTime = Lifespan;
+            lifespan.Timeout += () => Despawn();
+        }
+        if (ChargeUpTime > 0.0f)
+        {
+            chargeUp = GetNode<Timer>("ChargeUp");
+            chargeUp.WaitTime = ChargeUpTime;
+            chargeUp.Timeout += () => { lifespan.Start(); chargingUp = false; };
+        }
+        // If Lifespan is less than 0, the action will never despawn
+        else if (Lifespan > 0.0f)
+        {
+            lifespan.Start();
+        }
     }
 
     public Entity GetActionOwner() { return entityOwner; }
@@ -33,6 +55,11 @@ public partial class Action : Node2D
 
     public virtual void Attack(Direction direc) 
     {
+        if (ChargeUpTime > 0.0f)
+        {
+            chargingUp = true;
+            chargeUp.Start();
+        }
         DespawnAction += () => AttackFinish();
     }
 

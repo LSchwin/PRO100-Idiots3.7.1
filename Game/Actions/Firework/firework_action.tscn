@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://b7lesglukwnks"]
 
+[ext_resource type="PackedScene" uid="uid://b3p4f1203pfkx" path="res://Game/Actions/_Base/_ProjectileAction/projectile_action.tscn" id="1_0xkyy"]
 [ext_resource type="Script" uid="uid://df0dchkh43le1" path="res://Game/Actions/Firework/FireworkAction.cs" id="1_g267v"]
 
-[node name="FireworkAction" type="Node2D" unique_id=1445128418]
+[node name="FireworkAction" unique_id=1122220393 instance=ExtResource("1_0xkyy")]
 script = ExtResource("1_g267v")
 ProjectileUID = "uid://cb2lq8b6kqhjd"
