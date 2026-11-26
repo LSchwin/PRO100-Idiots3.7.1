@@ -25,4 +25,4 @@ offset_bottom = 287.0
 [node name="DeckAnchor" type="Node2D" parent="CanvasGroup/DeckHolder" unique_id=597552945]
 
 [node name="HandHolder" type="Node2D" parent="CanvasGroup" unique_id=2094936670]
-position = Vector2(84, 327)
+position = Vector2(149, 271)

@@ -52,17 +52,17 @@ public partial class GameCS : Node
         return hand;
     }
 
-    public static bool SwapCard(CardResource idle, CardResource active)
+    public static bool SwapCard(CardResource handCard, CardResource deckCard)
     {
         bool removedFromDeck = false;
         bool removedFromActive = false;
 
-        if (Instance.deck.Contains(idle) && Instance.hand.Contains(active))
+        if (Instance.deck.Contains(deckCard) && Instance.hand.Contains(handCard))
         {
-            removedFromDeck = Instance.deck.Remove(idle);
-            Instance.deck.Add(active);
-            removedFromActive = Instance.hand.Remove(active);
-            Instance.hand.Add(idle);
+            removedFromActive = RemoveFromHand(handCard);
+            removedFromDeck = RemoveFromDeck(deckCard);
+            AddToDeck(handCard);
+            MoveToHand(deckCard);
         }
         return removedFromActive && removedFromDeck;
     }
@@ -81,13 +81,13 @@ public partial class GameCS : Node
         return success;
     }
 
-    public bool MoveToHand(CardResource card)
+    public static bool MoveToHand(CardResource card)
     {
         // can't move a card to your hand if it doesn't exist in your deck
-        if (!deck.Contains(card)) return false;
+        if (!Instance.deck.Contains(card)) return false;
 
-        hand.Add(card);
-        bool success = deck.Remove(card);
+        Instance.hand.Add(card);
+        bool success = Instance.deck.Remove(card);
         GD.Print($"Added {card.Name} to hand from deck");
         return success;
     }
@@ -111,7 +111,7 @@ public partial class GameCS : Node
     public static bool RotateFromHand(CardResource card)
     {
         if (Instance.hand.Contains(card)) return RemoveFromHand(card);
-        else if (Instance.deck.Contains(card)) return Instance.MoveToHand(card);
+        else if (Instance.deck.Contains(card)) return MoveToHand(card);
         return false;
     }
 

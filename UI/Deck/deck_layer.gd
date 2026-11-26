@@ -13,7 +13,8 @@ func _ready() -> void:
 		if child is Node2D or Control:
 			$CanvasGroup.self_modulate.a = 0.0
 	
-	# debug
+	
+	# TESTING Remove later.
 	await Delays.wait(0.5)
 	const TEST_CARD_0 := preload("uid://cibfkthvglfax")
 	const TEST_CARD_1 := preload("uid://d1hdj7c0phhqv")
@@ -22,7 +23,10 @@ func _ready() -> void:
 		else:                      GameCS.AddToDeck(TEST_CARD_1)
 		i += 1
 	GameCS.MoveToHand(preload("uid://kxen5jasll2d"))
-	GameCS.MoveToHand(TEST_CARD_0)
+	GameCS.AddToDeck(preload("uid://csw812i0ufjnr"))
+	GameCS.AddToDeck(preload("uid://daks7s8x1sfyv"))
+	# TESTING Ends here.
+	
 	open()
 
 func _process(delta: float) -> void:
@@ -131,6 +135,9 @@ var selected_card: CardButton
 
 func select_row(row := current_row) -> void:
 	current_row = row
+	if deck_buttons[current_row].size() <= 0:
+		deck_buttons.remove_at(current_row)
+		current_row -= 1
 	var current_column: int = 0
 	for column in deck_buttons:
 		if column.has(hovered_card):
@@ -141,45 +148,56 @@ func select_row(row := current_row) -> void:
 func card_hovered(button: UIButton) -> void:
 	hovered_card = button
 
-func card_selected(card: CardButton) -> void:
-	if card.card.Action == null: return
-	selected_card = card
-	Selector.set_buttons(hand_buttons, false)
-
-func swap_card(active: CardButton, idle: CardButton = selected_card) -> void:
-	if GameCS.hand.has(idle.card):
-		select_row()
-		selected_card = null
-		return
+func card_selected(card_button: CardButton) -> void:
+	if card_button.card.Action == null: return
+	if GameCS.hand.has(card_button.card): return
 	
-	GameCS.SwapCard(idle.card, active.card)
+	if hand_buttons.size() < 3:
+		Selector.disable()
+		card_button.unhover()
+		card_button.reparent(hand_holder)
+		var target_position := hand_holder.global_position + Vector2(hand_buttons.size() * 200, 0) + card_button.get_minimum_size() / -2.0
+		card_button.target_position = target_position
+		card_button.name = "CB_Hand_"+card_button.card.Name+"0"
+		setup_hand_card(card_button)
+		deck_buttons[current_row].erase(card_button)
+		hand_buttons.append(card_button)
+		GameCS.MoveToHand(card_button.card)
+		GameCS.RemoveFromDeck(card_button.card)
+		select_row()
+	else:
+		selected_card = card_button
+		Selector.set_buttons(hand_buttons, false)
+
+func swap_card(hand_button: CardButton, deck_button: CardButton = selected_card) -> void:
+	GameCS.SwapCard(hand_button.card, deck_button.card)
 	Selector.disable()
 	selected_card = null
 	
-	# Bullshit
-	idle.unhover()
-	active.unhover()
-	var idle_index := idle.get_index()
-	var active_index := active.get_index()
-	idle.reparent(hand_holder)
-	hand_holder.move_child(idle, active_index)
+	# Scene Tree
+	deck_button.unhover()
+	hand_button.unhover()
+	var deck_button_index := deck_button.get_index()
+	var hand_button_index := hand_button.get_index()
+	deck_button.reparent(hand_holder)
+	hand_holder.move_child(deck_button, hand_button_index)
 	
 	# Positioning
-	var idle_position := idle.target_position 
-	var active_position := active.target_position
-	idle.target_position = active_position
-	active.target_position = idle_position
+	var deck_button_position := deck_button.target_position 
+	var hand_button_position := hand_button.target_position
+	deck_button.target_position = hand_button_position
+	hand_button.target_position = deck_button_position
 	
 	# Array
-	deck_buttons[current_row][deck_buttons[current_row].find(idle)] = active
-	hand_buttons[hand_buttons.find(active)] = idle
+	deck_buttons[current_row][deck_buttons[current_row].find(deck_button)] = hand_button
+	hand_buttons[hand_buttons.find(hand_button)] = deck_button
 	
 	# Signal adjustmnet
-	setup_deck_card(active)
-	setup_hand_card(idle)
+	setup_deck_card(hand_button)
+	setup_hand_card(deck_button)
 	
 	await Delays.wait(0.2)
-	active.reparent(deck_anchor)
-	deck_anchor.move_child(active, idle_index)
+	hand_button.reparent(deck_anchor)
+	deck_anchor.move_child(hand_button, deck_button_index)
 	select_row()
 #endregion selecting & swapping
