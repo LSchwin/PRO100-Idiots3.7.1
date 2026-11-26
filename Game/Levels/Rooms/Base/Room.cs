@@ -59,7 +59,7 @@ public partial class Room : Node2D
 	public RoomType roomType;
 
 	[Export]
-    AvailableConnectionDirection connectionDirection;
+    public AvailableConnectionDirection connectionDirection;
 
     public ConnectDirection comingFrom;
     public ConnectDirection goingTo;

@@ -96,119 +96,175 @@ public partial class Level : Node2D
 	public void Generate()
 	{
         GenerateMainBranch();
-
     }
 
     public void GenerateMainBranch()
     {
-        // the actual code begins here
-
-
         foreach (var room in roomOrder)
         {
-            Room oldRoom = allUsedRooms.ElementAt(allUsedRooms.Count - 1);
-
-            Connection oldConnection = default;
-            // maybe choose connection from previous room instead
-
-            //Enum.GetValues<ConnectDirection>().Shuffle(); for loop this _ times, check if left or right + GetAvailableConnections() is not null
-
-
-            foreach (var list in oldRoom.allConnections)
-            {
-                foreach (var connection in list)
-                {
-                    if (connection.open)
-                    {
-                        // choose random room 
-
-                        // check if they have an available connection for 'connection' (may need to Instantiate then AddChild first)
-                        // switch(connection.direction) 
-
-                        //switch (connection.direction)
-                        //{
-                        //    case ConnectDirection.Left:
-                        //        directionConnections = createdRoom.GetAvailableConnections(createdRoom.connectionsLeft);
-                        //        break;
-                        //    case ConnectDirection.Right:
-                        //        directionConnections = createdRoom.GetAvailableConnections(createdRoom.connectionsRight);
-                        //        break;
-                        //    case ConnectDirection.Up:
-                        //        directionConnections = createdRoom.GetAvailableConnections(createdRoom.connectionsUp);
-                        //        break;
-                        //    case ConnectDirection.Down:
-                        //        directionConnections = createdRoom.GetAvailableConnections(createdRoom.connectionsDown);
-                        //        break;
-                        //}
-
-                        //null check for directionConnections
-
-                    }
-                }
-            }
-            // 
-
-
-            bool roomCreatedSuccessfully = false;
+            bool roomChosenSuccesfully = false;
             do
             {
-                bool roomChosenSuccesfully = false;
-                do
+                Room oldRoom = allUsedRooms.ElementAt(allUsedRooms.Count - 1);
+                var prevRoomConnectionList = GetPreviousRoomConnections(oldRoom);
+
+                ShuffleRoomListWithHorizontalWeight(ref prevRoomConnectionList);
+                foreach (var list in prevRoomConnectionList)
                 {
-                    var roomArray = AvailableRooms[room];
-                    var chosenRoom = roomArray.ElementAt((int)GD.Randi() % roomArray.Count);
+                    var test = list.First().direction;
+                    // set oldRoom.goingTo with a switch
+                    switch (test)
+                    {
+                        case ConnectDirection.Left:
+                            oldRoom.goingTo = ConnectDirection.Right;
+                            break;
+                        case ConnectDirection.Right:
+                            oldRoom.goingTo = ConnectDirection.Left;
+                            break;
+                        case ConnectDirection.Up:
+                            oldRoom.goingTo = ConnectDirection.Down;
+                            break;
+                        case ConnectDirection.Down:
+                            oldRoom.goingTo = ConnectDirection.Up;
+                            break;
+                    }
 
-                    Room createdRoom = chosenRoom.Instantiate<Room>();
-
-                    AddChild(createdRoom);
-                    allUsedRooms.Add(createdRoom);
-                    roomChosenSuccesfully = true;
-
-                    bool connectionChosenSuccesfully = false;
-                    do
-                    { 
-                        var randomDirection = Enum.GetValues<ConnectDirection>().Shuffle();
-                        if (randomDirection.First() == ConnectDirection.Up || randomDirection.First() == ConnectDirection.Down)
+                    foreach (var oldRoomConnection in list)
+                    {
+                        if (oldRoomConnection.open)
                         {
-                            randomDirection = Enum.GetValues<ConnectDirection>().Shuffle();
-                        }
+                            // choose random room 
+                            var roomArray = AvailableRooms[room];
+                            var chosenRoom = roomArray.ElementAt((int)GD.Randi() % roomArray.Count);
 
-                        foreach (var direction in randomDirection)
-                        {
-                            List<Connection> directionConnections = default;
-                            switch (direction)
+                            Room createdRoom = chosenRoom.Instantiate<Room>();
+                            AddChild(createdRoom);
+                            allUsedRooms.Add(createdRoom);
+
+                            List<Connection> newRoomConnections = default;
+                            switch (oldRoom.goingTo)
                             {
                                 case ConnectDirection.Left:
-                                    directionConnections = createdRoom.GetAvailableConnections(createdRoom.connectionsLeft);
+                                    newRoomConnections = createdRoom.GetAvailableConnections(createdRoom.connectionsLeft);
                                     break;
                                 case ConnectDirection.Right:
-                                    directionConnections = createdRoom.GetAvailableConnections(createdRoom.connectionsRight);
+                                    newRoomConnections = createdRoom.GetAvailableConnections(createdRoom.connectionsRight);
                                     break;
                                 case ConnectDirection.Up:
-                                    directionConnections = createdRoom.GetAvailableConnections(createdRoom.connectionsUp);
+                                    newRoomConnections = createdRoom.GetAvailableConnections(createdRoom.connectionsUp);
                                     break;
                                 case ConnectDirection.Down:
-                                    directionConnections = createdRoom.GetAvailableConnections(createdRoom.connectionsDown);
+                                    newRoomConnections = createdRoom.GetAvailableConnections(createdRoom.connectionsDown);
                                     break;
                             }
-                        
-                            directionConnections.Shuffle();
-                            foreach(var connection in directionConnections)
+
+                            newRoomConnections.Shuffle();
+                            foreach (var connection in newRoomConnections)
                             {
-                                if (AttemptConnectRooms(allUsedRooms.ElementAt(allUsedRooms.Count - 2), oldConnection, createdRoom, connection))
+                                if (AttemptConnectRooms(allUsedRooms.ElementAt(allUsedRooms.Count - 2), oldRoomConnection, createdRoom, connection))
                                 {
+                                    roomChosenSuccesfully = true;
                                     break;
                                 }
                             }
-                        
+
+                            if (!roomChosenSuccesfully)
+                            {
+                                allUsedRooms.Remove(createdRoom);
+                                createdRoom.QueueFree();
+                            }
                         }
+                        if (roomChosenSuccesfully) { break; }
+                    }
+                    if (roomChosenSuccesfully) { break; }
+                }
 
-                    } while (connectionChosenSuccesfully == false);
+                if (roomChosenSuccesfully) 
+                { 
+                    break;
+                }
+                else
+                {
+                    var previousRoom = allUsedRooms.Last();
+                    allUsedRooms.Remove(previousRoom);
+                    previousRoom.QueueFree();
+                }
+            } while (roomChosenSuccesfully == false);
+        }
+    }
 
-                } while (roomChosenSuccesfully == false);
+    public List<List<Connection>> GetPreviousRoomConnections(Room oldRoom)
+    {
+        List<List<Connection>> returnList = new List<List<Connection>>();
 
+        switch (oldRoom.connectionDirection)
+        {
+            case AvailableConnectionDirection.HorizontalOnly:
+                returnList.Add(oldRoom.connectionsLeft);
+                returnList.Add(oldRoom.connectionsRight);
+                break;
+            case AvailableConnectionDirection.VerticalOnly:
+                returnList.Add(oldRoom.connectionsUp);
+                returnList.Add(oldRoom.connectionsDown);
+                break;
+            case AvailableConnectionDirection.All:
+                returnList.Add(oldRoom.connectionsUp);
+                returnList.Add(oldRoom.connectionsDown);
+                returnList.Add(oldRoom.connectionsLeft);
+                returnList.Add(oldRoom.connectionsRight);
+                break;
+            case AvailableConnectionDirection.LeftDown:
+                returnList.Add(oldRoom.connectionsLeft);
+                returnList.Add(oldRoom.connectionsDown);
+                break;
+            case AvailableConnectionDirection.RightDown:
+                returnList.Add(oldRoom.connectionsDown);
+                returnList.Add(oldRoom.connectionsRight);
+                break;
+            case AvailableConnectionDirection.UpRight:
+                returnList.Add(oldRoom.connectionsRight);
+                returnList.Add(oldRoom.connectionsUp);
+                break;
+            case AvailableConnectionDirection.UpLeft:
+                returnList.Add(oldRoom.connectionsUp);
+                returnList.Add(oldRoom.connectionsLeft);
+                break;
+            case AvailableConnectionDirection.NoLeft:
+                returnList.Add(oldRoom.connectionsUp);
+                returnList.Add(oldRoom.connectionsDown);
+                returnList.Add(oldRoom.connectionsRight);
+                break;
+            case AvailableConnectionDirection.NoRight:
+                returnList.Add(oldRoom.connectionsUp);
+                returnList.Add(oldRoom.connectionsDown);
+                returnList.Add(oldRoom.connectionsLeft);
+                break;
+            case AvailableConnectionDirection.NoUp:
+                returnList.Add(oldRoom.connectionsRight);
+                returnList.Add(oldRoom.connectionsDown);
+                returnList.Add(oldRoom.connectionsLeft);
+                break;
+            case AvailableConnectionDirection.NoDown:
+                returnList.Add(oldRoom.connectionsRight);
+                returnList.Add(oldRoom.connectionsDown);
+                returnList.Add(oldRoom.connectionsLeft);
+                break;
+            default:
+                GD.PushError("AvailableConnectionDirection CANNOT be NULL");
+                break;
+        }
 
-            } while (roomCreatedSuccessfully == false);
+        return returnList;
+    }
+
+    // shuffles the List of connection lists with more weight for horizontal stuff
+    public void ShuffleRoomListWithHorizontalWeight(ref List<List<Connection>> connectionList)
+    {
+        for(int i = 0; i < 2; ++i)
+        {
+            connectionList.Shuffle();
+            if ((connectionList.First().First().direction == Room.ConnectDirection.Left) || 
+                (connectionList.First().First().direction == Room.ConnectDirection.Right)) { break; }
         }
     }
 
