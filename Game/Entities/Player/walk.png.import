@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cacqdpoi6h86t"
-path="res://.godot/imported/cloak_guy_sheet.png-1ed9a6bef8070dcb065424030644bb1d.ctex"
+uid="uid://b3axqsggdfkp3"
+path="res://.godot/imported/walk.png-afdc1288be7af095c993eb558a85bd05.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Game/Entities/Player/cloak_guy_sheet.png"
-dest_files=["res://.godot/imported/cloak_guy_sheet.png-1ed9a6bef8070dcb065424030644bb1d.ctex"]
+source_file="res://Game/Entities/Player/walk.png"
+dest_files=["res://.godot/imported/walk.png-afdc1288be7af095c993eb558a85bd05.ctex"]
 
 [params]
 

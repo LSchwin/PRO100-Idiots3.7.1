@@ -119,11 +119,11 @@ public partial class Player : Character
 
 		if (Velocity.X > 0)
 		{
-			sprite.FlipH = false;
+			sprite.FlipH = true;
 			facingRight = true;
 		} else if (Velocity.X < 0)
 		{
-			sprite.FlipH = true;
+			sprite.FlipH = false;
             facingRight = false;
         }
 
@@ -131,6 +131,8 @@ public partial class Player : Character
 		{
 			case States.Dash:
 				{
+                    sprite.Animation = "walk";
+                    sprite.SpeedScale = 1.5f;
                     if (facingRight)
                     {
                         NewVelocity.X = Speed * DashMultiplier;
@@ -143,13 +145,19 @@ public partial class Player : Character
 					break;
                 }
 			case States.Sprint:
+                sprite.Animation = "walk";
+				sprite.SpeedScale = 1.5f;
                 NewVelocity.X = Speed * sprintDir * 2;
 				break;
             case States.Walk:
+                sprite.Animation = "walk";
+                sprite.SpeedScale = 1;
                 NewVelocity.X = direction * Speed;
 				break;
 			case States.Idle:
-				NewVelocity.X = 0;
+				sprite.Animation = "idle";
+                sprite.SpeedScale = 1;
+                NewVelocity.X = 0;
 				break;
 
             default:
@@ -353,7 +361,7 @@ public partial class Player : Character
         var inst = scene.Instantiate<Ghost>();
 		inst.Hframes = sprite.SpriteFrames.GetFrameCount(sprite.Animation);
         inst.Frame = sprite.Frame;
-		inst.FlipH = !facingRight;
+		inst.FlipH = facingRight;
 		AddSibling(inst);
 		inst.Position = Position;
 	}

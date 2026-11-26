@@ -2,57 +2,64 @@
 
 [ext_resource type="PackedScene" uid="uid://cl3by3qcv81ir" path="res://Game/Entities/_Character/character.tscn" id="1_lpyhk"]
 [ext_resource type="Script" uid="uid://b04j225iwqjpm" path="res://Game/Entities/Player/Player.cs" id="2_1du5w"]
-[ext_resource type="Texture2D" uid="uid://cacqdpoi6h86t" path="res://Game/Entities/Player/cloak_guy_sheet.png" id="3_1du5w"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ulv0d"]
-atlas = ExtResource("3_1du5w")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5028t"]
-atlas = ExtResource("3_1du5w")
-region = Rect2(32, 0, 32, 32)
+[ext_resource type="Texture2D" uid="uid://0yfybq1abodu" path="res://Game/Entities/Player/idle.png" id="3_ulv0d"]
+[ext_resource type="Texture2D" uid="uid://b3axqsggdfkp3" path="res://Game/Entities/Player/walk.png" id="4_5028t"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_70t3k"]
-atlas = ExtResource("3_1du5w")
-region = Rect2(64, 0, 32, 32)
+atlas = ExtResource("3_ulv0d")
+region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_unle2"]
-atlas = ExtResource("3_1du5w")
-region = Rect2(96, 0, 32, 32)
+atlas = ExtResource("3_ulv0d")
+region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_q62hb"]
-atlas = ExtResource("3_1du5w")
-region = Rect2(128, 0, 32, 32)
+atlas = ExtResource("3_ulv0d")
+region = Rect2(64, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yptuu"]
-atlas = ExtResource("3_1du5w")
-region = Rect2(160, 0, 32, 32)
+atlas = ExtResource("3_ulv0d")
+region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_87dig"]
-atlas = ExtResource("3_1du5w")
-region = Rect2(192, 0, 32, 32)
+atlas = ExtResource("3_ulv0d")
+region = Rect2(128, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_uai14"]
-atlas = ExtResource("3_1du5w")
-region = Rect2(224, 0, 32, 32)
+atlas = ExtResource("3_ulv0d")
+region = Rect2(160, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yj5xo"]
-atlas = ExtResource("3_1du5w")
-region = Rect2(256, 0, 32, 32)
+atlas = ExtResource("3_ulv0d")
+region = Rect2(192, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ev5uv"]
-atlas = ExtResource("3_1du5w")
-region = Rect2(288, 0, 32, 32)
+atlas = ExtResource("4_5028t")
+region = Rect2(0, 0, 32, 32)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_gtx54"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_gfb6b"]
+atlas = ExtResource("4_5028t")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qp60b"]
+atlas = ExtResource("4_5028t")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_317ww"]
+atlas = ExtResource("4_5028t")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qky8a"]
+atlas = ExtResource("4_5028t")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dmbg8"]
+atlas = ExtResource("4_5028t")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4njyg"]
 animations = [{
 "frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ulv0d")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5028t")
-}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_70t3k")
 }, {
@@ -73,13 +80,33 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_yj5xo")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ev5uv")
 }],
 "loop": 1,
 "name": &"idle",
-"speed": 5.0
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ev5uv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gfb6b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qp60b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_317ww")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qky8a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dmbg8")
+}],
+"loop": 1,
+"name": &"walk",
+"speed": 10.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gtx54"]
@@ -97,10 +124,10 @@ DashMultiplier = 4.5
 Team = 1
 
 [node name="AnimatedSprite" type="AnimatedSprite2D" parent="Model" parent_id_path=PackedInt32Array(794789529) index="0" unique_id=1749627644]
-sprite_frames = SubResource("SpriteFrames_gtx54")
-animation = &"idle"
+sprite_frames = SubResource("SpriteFrames_4njyg")
+animation = &"walk"
 autoplay = "idle"
-frame_progress = 0.97314376
+frame_progress = 0.4048003
 
 [node name="Collision" parent="." index="1" unique_id=1544639454]
 position = Vector2(0, 2)

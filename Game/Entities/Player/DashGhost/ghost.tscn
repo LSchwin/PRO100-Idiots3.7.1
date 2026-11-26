@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cpu6bpre70y1m"]
 
-[ext_resource type="Texture2D" uid="uid://cacqdpoi6h86t" path="res://Game/Entities/Player/cloak_guy_sheet.png" id="1_f8l8n"]
+[ext_resource type="Texture2D" uid="uid://b3axqsggdfkp3" path="res://Game/Entities/Player/walk.png" id="1_f8l8n"]
 [ext_resource type="Script" uid="uid://drhnkncsqejpw" path="res://Game/Entities/Player/DashGhost/Ghost.cs" id="2_x62r2"]
 
 [node name="Ghost" type="Sprite2D" unique_id=916444804]
