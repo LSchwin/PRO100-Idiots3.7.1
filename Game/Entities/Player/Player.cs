@@ -25,15 +25,15 @@ public partial class Player : Character
 	private PackedScene knifeSwingScene;
 	private PackedScene throwingCardScene;
 
-	private bool facingRight = true;
+	public bool FacingRight = true;
 
 	private bool canDash = true;
-	private bool canMove = true;
+	public bool CanMove = true;
 	private bool canJump = true;
 	private bool willJump = false;
 	private bool canAttack = true;
 	private bool canThrow = true;
-	private bool isDashing = false;
+	public bool IsDashing = false;
 	private bool isSprinting = false;
 	private bool isJumping = false;
 	private bool jumpOffCooldown = true;
@@ -83,10 +83,11 @@ public partial class Player : Character
 	private void ProcessMovement(double delta)
 	{
         Vector2 NewVelocity = Velocity;
-        if (!canMove)
+        if (!CanMove)
 		{
 			NewVelocity.X = 0;
 			Velocity = NewVelocity;
+			CurrState = States.Idle;
             return;
         }
 
@@ -96,12 +97,12 @@ public partial class Player : Character
 			sprintDir = direction;
 		}
 
-		if (isSprinting && !isDashing)
+		if (isSprinting && !IsDashing)
 		{
 			CurrState = States.Sprint;
 			
 		}
-		else if (isDashing)
+		else if (IsDashing)
 		{
 			CurrState = States.Dash;
 		}
@@ -120,22 +121,20 @@ public partial class Player : Character
 		if (Velocity.X > 0)
 		{
 			sprite.FlipH = true;
-			facingRight = true;
+			FacingRight = true;
 		} else if (Velocity.X < 0)
 		{
 			sprite.FlipH = false;
-            facingRight = false;
+            FacingRight = false;
         }
 
 		switch (CurrState)
 		{
 			case States.Dash:
 				{
-                    sprite.Animation = "walk";
-                    sprite.SpeedScale = 1.5f;
-                    if (facingRight)
+                    if (FacingRight)
                     {
-                        NewVelocity.X = Speed * DashMultiplier;
+						NewVelocity.X = Speed * DashMultiplier;
                     }
                     else
                     {
@@ -145,18 +144,12 @@ public partial class Player : Character
 					break;
                 }
 			case States.Sprint:
-                sprite.Animation = "walk";
-				sprite.SpeedScale = 1.5f;
                 NewVelocity.X = Speed * sprintDir * 2;
 				break;
             case States.Walk:
-                sprite.Animation = "walk";
-                sprite.SpeedScale = 1;
                 NewVelocity.X = direction * Speed;
 				break;
 			case States.Idle:
-				sprite.Animation = "idle";
-                sprite.SpeedScale = 1;
                 NewVelocity.X = 0;
 				break;
 
@@ -184,7 +177,7 @@ public partial class Player : Character
 
 	private Vector2 ProcessJump(double delta, Vector2 NewVelocity)
 	{ 
-		if (!IsOnFloor() && !isDashing)
+		if (!IsOnFloor() && !IsDashing)
 		{
 			NewVelocity.Y += Gravity;
 		}
@@ -282,8 +275,31 @@ public partial class Player : Character
 
 	private void ProcessAnims(double delta)
 	{
+        switch (CurrState)
+        {
+            case States.Dash:
+                {
+                    sprite.Animation = "walk";
+					sprite.SpeedScale = 1.5f;
+                    break;
+                }
+            case States.Sprint:
+                sprite.Animation = "walk";
+                sprite.SpeedScale = 1.5f;
+                break;
+            case States.Walk:
+                sprite.Animation = "walk";
+                sprite.SpeedScale = 1;
+                break;
+            case States.Idle:
+                sprite.Animation = "idle";
+                sprite.SpeedScale = 1;
+                break;
 
-	}
+            default:
+                break;
+        }
+    }
 
 	private void SetVel(Vector2 vel)
 	{
@@ -305,6 +321,7 @@ public partial class Player : Character
 			Direction atkDir = GetPlayerDirection();
 			card.OnCooldown = true;
 			Action atkInst = card.GetAction().Instantiate<Action>();
+			atkInst.SetActionOwner((Player)this);
 			atkInst.Team = ETeam.Player;
 			AddChild(atkInst);
             atkInst.Attack(atkDir);
@@ -341,10 +358,10 @@ public partial class Player : Character
 	{
 		hurtbox.SetDeferred("monitoring", false);
 		canDash = false;
-		isDashing = true;
+		IsDashing = true;
 		dashGhostTimer.Start();
         await DelaysCS.Wait(0.2f);
-        isDashing = false;
+        IsDashing = false;
         dashGhostTimer.Stop();
         if (Input.IsActionPressed("dash"))
 		{
@@ -361,7 +378,7 @@ public partial class Player : Character
         var inst = scene.Instantiate<Ghost>();
 		inst.Hframes = sprite.SpriteFrames.GetFrameCount(sprite.Animation);
         inst.Frame = sprite.Frame;
-		inst.FlipH = facingRight;
+		inst.FlipH = FacingRight;
 		AddSibling(inst);
 		inst.Position = Position;
 	}
@@ -377,7 +394,7 @@ public partial class Player : Character
         {
             return Direction.Up;
         }
-        else if (!facingRight)
+        else if (!FacingRight)
         {
             return Direction.Left;
         }

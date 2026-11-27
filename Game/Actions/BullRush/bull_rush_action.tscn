@@ -1,5 +1,25 @@
 [gd_scene format=3 uid="uid://dao10fqgq3kmw"]
 
 [ext_resource type="PackedScene" uid="uid://b0o45l0g3oulp" path="res://Game/Actions/_Base/action.tscn" id="1_nwya4"]
+[ext_resource type="Script" uid="uid://b4vx7de7dvidh" path="res://Game/Actions/BullRush/BullRushAction.cs" id="2_hx4ft"]
+[ext_resource type="PackedScene" uid="uid://vvqotoj4crx" path="res://Game/Actions/Explosion/explosion.tscn" id="3_7jdsn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7jdsn"]
+size = Vector2(8, 20)
 
 [node name="BullRushAction" unique_id=1122220393 instance=ExtResource("1_nwya4")]
+script = ExtResource("2_hx4ft")
+ExplosionDamage = 5
+ChargeUpTime = 1.0
+
+[node name="Explosion" parent="." index="2" unique_id=1025920924 instance=ExtResource("3_7jdsn")]
+Lifespan = 0.9
+ExplosionSize = 75.0
+
+[node name="CollideDetect" type="Area2D" parent="." index="3" unique_id=1712828935]
+position = Vector2(13, 2)
+collision_layer = 7
+collision_mask = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollideDetect" index="0" unique_id=694497393]
+shape = SubResource("RectangleShape2D_7jdsn")

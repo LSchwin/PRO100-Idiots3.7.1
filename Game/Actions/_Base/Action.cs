@@ -4,7 +4,7 @@ using System;
 public partial class Action : Node2D
 {
     [Export]
-    private Entity entityOwner = null;
+    public Entity entityOwner = null;
     [Export]
     public float Lifespan
     {
@@ -21,7 +21,7 @@ public partial class Action : Node2D
             field = (value < 0.0f) ? 0.0f: value;
         }
     }
-    private Timer lifespan = null;
+    protected Timer lifespan = null;
     protected Timer chargeUp = null;
     protected bool chargingUp = false;
     public ETeam Team { get; set; }
@@ -41,7 +41,7 @@ public partial class Action : Node2D
         {
             chargeUp = GetNode<Timer>("ChargeUp");
             chargeUp.WaitTime = ChargeUpTime;
-            chargeUp.Timeout += () => { lifespan.Start(); chargingUp = false; };
+            chargeUp.Timeout += () => ChargeUpFinish();
         }
         // If Lifespan is less than 0, the action will never despawn
         else if (Lifespan > 0.0f)
@@ -71,7 +71,7 @@ public partial class Action : Node2D
     [Signal]
     public delegate void DespawnActionEventHandler();
 
-    public void Despawn()
+    public virtual void Despawn()
     {
         EmitSignal(SignalName.DespawnAction);
         QueueFree();
@@ -101,5 +101,11 @@ public partial class Action : Node2D
                 break;
         }
         Position = SwingPos;
+    }
+
+    protected virtual void ChargeUpFinish()
+    {
+        lifespan.Start();
+        chargingUp = false;
     }
 }

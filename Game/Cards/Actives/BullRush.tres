@@ -1,9 +1,11 @@
 [gd_resource type="Resource" script_class="CardResource" format=3 uid="uid://csw812i0ufjnr"]
 
 [ext_resource type="Script" uid="uid://qkw8vi0mpkh3" path="res://Game/Cards/_Base/CardResource.cs" id="1_5i4xh"]
+[ext_resource type="PackedScene" uid="uid://dao10fqgq3kmw" path="res://Game/Actions/BullRush/bull_rush_action.tscn" id="1_nw061"]
 
 [resource]
 script = ExtResource("1_5i4xh")
+Action = ExtResource("1_nw061")
 Name = "Bull Rush"
 Description = "Player charges forwards with explosive force, and detonates on impact, dealing AoE damage."
 metadata/_custom_type_script = "uid://qkw8vi0mpkh3"

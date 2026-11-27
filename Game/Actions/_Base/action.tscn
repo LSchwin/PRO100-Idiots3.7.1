@@ -4,6 +4,7 @@
 
 [node name="Action" type="Node2D" unique_id=1122220393]
 script = ExtResource("1_nkuje")
+Lifespan = 1.0
 
 [node name="Lifespan" type="Timer" parent="." unique_id=1540467548]
 
