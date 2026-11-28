@@ -23,7 +23,7 @@ public partial class Explosion : Node2D
         collisionShape = GetNode<CollisionShape2D>("Damage/CollisionShape2D");
         explosionCollision = (CircleShape2D)collisionShape.Shape;
         explosionCollision.Radius = ExplosionSize;
-        collisionShape.Disabled = true;
+        collisionShape.SetDeferred("disabled", true);
         lifespan.WaitTime = Lifespan;
         lifespan.Timeout += Despawn;
     }
@@ -32,14 +32,14 @@ public partial class Explosion : Node2D
     {
         // Start the explosion
         lifespan.Start();
-        collisionShape.Disabled = false;
+        collisionShape.SetDeferred("disabled", false);
     }
 
     private void Despawn()
     {
         // Ends the explosion and emits a the ExplodeFinish signal, triggers on Lifespan timeout
         lifespan.Timeout -= Despawn;
-        collisionShape.Disabled = true;
+        collisionShape.SetDeferred("disabled", true);
         EmitSignal(SignalName.ExplodeFinish);
         QueueFree();
     }

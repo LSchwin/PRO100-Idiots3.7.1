@@ -28,22 +28,25 @@ public partial class BullRushAction : Action
         if (entityOwner is Player)
         {
             playerOwner = (Player)entityOwner;
-            if (chargingUp)
+            if (playerOwner.IsOnFloor())
             {
-                playerOwner.CanMove = false;
-                // Do a cool charge up effect here
-            }
-            else if (charging)
-            {
-                playerOwner.CanMove = true;
-                playerOwner.IsDashing = true;
-                if (playerOwner.FacingRight)
+                if (chargingUp)
                 {
-                    collideDetect.Position = new Vector2(13, 2);
+                    playerOwner.CanMove = false;
+                    // Do a cool charge up effect here
                 }
-                else
+                else if (charging)
                 {
-                    collideDetect.Position = new Vector2(-13, 2);
+                    playerOwner.CanMove = true;
+                    playerOwner.IsDashing = true;
+                    if (playerOwner.FacingRight)
+                    {
+                        collideDetect.Position = new Vector2(13, 2);
+                    }
+                    else
+                    {
+                        collideDetect.Position = new Vector2(-13, 2);
+                    }
                 }
             }
         }
